@@ -1,0 +1,31 @@
+#!/usr/bin/env ruby
+#
+# MySQL TERMINAL/CONSOLE
+# Awexome Labs
+#
+# Reads given database configuration and kicks off a mysql client
+# connection to the described database service with full host name, user
+# name, and database name in command-line. Includes password in shell
+# output, so use over-the-shoulder caution (it's in your file tree, anyway,
+# but you know)
+#
+
+environment = ARGV.shift || "production"
+puts "Connecting to #{environment} database.\nTo change environment, use: mysql_term [development|production|staging]\n\n"
+
+config_file = File.join( File.dirname(__FILE__), "..", "config", "database.yml")
+unless File.exist?(config_file)
+  $stderr.puts "Database config file #{config_file} does not exist"
+  exit 1
+end
+
+require "yaml"
+config = YAML.load(File.open(config_file))[environment]
+cli_opts = Hash.new
+cli_opts["-u"] = config["username"] if config["username"]
+cli_opts["-p"] = config["password"] if config["password"]
+cli_opts["-h"] = config["host"] if config["host"]
+cli_opts["-D"] = config["database"] if config["database"]
+cmd = "mysql #{cli_opts.to_a.collect{|k,v| "#{k}#{v}"}.join(" ")}"
+puts "Launching mysql: #{cmd}\n\n"
+exec(cmd)

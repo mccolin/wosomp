@@ -6,6 +6,9 @@ gem "rails", "3.2.2"
 # Deployed to Heroku:
 gem "pg"
 
+# But developed on MySQL:
+gem "mysql2"
+
 
 # Gems used only for assets and not required
 # in production environments by default.

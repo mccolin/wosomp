@@ -1,4 +1,10 @@
+# WOSOMP
+# Routes Table
+
 Wosomp::Application.routes.draw do
+  
+  root :to=>"home#index", :as=>"home"
+  
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
