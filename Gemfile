@@ -9,6 +9,9 @@ gem "pg"
 # But developed on MySQL:
 gem "mysql2"
 
+# Authentication:
+gem "devise", "~> 2.0.4"
+
 # Fanciness:
 gem "stringex", "~> 1.3.2"
 gem "slugged"
