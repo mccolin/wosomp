@@ -5,6 +5,13 @@ Wosomp::Application.routes.draw do
   
   root :to=>"home#index", :as=>"home"
   
+  resources :users
+  
+  resources :olympiads do
+    # resources :registrations, :events
+    # resources :dates
+  end
+  
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

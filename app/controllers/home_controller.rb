@@ -1,5 +1,5 @@
 # WOSOMP
-# HomeController -- User interactions
+# HomeController -- User landing pages
 
 class HomeController < ApplicationController
   

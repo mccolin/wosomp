@@ -9,6 +9,9 @@ gem "pg"
 # But developed on MySQL:
 gem "mysql2"
 
+# Fanciness:
+gem "stringex", "~> 1.3.2"
+gem "slugged"
 
 # Gems used only for assets and not required
 # in production environments by default.
