@@ -17,7 +17,6 @@ gem "omniauth-facebook", "~> 1.2.0"
 gem "stringex", "~> 1.3.2"
 gem "slugged"
 gem "awesome_print"
-gem "event-calendar", :require=>"event_calendar"
 
 # Gems used only for assets and not required
 # in production environments by default.
