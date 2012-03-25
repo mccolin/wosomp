@@ -4,21 +4,21 @@
 Wosomp::Application.routes.draw do
   
   # Authentication for Users:
-  devise_for :users
-  devise_scope :users do
-    get "login", :to=>"devise/sessions#new"
-    delete "logout", :to=>"devise/sessions#destroy"
-  end
+  devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks" }
+  # devise_scope :users do
+  #   get "login", :to=>"devise/sessions#new"
+  #   delete "logout", :to=>"devise/sessions#destroy"
+  # end
 
   # Our Application Root:
   root :to=>"home#index", :as=>"home"
   
-  resources :users
+  # resources :users
   
-  resources :olympiads do
-    # resources :registrations, :events
-    # resources :dates
-  end
+  # resources :olympiads do
+  #   # resources :registrations, :events
+  #   # resources :dates
+  # end
   
   # The priority is based upon order of creation:
   # first created -> highest priority.
