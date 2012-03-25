@@ -7,6 +7,15 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
+  
+  <header id="header">
+    <h1>WOSoMP</h1>
+    <ul>
+      <li><%=login_status%></li>
+      <li><%=login_logout_link(:style=>"color:red;")%></li>
+    </ul>
+  </header>
+  
 
 <%= yield %>
 

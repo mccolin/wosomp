@@ -3,6 +3,14 @@
 
 Wosomp::Application.routes.draw do
   
+  # Authentication for Users:
+  devise_for :users
+  devise_scope :users do
+    get "login", :to=>"devise/sessions#new"
+    delete "logout", :to=>"devise/sessions#destroy"
+  end
+
+  # Our Application Root:
   root :to=>"home#index", :as=>"home"
   
   resources :users
