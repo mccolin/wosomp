@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120325205046) do
+ActiveRecord::Schema.define(:version => 20120325221353) do
 
   create_table "olympiads", :force => true do |t|
     t.string   "name",                   :null => false
@@ -49,6 +49,19 @@ ActiveRecord::Schema.define(:version => 20120325205046) do
   add_index "slugs", ["scope", "record_id"], :name => "index_slugs_on_scope_and_record_id"
   add_index "slugs", ["scope", "slug", "created_at"], :name => "index_slugs_on_scope_and_slug_and_created_at"
   add_index "slugs", ["scope", "slug"], :name => "index_slugs_on_scope_and_slug"
+
+  create_table "suggested_dates", :force => true do |t|
+    t.integer  "olympiad_id",                  :null => false
+    t.datetime "begins_at"
+    t.datetime "ends_at"
+    t.integer  "score",         :default => 0
+    t.string   "location_name"
+    t.text     "notes"
+    t.datetime "created_at",                   :null => false
+    t.datetime "updated_at",                   :null => false
+  end
+
+  add_index "suggested_dates", ["olympiad_id"], :name => "index_suggested_dates_on_olympiad_id"
 
   create_table "users", :force => true do |t|
     t.string   "email",                  :default => "", :null => false
