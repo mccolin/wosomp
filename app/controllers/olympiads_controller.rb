@@ -8,4 +8,9 @@ class OlympiadsController < ApplicationController
     @olympiads = Olympiad.order("`begins_at` DESC").all
   end
   
+  # Display information about a single Olympiad:
+  def show
+    @olympiad = Olympiad.find_by_slug(params[:id])
+  end
+  
 end

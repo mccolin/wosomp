@@ -1,3 +1,37 @@
-// Place all the styles related to the Olympiads controller here.
-// They will automatically be included in application.css.
-// You can use Sass (SCSS) here: http://sass-lang.com/
+/**
+ * WOSoMP
+ * Olympiads Stylesheet -- Specific to Olympiad Display
+ *
+ * You can use Sass (SCSS) here: http://sass-lang.com/
+**/
+
+
+aside.figure {}
+
+aside.figure#olympiad-date {}
+aside.figure#olympiad-date .day {
+  clear: both;
+  display: block;
+  font-size: 25px;
+  font-weight: bold;
+}
+aside.figure#olympiad-date .year {
+  clear: both;
+  display: block;
+  font-size: 18px;
+  font-weight: lighter;
+}
+
+aside.figure#olympiad-location {}
+aside.figure#olympiad-location .name {
+  clear: both;
+  display: block;
+  font-size: 25px;
+  font-weight: bold;
+}
+aside.figure#olympiad-location .city {
+  clear: both;
+  display: block;
+  font-size: 18px;
+  font-weight: lighter;
+}

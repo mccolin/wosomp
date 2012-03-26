@@ -18,6 +18,10 @@ body {
   font-family: Helvetica, Arial, sans-serif;
 }
 
+.clear {
+  clear: both;
+}
+
 
 header {
   background: url(wosomp_trans.png) no-repeat top center;
@@ -87,6 +91,27 @@ header ul li.active a {
 
 #content .center {
   text-align: center;
+}
+
+
+#content article {
+  float: left;
+  width: 700px;
+}
+
+#content #sidebar {
+  float: right;
+  width: 200px;
+}
+
+#content #sidebar aside {
+  background: #EEF;
+  border: 1px solid #999;
+  border-radius: 5px;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.75);
+  margin: 2em auto;
+  padding: 15px;
+  width: 170px;
 }
 
 

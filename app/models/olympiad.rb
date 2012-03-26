@@ -24,7 +24,7 @@ class Olympiad < ActiveRecord::Base
     end
     
     def next_olympiad
-      Olympiad.order("`begins_at` ASC").limit(1).first
+      Olympiad.where("`begins_at` > ?", DateTime.now).order("`begins_at` ASC").limit(1).first
     end
     
   end

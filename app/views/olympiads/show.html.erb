@@ -1,0 +1,37 @@
+<%
+  # WOSoMP
+  # Olympiads / Show
+  
+  set_active_nav("olympiad")
+%>
+
+<article class="olympiad" id="olympiad-<%=@olympiad.id-%>">
+  Details about the <%=@olympiad.name%> WOSoMP Games.
+</article>
+
+
+<div id="sidebar">
+
+  <aside class="figure center" id="olympiad-date">
+    Scheduled for
+    <% if @olympiad.begins_at %>
+      <span class="day"><%=@olympiad.begins_at.strftime("%^b %d")%></span>
+      <span class="year"><%=@olympiad.begins_at.strftime("%Y")%></span>
+    <% else %>
+      <span class="day">TBA</span>
+      <span class="year"><%=link_to "To Be Announced", "#"%></span>
+    <% end %>
+  </aside>
+
+  <aside class="figure center" id="olympiad-location">
+    Hosted at
+    <% if @olympiad.location_name %>
+      <span class="name"><%=@olympiad.location_name%></span>
+      <span class="city"><%=@olympiad.location_city%>, <%=@olympiad.location_state%></span>
+    <% else %>
+      <span class="name">TBA</span>
+      <span class="city"><%=link_to "To Be Announced", "#"%></span>
+    <% end %>
+  </aside>
+
+</div> <!--/#sidebar-->
