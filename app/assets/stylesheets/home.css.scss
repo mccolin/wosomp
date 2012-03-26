@@ -24,7 +24,7 @@ header {
   clear: both;
   height: 55px;
   margin: auto;
-  padding-top: 240px;
+  padding-top: 300px;
   text-align: center;
   width: 800px;
 }
@@ -94,19 +94,34 @@ footer {
   clear: both;
   font-size: 12px;
   margin: 25px auto;
+  text-align: center;
   width: 900px;
 }
-footer .section {
-  border-right: 1px dotted #576;
-  float: left;
-  height: 150px;
-  width: 22%;
-  margin-right: 3%;
+
+footer a {
+  color: #EEE;
 }
-footer .section:last-child {
-  border-right: none;
-  margin-right: 0;
+
+footer nav ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
 }
+footer nav ul li {
+  display: inline-block;
+  margin: 0;
+  padding: 0.25em 0.5em;
+  text-transform: uppercase;
+}
+footer nav ul li a {
+  color: #FFF;
+  text-decoration: none;
+}
+footer nav ul li a:hover {
+  color: #FFF;
+  text-decoration: underline;
+}
+
 
 
 /**********************************************************************/

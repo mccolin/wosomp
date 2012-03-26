@@ -35,10 +35,7 @@
   </div>
   
   <footer id="footer">
-    <div class="section">
-      &copy; Copyright 2012 WOSoMP
-    </div>
-    <div class="section">
+    <nav id="footer-nav">
       <ul>
         <li><%=link_to "Home", home_path%></li>
         <li><%=link_to "About", about_path%></li>
@@ -46,11 +43,18 @@
         <li><%=link_to "History", olympiads_path%></li>
         <li><%=login_logout_link(:login=>{:id=>"facebook-login-button"})%></li>
       </ul>
-    </div>
-    <div class="section"></div>
-    <div class="section">
-      Sponsors
-    </div>
+    </nav>
+    <p>
+      Powered by
+      <%=link_to "Ruby on Rails", "http://rubyonrails.org/", :target=>"_blank"%>,
+      <%=link_to "Heroku", "http://heroku.com/", :target=>"_blank"%>,
+      and Athletes just like you
+      <br/><br/>
+      &copy;2012 WOSoMP
+    </p>
+    <p>
+      <%=link_to image_tag("sponsor_awexome.png", :title=>"Sponsorship by Awexome Labs"), "http://awexomelabs.com/", :target=>"_blank"%>
+    </p>
   </footer>
 
   <%= yield :foot %>
