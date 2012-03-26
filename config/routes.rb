@@ -11,14 +11,19 @@ Wosomp::Application.routes.draw do
   # end
 
   # Our Application Root:
-  root :to=>"home#index", :as=>"home"
+  root :to=>"home#index",             :as=>"home"
+  
+  # Root Activities:
+  get "/about" => "home#about",       :as=>"about"
+  get "/terms" => "home#terms",       :as=>"terms"
   
   # resources :users
   
-  # resources :olympiads do
-  #   # resources :registrations, :events
-  #   # resources :dates
-  # end
+  resources :olympiads do
+    # resources :registrations
+    # resources :events
+    # resources :dates
+  end
   
   # The priority is based upon order of creation:
   # first created -> highest priority.

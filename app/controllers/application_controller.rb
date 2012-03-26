@@ -3,7 +3,6 @@ class ApplicationController < ActionController::Base
   
   before_filter :redirect_to_teaser
   
-  
   private
   
   # Prior to site availability, redirect users in production env to teaser:
@@ -14,5 +13,5 @@ class ApplicationController < ActionController::Base
       return
     end
   end
-  
+    
 end

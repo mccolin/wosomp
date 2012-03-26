@@ -23,5 +23,30 @@ module ApplicationHelper
     end
   end
   
+  # Set the active top navigation
+  def set_active_nav(nav_id="home")
+    content_for :head do
+      content_tag(:script, :type=>"text/javascript") do
+        raw """ 
+          $(function(){ 
+            $('#top-nav ul li').removeClass('active');
+            $('#top-nav ul li#link-#{nav_id}').addClass('active');
+          }); 
+        """
+      end
+    end
+  end
+  
+  
+  # Return the next/upcoming Olympiad:
+  def next_olympiad
+    @next_olympiad ||= Olympiad.next_olympiad()
+  end
+  
+  # Return the name of the next/upcoming Olympiad:
+  def next_olympiad_name
+    next_olympiad.name
+  end
+
   
 end

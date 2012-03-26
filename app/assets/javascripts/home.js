@@ -1,3 +1,23 @@
-# Place all the behaviors and hooks related to the matching controller here.
-# All this logic will automatically be available in application.js.
-# You can use CoffeeScript in this file: http://jashkenas.github.com/coffee-script/
+/**
+ * WOSoMP
+ * Home / JavaScript
+ *
+**/
+
+jQuery.fn.autolink = function () {
+  return this.each( function(){
+    var re = /((http|https|ftp):\/\/[\w?=&.\/-;#~%-]+(?![\w\s?&.\/;#~%"=-]*>))/g;
+    $(this).html( $(this).html().replace(re, '<a href="$1">$1</a> ') );
+  });
+}
+
+jQuery.fn.autoabbr = function () {
+  return this.each( function(){
+    $(this).html( $(this).html().replace(/(wosomp)/ig, "<abbr title=\"Weekend Olympic Showdown of Massive Proportions\">$1</abbr>"));
+  });
+}
+
+$(function(){
+  $("body").autoabbr();
+});
+

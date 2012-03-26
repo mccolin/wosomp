@@ -1,3 +1,167 @@
-// Place all the styles related to the Home controller here.
-// They will automatically be included in application.css.
-// You can use Sass (SCSS) here: http://sass-lang.com/
+/**
+ * WOSoMP
+ * Home Stylesheet -- Layout and Home-Specific Styling
+ *
+ * You can use Sass (SCSS) here: http://sass-lang.com/
+**/
+
+
+$green: #294C47;
+$paleblue: #B0E0E6;
+$paleblue-mid: #99C1C5;
+$paleblue-dark: #83A1A5;
+
+body {
+  background-color: $green; 
+  color: #CCC; 
+  margin: -20px auto 50px;
+  font-family: Helvetica, Arial, sans-serif;
+}
+
+
+header {
+  background: url(wosomp_trans.png) no-repeat top center;
+  clear: both;
+  height: 55px;
+  margin: auto;
+  padding-top: 240px;
+  text-align: center;
+  width: 800px;
+}
+
+header h1 {
+  display: none;
+}
+
+header nav {
+  clear: both;
+  position: relative; 
+  z-index: 1;
+}
+
+header ul {
+  background: $paleblue;
+  box-shadow: 0px 1px 10px rgba(0, 0, 0, 0.75);
+  color: #333;
+  height: 18px;
+  list-style: none;
+  margin-top: 0 !important;
+  padding: 10px;
+  width: 730px !important;
+}
+header ul li {
+  color: #666;
+  display: inline-block;
+  padding: 0 0.25em;
+  text-transform: uppercase;
+}
+header ul li a {
+  color: #555;
+  text-decoration: none;
+}
+header ul li a:hover {
+  color: #000;
+  text-decoration: none;
+}
+header ul li.active a {
+  color: #000;
+  font-weight: bold;
+}
+
+
+#content {
+  clear: both;
+  line-height: 1.5em;
+  margin: -10px auto 25px;
+  padding: 25px 25px 50px;
+  width: 900px;
+  color: #333;
+  background: white;
+  border: 4px solid #333;
+}
+
+
+#content h2 {
+  text-align: center;
+}
+
+#content .center {
+  text-align: center;
+}
+
+
+footer {
+  clear: both;
+  font-size: 12px;
+  margin: 25px auto;
+  width: 900px;
+}
+footer .section {
+  border-right: 1px dotted #576;
+  float: left;
+  height: 150px;
+  width: 22%;
+  margin-right: 3%;
+}
+footer .section:last-child {
+  border-right: none;
+  margin-right: 0;
+}
+
+
+/**********************************************************************/
+/**********************************************************************/
+/**********************************************************************/
+
+.ribbon {
+ font-size: 16px !important;
+ /* This ribbon is based on a 16px font side and a 24px vertical rhythm. I've used em's to position each element for scalability. If you want to use a different font size you may have to play with the position of the ribbon elements */
+
+ width: 50%;
+ position: relative;
+ //background: #ba89b6;
+ //color: #fff;
+ text-align: center;
+ padding: 1em 2em; /* Adjust to suit */
+ margin: 2em auto 3em; /* Based on 24px vertical rhythm. 48px bottom margin - normally 24 but the ribbon 'graphics' take up 24px themselves so we double it. */
+}
+.ribbon:before, .ribbon:after {
+ content: "";
+ position: absolute;
+ display: block;
+ bottom: -1em;
+ //border: 1.5em solid #986794;
+ border: 1.5em solid $paleblue-mid;
+ z-index: -1;
+}
+.ribbon:before {
+ left: -2em;
+ border-right-width: 1.5em;
+ border-left-color: transparent;
+}
+.ribbon:after {
+ right: -2em;
+ border-left-width: 1.5em;
+ border-right-color: transparent;
+}
+.ribbon .ribbon-content:before, .ribbon .ribbon-content:after {
+ content: "";
+ position: absolute;
+ display: block;
+ border-style: solid;
+ //border-color: #804f7c transparent transparent transparent;
+ border-color: $paleblue-dark transparent transparent transparent;
+ bottom: -1em;
+}
+.ribbon .ribbon-content:before {
+ left: 0;
+ border-width: 1em 0 0 1em;
+}
+.ribbon .ribbon-content:after {
+ right: 0;
+ border-width: 1em 1em 0 0;
+}
+
+
+
+

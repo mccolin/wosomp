@@ -1,0 +1,11 @@
+<%
+  # WOSoMP
+  # Olympiads / Summary Partial -- Quick facts about a single Olympiad
+  
+  olympiad ||= olympiad_summary
+%>
+
+<div class="olympiad summary" id="olympiad-<%=olympiad.id-%>">
+  <%=link_to olympiad.name, olympiad_path(olympiad)%>
+</div>
+

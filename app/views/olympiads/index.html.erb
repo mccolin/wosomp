@@ -1,0 +1,17 @@
+<%
+  # WOSoMP
+  # Olympiads / Index -- Historical Look at All Events
+  
+  set_active_nav("history")
+%>
+
+<h2>WOSoMP History</h2>
+
+<p>
+  The first WOSoMP was an olympiad of nine sports and events conceived by
+  <%=link_to "Colin McCloskey", "http://mccolin.com", :target=>"_blank"-%>
+  and held in Branchburg, NJ on September 22, 2007.
+</p>
+
+<%=render :partial=>"olympiad_summary", :collection=>@olympiads, :locals=>{}%>
+

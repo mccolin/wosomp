@@ -5,19 +5,54 @@
   <%= stylesheet_link_tag    "application", :media => "all" %>
   <%= javascript_include_tag "application" %>
   <%= csrf_meta_tags %>
+  
+  <%= yield :head %>
 </head>
 <body>
   
   <header id="header">
     <h1>WOSoMP</h1>
-    <ul>
-      <li><%=login_status%></li>
-      <li><%=login_logout_link(:login=>{:id=>"facebook-login-button"})%></li>
-    </ul>
+    <nav id="top-nav">
+      <span class="shadow-left"></span>
+      <ul class="ribbon">
+        <span class="ribbon-content">
+          <li id="link-home" class="active"><%=link_to "Home", home_path%></li>
+          <li id="link-about"><%=link_to "About", about_path%></li>
+          <li id="link-olympiad"><%=link_to next_olympiad_name, olympiad_path(next_olympiad) %></li>
+          <li id="link-history"><%=link_to "History", olympiads_path%></li>
+          <li>
+            <%#login_status%>
+            <%=login_logout_link(:login=>{:id=>"facebook-login-button"})%>
+          </li>
+        </span>
+      </ul>
+      <span class="shadow-right"></span>
+    </nav>
   </header>
   
+  <div id="content">
+    <%= yield %>
+  </div>
+  
+  <footer id="footer">
+    <div class="section">
+      &copy; Copyright 2012 WOSoMP
+    </div>
+    <div class="section">
+      <ul>
+        <li><%=link_to "Home", home_path%></li>
+        <li><%=link_to "About", about_path%></li>
+        <li><%=link_to next_olympiad_name, olympiad_path(next_olympiad) %></li>
+        <li><%=link_to "History", olympiads_path%></li>
+        <li><%=login_logout_link(:login=>{:id=>"facebook-login-button"})%></li>
+      </ul>
+    </div>
+    <div class="section"></div>
+    <div class="section">
+      Sponsors
+    </div>
+  </footer>
 
-<%= yield %>
-
+  <%= yield :foot %>
 </body>
 </html>
