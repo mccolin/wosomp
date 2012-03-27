@@ -18,6 +18,6 @@ jQuery.fn.autoabbr = function () {
 }
 
 $(function(){
-  $("body").autoabbr();
+  $("div.content").autoabbr();
 });
 

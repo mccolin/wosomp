@@ -5,7 +5,7 @@
  * You can use Sass (SCSS) here: http://sass-lang.com/
 **/
 
-
+$white: #FFF;
 $green: #294C47;
 $paleblue: #B0E0E6;
 $paleblue-mid: #99C1C5;
@@ -13,13 +13,17 @@ $paleblue-dark: #83A1A5;
 
 body {
   background-color: $green; 
-  color: #CCC; 
-  margin: -20px auto 50px;
-  font-family: Helvetica, Arial, sans-serif;
+  color: #333; 
 }
 
 .clear {
   clear: both;
+}
+
+#primary-content {
+  background: #FFF;
+  border-radius: 4px;
+  padding: 20px 20px 50px;
 }
 
 
