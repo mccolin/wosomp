@@ -59,28 +59,20 @@
           </div><!--span8-->
           
           <!-- Sidebar Content -->
-          <div class="span3">
-            <div class="well sidebar-nav">
-              <h3>Sidebar</h3>
-                <ul class="nav nav-list">
-                  <li class="nav-header">Sidebar</li>
-                  <li><%= link_to "Link1", "/path1"  %></li>
-                  <li><%= link_to "Link2", "/path2"  %></li>
-                  <li><%= link_to "Link3", "/path3"  %></li>
-              </ul>
-            </div><!--/.well -->
+          <div class="span3" id="sidebar-content">
+            <%=image_tag("wosomp_trans.png", :id=>"major-logo", :alt=>"WOSoMP 2012")%>
+            <%=yield :sidebar%>
           </div><!--/span3-->
 
         </div><!--/row-->
       </div><!--/content-->
 
       <footer>
-        <ul class="nav nav-pills">
-          <li id="link-home" class="active"><%=link_to "Home", home_path%></li>
-          <li id="link-about"><%=link_to "About", about_path%></li>
-          <li id="link-olympiad"><%=link_to next_olympiad_name, olympiad_path(next_olympiad) %></li>
-          <li id="link-history"><%=link_to "History", olympiads_path%></li>
-          <li id="link-login"><%=login_logout_link(:login=>{:id=>"facebook-login-button"})%></li>
+        <ul class="nav nav-pills" id="foot-nav">
+          <li id="foot-link-home" class="active"><%=link_to raw("<i class='icon-home'></i> Home"), home_path%></li>
+          <li id="foot-link-about"><%=link_to raw("<i class='icon-question-sign'></i> About"), about_path%></li>
+          <li id="foot-link-olympiad"><%=link_to raw("<i class='icon-fire'></i> #{next_olympiad_name}"), olympiad_path(next_olympiad) %></li>
+          <li id="foot-link-history"><%=link_to raw("<i class='icon-time'></i> History"), olympiads_path%></li>
         </ul>
       </footer>
 

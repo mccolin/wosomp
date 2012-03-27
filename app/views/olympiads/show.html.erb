@@ -10,28 +10,48 @@
 </article>
 
 
-<div id="sidebar">
+<% content_for :sidebar do %>
 
-  <aside class="figure center" id="olympiad-date">
-    Scheduled for
+  <div class="well" id="olympiad-date">
     <% if @olympiad.begins_at %>
-      <span class="day"><%=@olympiad.begins_at.strftime("%^b %d")%></span>
-      <span class="year"><%=@olympiad.begins_at.strftime("%Y")%></span>
-    <% else %>
-      <span class="day">TBA</span>
-      <span class="year"><%=link_to "To Be Announced", "#"%></span>
+      <h4><%=@olympiad.begins_at.strftime("%^b %d %Y")%></h4>
+      <p>
+        <% if @olympiad.is_live? %>
+          That's now! <%=link_to "Watch Live Scores", "#"%>
+        <% elsif @olympiad.is_registering? %>
+          <%=link_to "Registration is Open", "#"%>
+        <% elsif @olympiad.is_planning? %>
+          We are still selecting the date for this Olympiad. <%=link_to "Suggest a Date", "#"%>.
+        <% elsif @olympiad.is_past? %>
+          This event is over. Thanks for the memories!
+        <% else %>
+          This event is coming soon. Stay tuned, here, for updates.
+        <% end %>
+      </p>
     <% end %>
-  </aside>
+  </div><!--/.well-->
 
-  <aside class="figure center" id="olympiad-location">
-    Hosted at
+  <div class="well" id="olympiad-location">
+    <h4>Olympiad Host</h4>
     <% if @olympiad.location_name %>
-      <span class="name"><%=@olympiad.location_name%></span>
-      <span class="city"><%=@olympiad.location_city%>, <%=@olympiad.location_state%></span>
+      <address>
+        <%=@olympiad.location_name%>
+        <%=@olympiad.location_city%>, <%=@olympiad.location_state%>
+      </address>
     <% else %>
-      <span class="name">TBA</span>
-      <span class="city"><%=link_to "To Be Announced", "#"%></span>
+      <p>
+        We are researching host locations, now!<br/>
+        <%=link_to "Recommend a Location", "#"%>
+      </p>
     <% end %>
-  </aside>
-
-</div> <!--/#sidebar-->
+  </div><!--/.well-->
+  
+  <div class="well" id="olympiad-sponsors">
+    <h4>Sponsors</h4>
+    <p>
+      We are still lining up sponsors for this event.
+      <%=link_to "Learn More", "#"%>
+    </p>
+  </div><!--/.well-->
+  
+<% end %>

@@ -29,8 +29,8 @@ module ApplicationHelper
       content_tag(:script, :type=>"text/javascript") do
         raw """ 
           $(function(){ 
-            $('#top-nav li').removeClass('active');
-            $('#top-nav li#link-#{nav_id}').addClass('active');
+            $('li#link-#{nav_id}').addClass('active').siblings().removeClass('active');
+            $('li#foot-link-#{nav_id}').addClass('active').siblings().removeClass('active');
           }); 
         """
       end
