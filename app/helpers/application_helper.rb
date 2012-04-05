@@ -14,10 +14,10 @@ module ApplicationHelper
     logout_opts = opts.delete(:logout) || {}
     login_opts = opts.delete(:login) || {}
     if user_signed_in?
-      opts = opts.merge(logout_opts).merge(:method=>:delete, :title=>"Your Account")
+      opts = opts.merge(logout_opts).merge(:method=>:delete, :title=>current_user.name)
       link_to(raw("<i class='icon-user icon-white'></i> #{current_user.name}"), destroy_user_session_path, opts)
     else
-      opts = opts.merge(login_opts).merge(:title=>"Login")
+      opts = opts.merge(login_opts).merge(:title=>"Login or Register")
       # link_to(raw("<i class='icon-user icon-white'></i> Login with Facebook"), new_user_session_path, opts)
       link_to(raw("<i class='icon-user icon-white'></i> Login or Register"), user_omniauth_authorize_path(:facebook), opts)
     end
@@ -39,9 +39,11 @@ module ApplicationHelper
   
   # Render the flash properly
   def render_flash
+    flash[:error] ||= flash[:alert]
+    flash[:info] ||= flash[:notice]
     if flash_message = flash[:error] || flash[:success] || flash[:info]
-      flash_class = flash[:error] ? "alert-error" : (flash[:success] ? "alert-success" : "alert-info")
-      flash_title = flash[:error] ? "Error!" : (flash[:success] ? "Hooray!" : "Yo! Check it:")
+      flash_class = flash[:error] || flash[:alert] ? "alert-error" : (flash[:success] ? "alert-success" : "alert-info")
+      flash_title = flash[:error] || flash[:alert] ? "Error!" : (flash[:success] ? "Hooray!" : "Yo! Check it:")
       content_tag(:div, :class=>"alert #{flash_class}") do
         content_tag(:a, "x", :class=>"close", "data-dismiss"=>"alert") +
         content_tag(:strong, flash_title) + " " +
