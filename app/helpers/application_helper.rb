@@ -14,12 +14,12 @@ module ApplicationHelper
     logout_opts = opts.delete(:logout) || {}
     login_opts = opts.delete(:login) || {}
     if user_signed_in?
-      opts = opts.merge(logout_opts).merge(:method=>:delete)
-      link_to(raw("<i class='icon-user icon-white'></i> Logout"), destroy_user_session_path, opts)
+      opts = opts.merge(logout_opts).merge(:method=>:delete, :title=>"Your Account")
+      link_to(raw("<i class='icon-user icon-white'></i> #{current_user.name}"), destroy_user_session_path, opts)
     else
-      opts.merge!(login_opts)
-      # link_to("Login", new_user_session_path, opts)      
-      link_to(raw("<i class='icon-user icon-white'></i> Login with Facebook"), user_omniauth_authorize_path(:facebook), opts)
+      opts = opts.merge(login_opts).merge(:title=>"Login")
+      # link_to(raw("<i class='icon-user icon-white'></i> Login with Facebook"), new_user_session_path, opts)
+      link_to(raw("<i class='icon-user icon-white'></i> Login or Register"), user_omniauth_authorize_path(:facebook), opts)
     end
   end
   

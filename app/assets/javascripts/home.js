@@ -17,7 +17,19 @@ jQuery.fn.autoabbr = function () {
   });
 }
 
+
 $(function(){
+
+  // Automatically wrap "WOSoMP" in <abbr> tags within primary content:
   $("div#primary-content").autoabbr();
+
+  // Make the account indicator menu item a popover:
+  $("#top-nav #link-account a").popover({placement:'bottom',trigger:'manual', content: $("#account-box-content").html() });
+  $("#top-nav #link-account a").click(function(e){ 
+    e.preventDefault(); 
+    $(this).popover('toggle'); 
+    return(false);
+  });
+  
 });
 

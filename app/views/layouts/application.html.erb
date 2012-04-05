@@ -41,7 +41,7 @@
               <li id="link-about"><%=link_to raw("<i class='icon-question-sign icon-white'></i> About"), about_path%></li>
               <li id="link-olympiad"><%=link_to raw("<i class='icon-fire icon-white'></i> #{next_olympiad_name}"), olympiad_path(next_olympiad) %></li>
               <li id="link-history"><%=link_to raw("<i class='icon-time icon-white'></i> History"), olympiads_path%></li>
-              <li id="link-login"><%=login_logout_link(:login=>{:id=>"facebook-login-button"})%></li>
+              <li id="link-account"><%=login_logout_link(:login=>{:id=>"facebook-login-button"})%></li>
             </ul>
           </div><!--/.nav-collapse -->
         </div>
@@ -77,6 +77,17 @@
       </footer>
 
     </div> <!-- /container -->
+    
+    <div id="account-box-content">
+      <% if user_signed_in? %>
+        <p>You are super-cool. Thanks for being awesome, <%=current_user.name%></p>
+        <%=link_to(raw("<i class='icon-user icon-white'></i> #{current_user.name}"), destroy_user_session_path, {})-%>
+      <% else %>
+        <p>You can become cool by signing up or logging in:</p>
+        <%=link_to(raw("<i class='icon-user icon-white'></i> Login or Register"), user_omniauth_authorize_path(:facebook), {})%>
+      <% end %>
+    </div>
+    
 
     <!-- Le javascript
     ================================================== -->

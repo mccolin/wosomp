@@ -3,7 +3,7 @@
 
 class HomeController < ApplicationController
   
-  before_filter :authenticate_user!
+  before_filter :authenticate_user!, :except=>[:index]
   
   def index
     flash.now[:info] = "You are wonderful and awesome!"
