@@ -1,7 +1,7 @@
 source "https://rubygems.org"
 
 # Stable version of Rails:
-gem "rails", "3.2.2"
+gem "rails", "3.2.8"
 
 # Deployed to Heroku:
 gem "pg"
@@ -17,6 +17,11 @@ gem "omniauth-facebook", "~> 1.2.0"
 gem "stringex", "~> 1.3.2"
 gem "slugged"
 gem "awesome_print"
+
+# Gems used only in development
+group :development do
+  gem "quiet_assets"
+end
 
 # Gems used only for assets and not required
 # in production environments by default.
