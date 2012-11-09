@@ -15,7 +15,7 @@ class User < ActiveRecord::Base
   # Relationships:
 
   # Scopes:
-  scope :admins, where(:admin=>true)
+  scope :admin, where(:admin=>true)
 
   
   # Quick combined accessors:
