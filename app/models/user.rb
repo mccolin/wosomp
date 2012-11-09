@@ -2,6 +2,7 @@
 #
 
 class User < ActiveRecord::Base
+  
   # Include default devise modules. Others available are:
   # :token_authenticatable, :encryptable, :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
@@ -10,6 +11,12 @@ class User < ActiveRecord::Base
 
   # Setup accessible (or protected) attributes for your model
   attr_accessible :email, :facebook_id, :first_name, :last_name, :password, :password_confirmation, :remember_me
+
+  # Relationships:
+
+  # Scopes:
+  scope :admins, where(:admin=>true)
+
   
   # Quick combined accessors:
   def name; "#{first_name} #{last_name}"; end

@@ -3,6 +3,8 @@
 
 Wosomp::Application.routes.draw do
   
+  ActiveAdmin.routes(self)
+
   # Authentication for Users:
   devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks" }
   # devise_scope :users do
