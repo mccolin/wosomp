@@ -4,7 +4,6 @@
 class Olympiad < ActiveRecord::Base
   
   # Relationships:
-  has_many :suggested_dates
   
   # Scopes:
   scope :live, where("`begins_at` < ? AND `ends_at` > ?", DateTime.now, DateTime.now).order("`begins_at` ASC")
