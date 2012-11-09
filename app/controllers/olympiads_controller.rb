@@ -10,7 +10,7 @@ class OlympiadsController < ApplicationController
   
   # Display information about a single Olympiad:
   def show
-    @olympiad = Olympiad.find_by_slug(params[:id])
+    @olympiad = Olympiad.find_using_slug(params[:id])
   end
   
 end
