@@ -13,6 +13,8 @@ class User < ActiveRecord::Base
   attr_accessible :email, :facebook_id, :first_name, :last_name, :password, :password_confirmation, :remember_me
 
   # Relationships:
+  has_many :memberships
+  has_many :teams, :through=>:memberships
 
   # Scopes:
   scope :admin, where(:admin=>true)

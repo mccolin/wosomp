@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  olympiad_id: 1
+  sport_id: 1
+  location: MyString
+  schedule: MyString
+
+two:
+  olympiad_id: 1
+  sport_id: 1
+  location: MyString
+  schedule: MyString
