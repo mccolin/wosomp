@@ -5,10 +5,13 @@ class Olympiad < ActiveRecord::Base
   
   # Relationships:
   
+  # Default Sorting, etc:
+  default_scope order("`begins_at` ASC")
+
   # Scopes:
-  scope :live, where("`begins_at` < ? AND `ends_at` > ?", DateTime.now, DateTime.now).order("`begins_at` ASC")
-  scope :registration_open, where("`registration_begins_at` < ? AND `registration_ends_at` > ?", DateTime.now, DateTime.now).order("`begins_at` ASC")
-  scope :planning_open, where("`planning_begins_at` < ? AND `planning_ends_at` > ?", DateTime.now, DateTime.now).order("`begins_at` ASC")
+  scope :live, where("`begins_at` < ? AND `ends_at` > ?", DateTime.now, DateTime.now)
+  scope :registration_open, where("`registration_begins_at` < ? AND `registration_ends_at` > ?", DateTime.now, DateTime.now)
+  scope :planning_open, where("`planning_begins_at` < ? AND `planning_ends_at` > ?", DateTime.now, DateTime.now)
   
   # Slugging temporarily disabled:
   is_sluggable :name, :slug_column=>:slug
