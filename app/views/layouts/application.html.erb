@@ -78,7 +78,7 @@
 
     </div> <!-- /container -->
     
-    <div id="account-box-content">
+    <div id="account-box-content" class="hidden">
       <% if user_signed_in? %>
         <%=image_tag current_user.photo_url, :align=>"left", :class=>"facebook-pic", :style=>"margin:0 5px 5px 0;"%>
         <p>Logged in as <%=current_user.name%></p>
