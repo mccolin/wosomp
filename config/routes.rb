@@ -18,6 +18,9 @@ Wosomp::Application.routes.draw do
   # Root Activities:
   get "/about" => "home#about",       :as=>"about"
   get "/terms" => "home#terms",       :as=>"terms"
+
+  # Live Event Display:
+  get "/live" => "live#index",        :as=>"live"
   
   # resources :users
   

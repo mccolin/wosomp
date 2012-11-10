@@ -1,0 +1,121 @@
+/**
+ * WOSoMP
+ * Live Stylesheet -- Specific to Live Display
+ *
+ * You can use Sass (SCSS) here: http://sass-lang.com/
+**/
+
+@font-face {
+    font-family: 'AaarghNormal';
+    src: url('/fonts/Aaargh-webfont.eot');
+    src: url('/fonts/Aaargh-webfont.eot?#iefix') format('embedded-opentype'),
+         url('/fonts/Aaargh-webfont.woff') format('woff'),
+         url('/fonts/Aaargh-webfont.ttf') format('truetype'),
+         url('/fonts/Aaargh-webfont.svg#AaarghNormal') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+
+body.live {
+  background-color: #F6F6F6;
+  color: #333;
+  font-family: "Helvetica Nueue", Helvetica, Arial, sans-serif;
+  font-size: 16px;
+  font-weight: lighter;
+  line-height: 1.4em;
+  margin: 0;
+
+  header {
+    background: #111;
+    color: #FFF;
+    padding: 10px;
+
+    h1 {
+      color: #FFF;
+      font-weight: lighter;
+      margin: 0;
+    }
+
+  } // header
+
+  footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    background: rgba(0,0,0,0.2);
+    color: #666;
+    font-size: 10px;
+    width: 100%;
+  } // footer
+
+  #content {
+    margin: 20px auto;
+    width: 90%;
+  }
+
+} // body.live
+
+
+
+#player-rank {
+  font-family: AaarghNormal;
+  width: 50%;
+}
+
+#player-rank li {
+  clear: both;
+  display: list-item;
+  height: 52px;
+  list-style: none;
+  margin: 2px 0;
+  padding: 0;
+  width: 100%;
+}
+
+
+
+
+#player-rank li img {
+  float: left;
+}
+
+#player-rank .name {
+  font-size: 1.5em;
+  font-weight: lighter;
+  padding: 5px 0 0 5px;
+}
+#player-rank .score {
+  float: right;
+  font-size: 1.5em;
+  padding: 5px 5px 0 0;
+  text-align: right;
+}
+
+#player-rank li .bar {
+  background-color: green;
+  color: #FFF;
+  float: left;
+  height: 50px;
+  position: relative;
+}
+#player-rank li .bar .medal-bar {
+  clear: both;
+  background-color: grey;
+  bottom: 0;
+  height: 8px;
+  margin: 0;
+  padding: 0;
+  position: absolute;
+  width: 100%;
+}
+#player-rank li .bar .medal-bar div { 
+  float: left;
+  height: 8px;
+}
+#player-rank li .bar .medal-bar .gold-bar { background-color: #FFD700; }
+#player-rank li .bar .medal-bar .silver-bar { background-color: #C0C0C0; }
+#player-rank li .bar .medal-bar .bronze-bar { background-color: #A67D3D; }
+
+
+

@@ -1,0 +1,97 @@
+<%
+  # WOSoMP LIVE
+  # Index View Template
+-%>
+
+
+<ol id="player-rank" class="leaderboard">
+
+  <li>
+    <%=image_tag "http://graph.facebook.com/thechuckross/picture", :alt=>"Chuck Ross"-%>
+    <div class="bar" style="background-color: #A00;">
+      <span class="name">Chuck Ross</span>
+      <span class="score" data-score="15">15</span>
+      <div class="medal-bar" data-total="3">
+        <div class="gold-bar" data-amt="3"></div>
+        <div class="silver-bar" data-amt="0"></div>
+        <div class="bronze-bar" data-amt="0"></div>
+      </div>
+    </div>
+  </li>
+
+  <li>
+    <%=image_tag "http://graph.facebook.com/ruthann.deveney/picture", :alt=>"Chuck Ross"-%>
+    <div class="bar" style="background-color: #A00;">
+      <span class="name">RuthAnn Deveney</span>
+      <span class="score" data-score="13">13</span>
+      <div class="medal-bar" data-total="3">
+        <div class="gold-bar" data-amt="2"></div>
+        <div class="silver-bar" data-amt="1"></div>
+        <div class="bronze-bar" data-amt="0"></div>
+      </div>
+    </div>
+  </li>
+
+  <li>
+    <%=image_tag "http://graph.facebook.com/colinmccloskey/picture", :alt=>"Chuck Ross"-%>
+    <div class="bar" style="background-color: lightblue;">
+      <span class="name">Colin McCloskey</span>
+      <span class="score" data-score="9">9</span>
+      <div class="medal-bar" data-total="3">
+        <div class="gold-bar" data-amt="1"></div>
+        <div class="silver-bar" data-amt="1"></div>
+        <div class="bronze-bar" data-amt="1"></div>
+      </div>
+    </div>
+  </li>
+
+  <li>
+    <%=image_tag "http://graph.facebook.com/liz.mccloskey.902/picture", :alt=>"Chuck Ross"-%>
+    <div class="bar" style="background-color: purple;">
+      <span class="name">Liz McCloskey</span>
+      <span class="score" data-score="6">6</span>
+      <div class="medal-bar" data-total="2">
+        <div class="gold-bar" data-amt="1"></div>
+        <div class="silver-bar" data-amt="1"></div>
+        <div class="bronze-bar" data-amt="0"></div>
+      </div>
+    </div>
+  </li>
+
+</ol> <!--/#player-rank-->
+
+
+<% content_for :javascripts do %>
+<script type="text/javascript">
+  
+  function processLeaderboard() {
+    var $board = $("#player-rank");
+
+    // Find the score of the top ranked item:
+    var topScore = parseInt( $board.find("li .bar .score").first().attr("data-score") );
+    console.log("Top score on the board: "+topScore);
+
+    $board.find("li").each(function(el, idx){
+      // Set display width of the points bar:
+      var thisScore = parseInt( $(this).find(".bar .score").first().attr("data-score") );
+      var barWidthPct = parseInt( (thisScore / topScore) * 100 ) - 15;  // -15% for img padding
+      $(this).find(".bar").css("width", barWidthPct+"%");
+
+      // Set display widths of medal bars:
+      $medals = $(this).find(".bar .medal-bar").first();
+      var numMedals = parseInt( $medals.attr("data-total") );
+      $medals.find("div").each(function(el, idx){
+        var medalCount = parseInt( $(this).attr("data-amt") );
+        var medalWidthPct = parseInt( (medalCount / numMedals) * 100 );
+        $(this).css("width", medalWidthPct+"%");
+      });
+    });
+  }
+
+  $(function(){
+    processLeaderboard();
+  });
+
+</script>
+<% end %>
+
