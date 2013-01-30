@@ -24,8 +24,8 @@ gem "meta_search", ">= 1.1.0.pre"
 # Fanciness:
 gem "stringex", "~> 1.3.2"
 gem "slugged"
-#gem "doeskeyvalue"
-gem "doeskeyvalue", :path=>"/Users/colin/git/awexome/doeskeyvalue"
+gem "doeskeyvalue"
+#gem "doeskeyvalue", :path=>"/Users/colin/git/awexome/doeskeyvalue"
 gem "awesome_print"
 
 # Gems used only in development
