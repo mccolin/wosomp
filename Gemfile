@@ -7,7 +7,7 @@ source "https://rubygems.org"
 gem "rails", "3.2.11"
 
 # Deployed to Heroku:
-#gem "pg"
+gem "pg"
 
 # But developed on MySQL:
 gem "mysql2"
