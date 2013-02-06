@@ -44,4 +44,6 @@ group :assets do
 end
 
 gem "jquery-rails"
+gem "has_heartbeat", "~> 0.1.1"           # Heartbeat for uptime monitoring
+gem "newrelic_rpm"                        # New Relic perf and uptime pinging
 
