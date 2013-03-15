@@ -10,6 +10,23 @@
 # but you know)
 #
 
+require "optparse"
+
+# Setting defaults:
+@invocation_only = false
+@sql_eval = nil
+
+optparse = OptionParser.new do |opts|
+  opts.banner = "Rails MySQL Quick Terminal Launcher\nUsage: mysql_term <rails_env> [opts]"
+  opts.on("-i", "--command", "Don't connect to database, only display mysql CLI invocation") { @invocation_only = true }
+  opts.on("-e", "--eval SQL", "Evaluate the given SQL command against the chosen database") {|cmd| @sql_eval = cmd }
+  opts.on("-h", "--help", "Display this usage screen") do
+    puts opts
+    exit 0
+  end
+end
+optparse.parse!
+
 config_file = File.join( File.dirname(__FILE__), "..", "config", "database.yml")
 unless File.exist?(config_file)
   $stderr.puts "Rails database config file #{config_file} does not exist"
@@ -34,13 +51,19 @@ unless environments.include?(environment)
   exit 1
 end
 
-puts "Connecting to #{environment} database.\nTo change environment, use: #{__FILE__} [#{environments.join("|")}]\n\n"
-
 cli_opts = Hash.new
 cli_opts["-u"] = config["username"] if config["username"]
 cli_opts["-p"] = config["password"] if config["password"]
 cli_opts["-h"] = config["host"] if config["host"]
 cli_opts["-D"] = config["database"] if config["database"]
+cli_opts["-e"] = "\"#{@sql_eval}\"" if @sql_eval
 cmd = "mysql #{cli_opts.to_a.collect{|k,v| "#{k}#{v}"}.join(" ")}"
-puts "Launching mysql: #{cmd}\n\n"
-exec(cmd)
+
+if @invocation_only
+  puts cmd
+  exit 0
+else
+  puts "Connecting to #{environment} database.\nTo change environment, use: #{__FILE__} [#{environments.join("|")}]\n\n"
+  puts "Launching mysql: #{cmd}\n\n"
+  exec(cmd)
+end
