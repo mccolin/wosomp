@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 #
 # MySQL TERMINAL/CONSOLE
-# Awexome Labs
+# Colin McCloskey
 #
 # Reads given database configuration and kicks off a mysql client
 # connection to the described database service with full host name, user
@@ -10,17 +10,32 @@
 # but you know)
 #
 
-environment = ARGV.shift || "production"
-puts "Connecting to #{environment} database.\nTo change environment, use: mysql_term [development|production|staging]\n\n"
-
 config_file = File.join( File.dirname(__FILE__), "..", "config", "database.yml")
 unless File.exist?(config_file)
-  $stderr.puts "Database config file #{config_file} does not exist"
+  $stderr.puts "Rails database config file #{config_file} does not exist"
   exit 1
 end
 
-require "yaml"
-config = YAML.load(File.open(config_file))[environment]
+begin
+  require "yaml"
+  all_config = YAML.load(File.open(config_file))
+  environments = all_config.keys
+  environment = ARGV.shift || "development"
+  config = all_config[environment]
+rescue Exception => e
+  $stderr.puts "Error reading database configuration from #{config_file}"
+  $stderr.puts e.message
+  exit 1
+end
+
+unless environments.include?(environment)
+  $stderr.puts "Database config for environment \"#{environment}\" does not exist."
+  $stderr.puts "To specify environment, use: #{__FILE__} [#{environments.join("|")}]\n\n"
+  exit 1
+end
+
+puts "Connecting to #{environment} database.\nTo change environment, use: #{__FILE__} [#{environments.join("|")}]\n\n"
+
 cli_opts = Hash.new
 cli_opts["-u"] = config["username"] if config["username"]
 cli_opts["-p"] = config["password"] if config["password"]
