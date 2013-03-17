@@ -23,27 +23,17 @@
     <!-- Head content below this comment inserted with yield:head hook -->
     <%= yield :head %>
   </head>
-  <body>
+  <body class="inside">
 
-    <div id="intro">
-      Welcome to the official homepage of the Weekend Olympic Showdown of Massive Proportions
-    </div>
-    <div id="mast" class="<%=%w(cornholer dogball football wickets).sample()-%>">
-      <h1><span>WOSoMP 2013</span></h1>
-      <h2>Backyard sports are fun again</h2>
-      <p class="lead">Registration now open for our May 4 event in Kennett Square, PA</p>
-      <p>
-        <button class="btn btn-success btn-large">Sign Up to Compete</button>
-      </p>
-    </div>
-    <div id="nav-wrapper">
+    <div id="nav-wrapper" class="inside">
       <div class="container">
+        <h1 id="logo" class="inside"><span>WOSoMP 2013</span></h1>
         <ul id="top-nav" class="row">
-          <li class="active"><%=link_to "Home", home_path %></li>
-          <li><%=link_to "About", about_path %></li>
-          <li><%=link_to "Location", location_olympiad_path(next_olympiad) %></li>
-          <li><%=link_to "Events", events_olympiad_path(next_olympiad) %></li>
-          <li class="feature pull-right"><%=link_to "Register", register_olympiad_path(next_olympiad) %></li>
+          <%= top_nav_item("Home", home_path) -%>
+          <%= top_nav_item("About", about_path) -%>
+          <%= top_nav_item("Location", location_olympiad_path(next_olympiad)) -%>
+          <%= top_nav_item("Events", events_olympiad_path(next_olympiad)) -%>
+          <%= top_nav_item("Register", register_olympiad_path(next_olympiad), :class=>"feature pull-right") -%>
         </ul><!--/.row-->
       </div><!--/.container-->
     </div>

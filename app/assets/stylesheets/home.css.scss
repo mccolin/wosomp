@@ -11,8 +11,11 @@ $dkorange: #9B3805;
 $green: #2AB56B;
 
 
-body {
+body.home {
   padding-top: 0;
+}
+body.inside {
+  padding-top: 60px;
 }
 
 
@@ -23,43 +26,47 @@ body {
   font-weight: lighter;
   padding: 0.5em 0;
   text-align: center;
+  position: fixed;
+  width: 100%;
+  box-shadow: 0 2px 3px rgba(0,0,0,0.85);
 }
 #mast {
   background-color: #444;
-  height: 400px;
+  //height: 400px;
   text-align: center;
-  -webkit-background-size: 100%;
-  -moz-background-size: 100%;
-  background-size: 100%;
+  -webkit-background-size: 100% !important;
+  -moz-background-size: 100% !important;
+  background-size: 100% !important;
   color: #EEE;
+  padding: 40px 0 8em;
 }
-#mast.cornholer {
-  background: url(mast/cornholer.jpg) 0 -150px repeat-y;
-}
-#mast.wickets {
-  background: url(mast/wickets.jpg) 0 -60px repeat-y;
-}
-#mast.football {
-  background: url(mast/football.jpg) 0 -100px repeat-y;
-}
-#mast.dogball {
-  background: url(mast/dogball.jpg) 0 -175px repeat-y;
-}
+#mast.cornholer { background: url(mast/cornholer.jpg) 0 -150px repeat-y; }
+#mast.wickets { background: url(mast/wickets.jpg) 0 -60px repeat-y; }
+#mast.football { background: url(mast/football.jpg) 0 -100px repeat-y; }
+#mast.dogball { background: url(mast/dogball.jpg) 0 -175px repeat-y; }
 
 
-#mast h1 {
+h1#logo {
   background: url(wosomp_shield.png) 0 10px no-repeat;
   margin: auto;
   width: 119px;
   height: 145px;
 }
-#mast h1 span {
+h1#logo span {
   display: none;
+}
+h1#logo.inside {
+  background: url(wosomp_shield_shadow.png) 0 0 no-repeat;
+  float: left;
+  margin-right: 15px;
+  position: relative;
+  width: 94px;
+  height: 91px;
 }
 
 #mast h2 {
   color: #FFF;
-  font-family: "Arial Black";
+  font-family: "Arial Black",Helvetica,Arial,sans-serif;
   font-size: 48px;
   line-height: 65px;
   text-align: center;
@@ -83,6 +90,13 @@ body {
 
 #nav-wrapper {
   background: #000;
+}
+#nav-wrapper.inside {
+  height: 54px;
+  position: fixed;
+  width: 100%;
+  top: 0;
+  box-shadow: 0 2px 3px rgba(0,0,0,0.85);
 }
 ul#top-nav {
   list-style: none;

@@ -3,6 +3,8 @@
 
 class HomeController < ApplicationController
 
+  layout "home"
+
   def index
     #flash.now[:info] = "This is the flash message"
     @current_olympiad = Olympiad.current

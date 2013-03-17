@@ -1,5 +1,5 @@
 module ApplicationHelper
-  
+
   # Render the login status
   def login_status(opts={})
     if user_signed_in?
@@ -8,7 +8,7 @@ module ApplicationHelper
       "Not Logged In"
     end
   end
-  
+
   # Render the appropriate link for session management:
   def login_logout_link(opts={})
     logout_opts = opts.delete(:logout) || {}
@@ -22,21 +22,17 @@ module ApplicationHelper
       link_to(raw("<i class='icon-user icon-white'></i> Login or Register"), user_omniauth_authorize_path(:facebook), opts)
     end
   end
-  
-  # Set the active top navigation
-  def set_active_nav(nav_id="home")
-    content_for :javascripts do
-      content_tag(:script, :type=>"text/javascript") do
-        raw """ 
-          $(function(){ 
-            $('li#link-#{nav_id}').addClass('active').siblings().removeClass('active');
-            $('li#foot-link-#{nav_id}').addClass('active').siblings().removeClass('active');
-          }); 
-        """
-      end
+
+  # Render a top navigation link with properly active/feature classes:
+  def top_nav_item(link_text, link_opts, html_opts={})
+    css_class = html_opts[:class] || ""
+    css_class = (css_class.split(/\s+/)+["active"]).join(" ") if current_page?(link_opts)
+    html_opts[:class] = css_class
+    content_tag :li, html_opts do
+      link_to(link_text, link_opts)
     end
   end
-  
+
   # Render the flash properly
   def render_flash
     flash[:error] ||= flash[:alert]
@@ -51,17 +47,17 @@ module ApplicationHelper
       end
     end
   end
-  
-  
+
+
   # Return the next/upcoming Olympiad:
   def next_olympiad
     @next_olympiad ||= Olympiad.next_olympiad()
   end
-  
+
   # Return the name of the next/upcoming Olympiad:
   def next_olympiad_name
     next_olympiad.name
   end
 
-  
+
 end
