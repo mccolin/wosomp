@@ -32,13 +32,19 @@ ActiveAdmin.register Olympiad do
     column "State", :location_state
     default_actions
   end
-  
 
-  sluggable_finder = Proc.new {
-    @olympiad = Olympiad.where(:id=>params[:id]).first() || Olympiad.where(:slug=>params[:id]).first
-  }
 
-  member_action :show, :method=>:get, &sluggable_finder
-  member_action :edit, :method=>:get, &sluggable_finder
+  # sluggable_finder = Proc.new {
+  #   @olympiad = Olympiad.where(:id=>params[:id]).first() || Olympiad.where(:slug=>params[:id]).first
+  # }
+
+  # member_action :show, :method=>:get, &sluggable_finder
+  # member_action :edit, :method=>:get, &sluggable_finder
+  #member_action :update, :method=>:put, &sluggable_finder
+
+  before_filter :only => [:show, :edit, :update, :destroy] do
+    @olympiad = Olympiad.where(:id=>params[:id].to_s).first() || Olympiad.where(:slug=>params[:id].to_s).first
+    #@olympiad = Olympiad.find_by_slug!(params[:id])
+  end
 
 end

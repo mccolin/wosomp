@@ -3,5 +3,74 @@
   # Olympiad / Location
 %>
 
-<h1>Location</h1>
-<p>The <%=@olympiad.name-%> WOSoMP Olympiad will be held in <%=@olympiad.location_name%></p>
+<% content_for :head do %>
+  <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.5/leaflet.css" />
+  <!--[if lte IE 8]>
+     <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.5/leaflet.ie.css" />
+  <![endif]-->
+<% end # head %>
+<% content_for :javascripts do %>
+  <script src="http://cdn.leafletjs.com/leaflet-0.5/leaflet.js"></script>
+  <script type="text/javascript">
+    var map = L.map('map').setView([39.836799, -75.717516], 15);
+    L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
+      attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+    }).addTo(map);
+    L.marker([39.836799, -75.717516]).addTo(map)
+      .bindPopup( $("#location-info .address").first().html() )
+      .openPopup();
+  </script>
+<% end # javascripts %>
+
+
+<div class="row">
+  <h1>Location</h1>
+  <p>The <%=@olympiad.name-%> WOSoMP Olympiad will be held in <%=@olympiad.city_state%></p>
+</div>
+
+<div class="row">
+  <div class="span8">
+    <div id="map" style="height:220px;"></div>
+  </div>
+  <div id="location-info" class="span4">
+    <h2>Details</h2>
+    <p class="address">
+      <%=@olympiad.location_address-%><br/>
+      <%=@olympiad.city_state_zip%><br/>
+      <%=link_to "Get Directions", "http://maps.google.com/maps?q=#{@olympiad.mappable_address}", :target=>"_blank"-%>
+    </p>
+    <dl>
+      <dt>Parking:</dt>
+      <dd>Free Street Parking</dd>
+
+      <dt>Need to Know:</dt>
+      <dd>
+        Wayne Ave is in a quiet neighborhood and, while our venue provides ample parking opportunities,
+        you may have to park up the street a bit from the venue address.
+      </dd>
+
+      <dt>Distances:</dt>
+      <dd>
+        14 miles from Newark, DE<br/>
+        37 miles from Philadelphia, PA<br/>
+        130 miles from New York, NY
+      </dd>
+    </dl>
+  </div>
+</div>
+
+<div class="row">
+  <div class="span8">
+    <h2>More About <%=@olympiad.location_name-%></h2>
+    <p>
+      <% unless @olympiad.location_info.blank? %>
+        <%=@olympiad.location_info-%>
+      <% else %>
+        <em>More information coming soon.</em>
+      <% end %>
+    </p>
+  </div>
+</div>
+
+
+

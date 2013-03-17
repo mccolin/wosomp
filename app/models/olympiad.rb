@@ -39,9 +39,16 @@ class Olympiad < ActiveRecord::Base
     ends_at < DateTime.now
   end
 
-  def location_name
+  def city_state
     n = [location_city, location_state].compact.join(", ")
-    n = "To Be Determined" if n.blank?
+  end
+
+  def city_state_zip
+    n = [location_city, location_state, location_zip].compact.join(", ")
+  end
+
+  def mappable_address
+    "#{location_address}, #{city_state_zip}".gsub(/\s/,"+")
   end
 
   # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
