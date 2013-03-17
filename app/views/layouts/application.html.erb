@@ -50,18 +50,9 @@
 
 
     <div id="content-wrapper" class="container">
-      <div class="content">
-        <div class="row">
-          <%= render_flash %>
-
-          <div id="content" class="span12">
-            <%= yield %>
-          </div><!--span8-->
-
-        </div><!--/row-->
-      </div><!--/content-->
-
-    </div> <!-- /container -->
+      <%= render_flash %>
+      <%= yield %>
+    </div> <!--/#content-wrapper-->
 
 
     <footer id="footer">

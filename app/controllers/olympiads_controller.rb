@@ -3,6 +3,8 @@
 
 class OlympiadsController < ApplicationController
 
+  before_filter :authenticate_user!, :only=>[:register]
+
   # Show a list of historical events:
   def index
     @olympiads = Olympiad.order("`begins_at` DESC").all
