@@ -25,26 +25,16 @@
   </head>
   <body>
 
-    <div id="mast-bg">
-      <div id="header-strip">
-        <h1 id="logo"><span>WOSoMP</span></h1>
-      </div>
-      <div id="cta-wrapper" class="container">
-        <div class="row">
-          <div id="cta" class="span8 offset2">
-            <h1>Registration Opens March 18, 2013</h1>
-            <p class="lead">Awesomeness and more will happen when you are so very cool.</p>
-            <p>
-              This is a paragraph about the awesome things that WOSoMP entails and how you
-              can be a part of it for only a nominal fee.
-            </p>
-            <p>
-              <button class="btn btn-large btn-primary" type="button">Sign Up Now</button>
-              <button class="btn btn-large" type="button">Learn More</button>
-            </p>
-          </div>
-        </div><!--/.row-->
-      </div> <!--/#cta-wrapper-->
+    <div id="intro">
+      Welcome to the official homepage of the Weekend Olympic Showdown of Massive Proportions
+    </div>
+    <div id="mast" class="<%=%w(cornholer dogball football wickets).sample()-%>">
+      <h1><span>WOSoMP 2013</span></h1>
+      <h2>Backyard sports are fun again</h2>
+      <p class="lead">Registration now open for our May 4 event in Kennett Square, PA</p>
+      <p>
+        <button class="btn btn-success btn-large">Sign Up to Compete</button>
+      </p>
     </div>
     <div id="nav-wrapper">
       <div class="container">
@@ -53,10 +43,11 @@
           <li><%=link_to "About", about_path %></li>
           <li><%=link_to "Location", olympiad_path(next_olympiad) %></li>
           <li><%=link_to "Events", olympiad_path(next_olympiad) %></li>
-          <li class="pull-right"><%=link_to "Register", olympiad_path(next_olympiad) %></li>
+          <li class="feature pull-right"><%=link_to "Register", olympiad_path(next_olympiad) %></li>
         </ul><!--/.row-->
       </div><!--/.container-->
-    </div><!--/#nav-wrapper-->
+    </div>
+
 
     <div id="content-wrapper" class="container">
       <div class="content">

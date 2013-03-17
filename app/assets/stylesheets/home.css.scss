@@ -6,45 +6,74 @@
 **/
 
 $white: #FFF;
-$green: #294C47;
-$paleblue: #B0E0E6;
-$paleblue-mid: #99C1C5;
-$paleblue-dark: #83A1A5;
+$orange: #E85407;
+$dkorange: #9B3805;
+$green: #2AB56B;
+
 
 body {
   padding-top: 0;
 }
 
-#mast-bg {
-  background: #111 url(mast/3602548336_b515ca4762_o.jpg) center center no-repeat;
-  // 2815081942_921ede2056_o.jpg
-  // 3769423941_fc1eca85ea_b.jpg
-  // 4905229527_9d4a3b9cd3_b.jpg
-  // 7294653240_6971c448a0_o.jpg
+
+#intro {
+  background: #FFF;
+  color: #222;
+  font-size: 16px;
+  font-weight: lighter;
+  padding: 0.5em 0;
+  text-align: center;
+}
+#mast {
+  background-color: #444;
+  height: 400px;
+  text-align: center;
+  -webkit-background-size: 100%;
+  -moz-background-size: 100%;
+  background-size: 100%;
+  color: #EEE;
+}
+#mast.cornholer {
+  background: url(mast/cornholer.jpg) 0 -150px repeat-y;
+}
+#mast.wickets {
+  background: url(mast/wickets.jpg) 0 -60px repeat-y;
+}
+#mast.football {
+  background: url(mast/football.jpg) 0 -100px repeat-y;
+}
+#mast.dogball {
+  background: url(mast/dogball.jpg) 0 -175px repeat-y;
 }
 
-#header-strip {
-  max-height: 80px;
-  margin-bottom: 20px;
-}
-h1#logo {
-  background: url(wosomp_logo_med.png) no-repeat;
-  color: transparent;
+
+#mast h1 {
+  background: url(wosomp_shield.png) 0 10px no-repeat;
   margin: auto;
-  padding-top: 20px;
-  text-align: center;
-  width: 350px;
-  height: 165px;
+  width: 119px;
+  height: 145px;
 }
-h1#logo span { display: none; }
+#mast h1 span {
+  display: none;
+}
+
+#mast h2 {
+  color: #FFF;
+  font-family: "Arial Black";
+  font-size: 48px;
+  line-height: 65px;
+  text-align: center;
+  text-transform: uppercase;
+}
+
 
 #cta {
-  background: rgba(255,255,255,0.9);
-  border: 2px solid #333;
+  background: rgba(255,255,255,0.8);
+  border: 2px solid #111;
   border-radius: 5px;
-  box-shadow: 0px 2px 50px rgba(0,0,0,0.85);
-  margin-top: 3em;
-  margin-bottom: 6em;
+  box-shadow: 0px 2px 50px rgba(0,0,0,0.9);
+  margin-top: 6em;
+  margin-bottom: 4em;
   min-height: 200px;
   padding-top: 1em;
   padding-bottom: 1em;
@@ -53,10 +82,7 @@ h1#logo span { display: none; }
 
 
 #nav-wrapper {
-  background: #333C33;
-  border: 2px solid #222;
-  border-width: 2px 0;
-  box-shadow: inset 2px -4px 2px #222;
+  background: #000;
 }
 ul#top-nav {
   list-style: none;
@@ -70,22 +96,51 @@ ul#top-nav li {
   padding: 1em;
   text-transform: uppercase;
   text-align:center;
-  position: relative;
-  top: 2px;
 }
 ul#top-nav li a {
   color: #FFF;
   text-decoration: none;
 }
-ul#top-nav li.active {
-  background: #FFF;
-  border: 2px solid #111;
-  border-width: 2px 2px 0;
-  box-shadow: inset 2px 3px 2px #666;
+ul#top-nav li:hover {
+  background-color: #000;
+  background: -moz-radial-gradient(center, ellipse cover, #333 15%, #000 100%); /* FF3.6+ */
+  background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(15%,#333), color-stop(100%,#000)); /* Chrome,Safari4+ */
+  background: -webkit-radial-gradient(center, ellipse cover, #333 15%, #000 100%); /* Chrome10+,Safari5.1+ */
+  background: -ms-radial-gradient(center, ellipse cover, #333 15%, #000 100%); /* IE10+ */
+  background: radial-gradient(ellipse at center, #333 15%, #000 100%); /* W3C */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#333333', endColorstr='#00000000',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+}
+ul#top-nav li:hover a {
+  color: $green;
+}
+ul#top-nav li.active, ul#top-nav li.active:hover {
+  background-color: #FFF;
+  background-image: -moz-linear-gradient(top, #B0B0B0, #FFF);
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#B0B0B0), to(#FFF));
+  background-image: -webkit-linear-gradient(top, #B0B0B0, #FFF);
+  background-image: -o-linear-gradient(top, #B0B0B0, #FFF);
+  background-image: linear-gradient(to bottom, #B0B0B0, #FFF);
+  background-repeat: repeat-x;
 }
 ul#top-nav li.active a {
   color: #000;
   font-weight: bold;
+}
+ul#top-nav li.feature {
+  background-color: $orange;
+  color: #FFF;
+}
+ul#top-nav li.feature:hover a {
+  color: #FFF;
+}
+ul#top-nav li.feature:hover {
+  background-color: $orange;
+  background: -moz-radial-gradient(center, ellipse cover, $dkorange 15%, $orange 100%); /* FF3.6+ */
+  background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(15%,$dkorange), color-stop(100%,$orange)); /* Chrome,Safari4+ */
+  background: -webkit-radial-gradient(center, ellipse cover, $dkorange 15%, $orange 100%); /* Chrome10+,Safari5.1+ */
+  background: -ms-radial-gradient(center, ellipse cover, $dkorange 15%, $orange 100%); /* IE10+ */
+  background: radial-gradient(ellipse at center, $dkorange 15%, $orange 100%); /* W3C */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='$dkorange', endColorstr='$orange',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
 }
 
 
