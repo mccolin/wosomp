@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121109083026) do
+ActiveRecord::Schema.define(:version => 20130317204345) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.string   "resource_id",   :null => false
@@ -91,8 +91,12 @@ ActiveRecord::Schema.define(:version => 20121109083026) do
     t.text     "equipment"
     t.text     "rules"
     t.text     "details"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
+    t.datetime "created_at",                              :null => false
+    t.datetime "updated_at",                              :null => false
+    t.integer  "num_teams",        :default => 2
+    t.integer  "num_per_team",     :default => 1
+    t.string   "tournament_style", :default => "bracket"
+    t.string   "image"
   end
 
   create_table "teams", :force => true do |t|

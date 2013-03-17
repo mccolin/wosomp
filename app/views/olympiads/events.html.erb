@@ -3,5 +3,28 @@
   # Olympiad / Events
 %>
 
-<h1>Events</h1>
-<p>The following sport events are being hosted at the <%=@olympiad.name-%> WOSoMP Olympiad.</p>
+
+<div class="row">
+
+  <h1>Events</h1>
+  <p>
+    The <%=@olympiad.name-%> WOSoMP Olympiad will feature <%=pluralize @olympiad.sports.count, "event"-%>.
+    Check out the details of each sport, below:
+  </p>
+
+</div>
+
+<% @olympiad.sports.each do |sport| %>
+<div class="row" style="margin: 1em 0 2em;">
+  <%=sport_image sport, :class=>"span3"-%>
+  <div class="span7">
+    <h2><%=sport.name-%></h2>
+    <p class="lead">
+      <%= sport.style.capitalize -%> Sport
+      played in a <%= sport.tournament_style.capitalize -%> Style tournament
+    </p>
+    <p><%= sport.description -%></p>
+    <p><em>More information, tournament plan, and rule details for <%=@olympiad.name-%> coming soon.</em></p>
+  </div>
+</div>
+<% end #sports %>

@@ -7,13 +7,19 @@ class Sport < ActiveRecord::Base
   has_many :offerings
   has_many :olympiads, :through=>:offerings
 
-  # Major Fields:
-  attr_accessible :name, :description, :field, :equipment, :rules
+  # Scopes:
+  scope :team_sports, where("sports.num_per_team > ?", 1)
+  scope :individual_sports, where(:num_per_team => 1)
+  scope :bracket, where(:tournament_style => "bracket")
+  scope :ranked, where(:tournament_style => "ranked")
 
-  # Descriptive Properties:
-  does_keys :column=>:details
-  has_key :players_per_team, :type=>:integer, :default=>2
-  has_key :teams_per_match, :type=>:integer, :default=>2
-  # etc...
+  # Major Fields:
+  attr_accessible :name, :description, :field, :equipment, :rules, :num_per_team, :num_teams, :tournament_style, :image
+  attr_accessible :olympiad_ids
+
+
+  def style
+    num_per_team > 1 ? :team : :individual
+  end
 
 end

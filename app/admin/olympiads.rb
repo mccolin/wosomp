@@ -25,6 +25,9 @@ ActiveAdmin.register Olympiad do
       end
     end
     column :name
+    column "Sports" do |o|
+      o.sports.count
+    end
     column "Event Date", :sortable=>:begins_at do |o|
       o.begins_at.strftime("%b %d, %Y")
     end
@@ -33,14 +36,68 @@ ActiveAdmin.register Olympiad do
     default_actions
   end
 
+  # Show:
+  show do
+    attributes_table do
+      row :name
+      row :registration_fee
+    end
+    table_for olympiad.sports.order(:name) do
+      column "Sports Offered" do |sport|
+        link_to sport.name, [ :admin, sport ]
+      end
+    end
+    attributes_table do
+      row :location_name
+      row :location_address
+      row :location_city
+      row :location_state
+      row :location_zip
+      row :location_info
+    end
+    attributes_table do
+      row :begins_at
+      row :ends_at
+      row :planning_begins_at
+      row :planning_ends_at
+      row :registration_begins_at
+      row :registration_ends_at
+    end
+  end
 
-  # sluggable_finder = Proc.new {
-  #   @olympiad = Olympiad.where(:id=>params[:id]).first() || Olympiad.where(:slug=>params[:id]).first
-  # }
 
-  # member_action :show, :method=>:get, &sluggable_finder
-  # member_action :edit, :method=>:get, &sluggable_finder
-  #member_action :update, :method=>:put, &sluggable_finder
+  # Form:
+  form do |f|
+    f.inputs "Basics" do
+      f.input :name
+      f.input :registration_fee
+    end
+    f.inputs "Sports" do
+      f.input :sports, :as=>:check_boxes
+    end
+    f.inputs "Location Details" do
+      f.input :location_name, :hint=>"Venue name"
+      f.input :location_address
+      f.input :location_city
+      f.input :location_state
+      f.input :location_zip
+      f.input :location_info, :input_html=>{:rows=>3}, :hint=>"Details regarding the venue itself, surrounding area, etc."
+    end
+    f.inputs "Calendar" do
+      f.input :begins_at
+      f.input :ends_at
+      f.input :planning_begins_at
+      f.input :planning_ends_at
+      f.input :registration_begins_at
+      f.input :registration_ends_at
+    end
+    f.inputs "Website Ancillary" do
+      f.input :slug, :input_html=>{:disabled=>true}
+    end
+    f.buttons
+  end
+
+
 
   before_filter :only => [:show, :edit, :update, :destroy] do
     @olympiad = Olympiad.where(:id=>params[:id].to_s).first() || Olympiad.where(:slug=>params[:id].to_s).first
