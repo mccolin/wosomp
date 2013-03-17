@@ -7,6 +7,9 @@ class OlympiadsController < ApplicationController
 
   before_filter :load_olympiad, :except=>[:index]
 
+  before_filter :redirect_to_teaser
+
+
   # Show a list of historical events:
   def index
     @olympiads = Olympiad.order("`begins_at` DESC").all
@@ -26,7 +29,6 @@ class OlympiadsController < ApplicationController
 
   # Register: Sign up to participate in an Olympiad:
   def register
-    render :text=>"Registration Form for #{@olympiad.name}"
   end
 
 
