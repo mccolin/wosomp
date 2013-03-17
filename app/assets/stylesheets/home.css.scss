@@ -45,6 +45,24 @@ body.inside {
 #mast.football { background: url(mast/football.jpg) 0 -100px repeat-y; }
 #mast.dogball { background: url(mast/dogball.jpg) 0 -175px repeat-y; }
 
+#photo-attributions {
+  float: right;
+  text-align: right;
+  font-size: 8px;
+  margin-top: 10em;
+  padding-right: 2em;
+  color: #444;
+}
+#photo-attributions span { display: none; }
+#mast.cornholer #photo-attributions span[rel="cornholer"] { display: block; }
+#mast.wickets #photo-attributions span[rel="wickets"] { display: block; }
+#mast.football #photo-attributions span[rel="football"] { display: block; }
+#mast.dogball #photo-attributions span[rel="dogball"] { display: block; }
+#photo-attributions a {
+  color: #666;
+  text-decoration: underline;
+}
+
 
 h1#logo {
   background: url(wosomp_shield.png) 0 10px no-repeat;
