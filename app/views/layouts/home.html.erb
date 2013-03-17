@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WOSoMP 2013 - May 4 - Kennett Square, PA</title>
+    <%= csrf_meta_tags %>
+
+    <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js" type="text/javascript"></script>
+    <![endif]-->
+
+    <!-- Le styles -->
+    <%= stylesheet_link_tag "application", :media => "all" %>
+
+    <!-- Le fav and touch icons -->
+    <link href="/favicon.ico" rel="shortcut icon">
+    <link href="/apple-touch-icon.png" rel="apple-touch-icon">
+    <link href="/apple-touch-icon-72x72.png" rel="apple-touch-icon" sizes="72x72">
+    <link href="/apple-touch-icon-114x114.png" rel="apple-touch-icon" sizes="114x114">
+
+    <!-- Head content below this comment inserted with yield:head hook -->
+    <%= yield :head %>
+  </head>
+  <body class="home">
+
+    <div id="intro">
+      Welcome to the official homepage of the Weekend Olympic Showdown of Massive Proportions
+    </div>
+    <div id="mast" class="<%=%w(cornholer dogball football wickets).sample()-%>">
+      <h1 id="logo"><span>WOSoMP 2013</span></h1>
+      <h2>Backyard sports are fun again</h2>
+      <p class="lead">Registration now open for our May 4 event in Kennett Square, PA</p>
+      <p>
+        <%=link_to "Sign Up to Complete", register_olympiad_path(next_olympiad), :class=>"btn btn-success btn-large"%>
+      </p>
+    </div>
+    <div id="nav-wrapper">
+      <div class="container">
+        <ul id="top-nav" class="row">
+          <%= top_nav_item("Home", home_path) -%>
+          <%= top_nav_item("About", about_path) -%>
+          <%= top_nav_item("Location", location_olympiad_path(next_olympiad)) -%>
+          <%= top_nav_item("Events", events_olympiad_path(next_olympiad)) -%>
+          <%= top_nav_item("Register", register_olympiad_path(next_olympiad), :class=>"feature pull-right") -%>
+        </ul><!--/.row-->
+      </div><!--/.container-->
+    </div>
+
+
+    <div id="content-wrapper" class="container">
+      <%= render_flash %>
+      <%= yield %>
+    </div> <!--/#content-wrapper-->
+
+
+    <footer id="footer">
+      <div class="container">
+        <div class="row">
+          <div class="box span6">
+            <%=image_tag "wosomp_shield.png", :class=>"logo" %>
+            <%=link_to "Home", home_path %> <br/>
+            <%=link_to "Register", register_olympiad_path(next_olympiad) %> <br/>
+            <%=link_to "About", about_path %> <br/>
+            <%=link_to "Location", location_olympiad_path(next_olympiad) %> <br/>
+            <%=link_to "Events", events_olympiad_path(next_olympiad) %> <br/>
+          </div>
+          <div class="box span6 pull-right">
+            &copy; 2013 WOSoMP <br/>
+            <small>
+              <%=link_to "Privacy", "#" -%> •
+              <%=link_to "Terms", "#" -%> •
+              <%=link_to "Legalities", "#" -%>
+            </small>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+
+
+    <div id="account-box-content" class="hidden">
+      <% if user_signed_in? %>
+        <%=image_tag current_user.photo_url, :align=>"left", :class=>"facebook-pic", :style=>"margin:0 5px 5px 0;"%>
+        <p>Logged in as <%=current_user.name%></p>
+        <p>
+          <%=link_to("Your Account", "#", :class=>"btn")%>
+          <%=link_to("Logout", destroy_user_session_path, :method=>"delete", :class=>"btn btn-danger")-%>
+        </p>
+
+      <% else %>
+        <p>Login or register using Facebook or your email address and password:</p>
+        <%= form_for User.new, :as=>"user", :url=>user_session_path do |f| %>
+          <%=f.email_field :email, :placeholder=>"Email Address" %>
+          <%=f.password_field :password, :placeholder=>"Password" %>
+          <br/><%= f.check_box :remember_me %> Remember me<br/><br/>
+          <%=f.submit "Login", :class=>"btn btn-success"%>
+          <%=link_to "Login with Facebook", user_omniauth_authorize_path(:facebook), :class=>"btn btn-primary" %>
+        <% end #form%>
+        <%=link_to "Register", new_user_registration_path, :class=>"btn btn-inverse" %><br/>
+        <%=link_to "Forgot your password?", new_user_password_path %>
+
+      <% end %>
+    </div>
+
+
+    <!-- Le javascript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <%= javascript_include_tag "application" %>
+
+    <!-- Javascript content below this comment inserted with yield:javascripts hook -->
+    <%= yield :javascripts %>
+  </body>
+</html>
