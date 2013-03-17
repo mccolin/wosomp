@@ -152,28 +152,35 @@ ul#top-nav li.feature:hover {
 
 
 
-.nav-pills > .active > a, .nav-pills > .active > a:hover {
-  background-color: #667F7C;
+#footer {
+  background-color: #000;
+  color: #EEE;
+  margin-top: 4em;
+  padding-top: 1em;
+  padding-bottom: 1em;
 }
-.nav-pills > li > a {
-  color: #C2CCCA;
+#footer a {
+  color: $green;
+  font-size: 11px;
+  text-decoration: none;
+  text-transform: uppercase;
 }
-.nav-pills > li > a:hover {
-  color: #000;
-  background-color: #C2CCCA;
+#footer a:hover {
+  text-decoration: underline;
 }
-
-.hidden { display: none; }
-
-img.facebook-pic {
-  background: #FFF;
-  border: 1px solid #CCC;
-  border-radius: 3px;
-  height: 50px;
-  margin: 5px;
-  padding: 2px;
-  width: 50px;
+#footer img.logo {
+  float: left;
+  height: 60px;
+  padding-right: 10px;
+  padding-bottom: 50px;
 }
-
+#footer .box {
+  min-height: 4em;
+}
+#footer .box:last-child {
+  border: none;
+  padding-top: 4em;
+  text-align: right;
+}
 
 

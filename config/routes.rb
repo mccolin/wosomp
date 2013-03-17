@@ -2,7 +2,7 @@
 # Routes Table
 
 Wosomp::Application.routes.draw do
-  
+
   ActiveAdmin.routes(self)
 
   # Authentication for Users:
@@ -14,22 +14,27 @@ Wosomp::Application.routes.draw do
 
   # Our Application Root:
   root :to=>"home#index",             :as=>"home"
-  
+
   # Root Activities:
   get "/about" => "home#about",       :as=>"about"
   get "/terms" => "home#terms",       :as=>"terms"
 
   # Live Event Display:
   get "/live" => "live#index",        :as=>"live"
-  
+
   # resources :users
-  
+
   resources :olympiads do
     # resources :registrations
     # resources :events
     # resources :dates
+    member do
+      get :events
+      get :location
+      get :register
+    end
   end
-  
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
