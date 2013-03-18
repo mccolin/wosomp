@@ -30,7 +30,17 @@
 
 <div class="row">
   <div class="span8">
+    <p>&nbsp;</p>
     <div id="map" style="height:220px;"></div>
+
+    <h2>More About <%=@olympiad.location_name-%></h2>
+    <p>
+      <% unless @olympiad.location_info.blank? %>
+        <%=@olympiad.location_info-%>
+      <% else %>
+        <em>Details, recommendations, and news regarding this venue are coming soon.</em>
+      <% end %>
+    </p>
   </div>
   <div id="location-info" class="span4">
     <h2>Details</h2>
@@ -56,19 +66,6 @@
         130 miles from New York, NY
       </dd>
     </dl>
-  </div>
-</div>
-
-<div class="row">
-  <div class="span8">
-    <h2>More About <%=@olympiad.location_name-%></h2>
-    <p>
-      <% unless @olympiad.location_info.blank? %>
-        <%=@olympiad.location_info-%>
-      <% else %>
-        <em>More information coming soon.</em>
-      <% end %>
-    </p>
   </div>
 </div>
 
