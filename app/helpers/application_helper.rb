@@ -51,7 +51,7 @@ module ApplicationHelper
 
   # Render the image for a sport; fallback to default image:
   def sport_image(sport, html_opts={})
-    sport.image ? image_tag("sports/#{sport.image}", html_opts) : image_tag("sports/default.png", html_opts)
+    !sport.image.blank? ? image_tag("sports/#{sport.image}", html_opts) : image_tag("sports/default.png", html_opts)
   end
 
 
