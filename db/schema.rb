@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130317204345) do
+ActiveRecord::Schema.define(:version => 20130318204315) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.string   "resource_id",   :null => false
@@ -27,17 +27,6 @@ ActiveRecord::Schema.define(:version => 20130317204345) do
   add_index "active_admin_comments", ["author_type", "author_id"], :name => "index_active_admin_comments_on_author_type_and_author_id"
   add_index "active_admin_comments", ["namespace"], :name => "index_active_admin_comments_on_namespace"
   add_index "active_admin_comments", ["resource_type", "resource_id"], :name => "index_admin_notes_on_resource_type_and_resource_id"
-
-  create_table "memberships", :force => true do |t|
-    t.integer  "user_id"
-    t.integer  "team_id"
-    t.boolean  "captain"
-    t.string   "uniform_size",   :limit => 3
-    t.string   "uniform_number", :limit => 4
-    t.string   "uniform_name",   :limit => 12
-    t.datetime "created_at",                   :null => false
-    t.datetime "updated_at",                   :null => false
-  end
 
   create_table "offerings", :force => true do |t|
     t.integer  "olympiad_id"
@@ -71,6 +60,22 @@ ActiveRecord::Schema.define(:version => 20130317204345) do
   add_index "olympiads", ["planning_begins_at", "planning_ends_at"], :name => "index_planning_dates"
   add_index "olympiads", ["registration_begins_at", "registration_ends_at"], :name => "index_registration_dates"
   add_index "olympiads", ["slug"], :name => "index_olympiads_on_slug"
+
+  create_table "registrations", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "olympiad_id"
+    t.integer  "team_id"
+    t.boolean  "athlete",                      :default => true
+    t.boolean  "captain"
+    t.string   "uniform_size",   :limit => 3
+    t.string   "uniform_number", :limit => 4
+    t.string   "uniform_name",   :limit => 12
+    t.boolean  "paid",                         :default => false
+    t.boolean  "agree_pay",                    :default => false
+    t.boolean  "agree_waiver",                 :default => false
+    t.datetime "created_at",                                      :null => false
+    t.datetime "updated_at",                                      :null => false
+  end
 
   create_table "slugs", :force => true do |t|
     t.string   "scope"

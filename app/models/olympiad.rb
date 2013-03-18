@@ -6,6 +6,8 @@ class Olympiad < ActiveRecord::Base
   # Relationships:
   has_many :offerings
   has_many :sports, :through=>:offerings
+  has_many :registrations
+  has_many :users, :through=>:registrations
 
   # Default Sorting, etc:
   default_scope order("begins_at ASC")
