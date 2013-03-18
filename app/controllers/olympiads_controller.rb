@@ -29,6 +29,11 @@ class OlympiadsController < ApplicationController
 
   # Register: Sign up to participate in an Olympiad:
   def register
+    @registration = Registration.new
+  end
+
+  def save_registration
+    reg_data = params[:registration]
   end
 
 

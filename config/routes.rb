@@ -32,6 +32,7 @@ Wosomp::Application.routes.draw do
       get :events
       get :location
       get :register
+      post :save_registration
     end
   end
 
