@@ -8,7 +8,7 @@ class Olympiad < ActiveRecord::Base
   has_many :sports, :through=>:offerings
 
   # Default Sorting, etc:
-  default_scope order("`begins_at` ASC")
+  default_scope order("begins_at ASC")
 
   # Scopes:
   scope :live, where("`begins_at` < ? AND `ends_at` > ?", DateTime.now, DateTime.now)
