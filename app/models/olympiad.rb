@@ -11,9 +11,9 @@ class Olympiad < ActiveRecord::Base
   default_scope order("begins_at ASC")
 
   # Scopes:
-  scope :live, where("`begins_at` < ? AND `ends_at` > ?", DateTime.now, DateTime.now)
-  scope :registration_open, where("`registration_begins_at` < ? AND `registration_ends_at` > ?", DateTime.now, DateTime.now)
-  scope :planning_open, where("`planning_begins_at` < ? AND `planning_ends_at` > ?", DateTime.now, DateTime.now)
+  scope :live, where("begins_at < ? AND ends_at > ?", DateTime.now, DateTime.now)
+  scope :registration_open, where("registration_begins_at < ? AND registration_ends_at > ?", DateTime.now, DateTime.now)
+  scope :planning_open, where("planning_begins_at < ? AND planning_ends_at > ?", DateTime.now, DateTime.now)
 
   # Slugging temporarily disabled:
   is_sluggable :name, :slug_column=>:slug
@@ -59,7 +59,7 @@ class Olympiad < ActiveRecord::Base
     end
 
     def next_olympiad
-      Olympiad.where("`begins_at` > ?", DateTime.now).order("`begins_at` ASC").limit(1).first
+      Olympiad.where("begins_at > ?", DateTime.now).order("begins_at ASC").limit(1).first
     end
 
   end
