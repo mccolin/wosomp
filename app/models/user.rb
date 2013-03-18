@@ -2,7 +2,7 @@
 #
 
 class User < ActiveRecord::Base
-  
+
   # Include default devise modules. Others available are:
   # :token_authenticatable, :encryptable, :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
@@ -19,14 +19,18 @@ class User < ActiveRecord::Base
   # Scopes:
   scope :admin, where(:admin=>true)
 
-  
+  # Validations:
+  validates :first_name, :presence=>{:message=>"required"}
+  validates :last_name, :presence=>{:message=>"required"}
+
+
   # Quick combined accessors:
-  def name; "#{first_name} #{last_name}"; end
+  def name; [first_name, last_name].join(" "); end
   def photo_url; "http://graph.facebook.com/#{facebook_id}/picture"; end
-  
-  
-  
-  # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # 
+
+
+
+  # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
   class << self
 
     def find_for_facebook_oauth(auth_data, signed_in_resource=nil)
@@ -42,16 +46,16 @@ class User < ActiveRecord::Base
         user
       else
         User.create!(
-          :email=>data.email, 
+          :email=>data.email,
           :facebook_id=>data.id,
-          :first_name=>data.first_name, 
-          :last_name=>data.last_name, 
+          :first_name=>data.first_name,
+          :last_name=>data.last_name,
           :password=>Devise.friendly_token[0,20]
         )
-      end      
+      end
     end
-  
+
   end # self
-  # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # 
-  
+  # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+
 end

@@ -39,6 +39,12 @@
 
     <div id="intro">
       Welcome to the official homepage of the Weekend Olympic Showdown of Massive Proportions
+      <% if current_user %>
+      <span class="pull-right">
+        Hello, <%=current_user.email-%>!
+        <%=link_to("Logout", destroy_user_session_path, :method=>"delete")-%>
+      </span>
+      <% end %>
     </div>
     <div id="mast" class="<%=%w(cornholer dogball football wickets).sample()-%>">
       <h1 id="logo"><span>WOSoMP 2013</span></h1>

@@ -1,0 +1,91 @@
+<%
+  # WOSoMP
+  # Olympiad / Sign Up-and-In Combined Form
+%>
+
+<div class="row">
+
+  <!-- Registration Form -->
+  <div class="span5">
+    <h2>Sign Up!</h2>
+    <p>New users can create a WOSoMP account by filling out the form below:</p>
+
+    <%= form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html=>{:class=>"form-horizontal"}) do |f| %>
+      <%= devise_error_messages! %>
+      <div class="control-group">
+        <%= f.label :first_name, :class=>"control-label" %>
+        <div class="controls">
+          <%= f.text_field :first_name, :placeholder=>"Jane" %>
+        </div>
+      </div>
+      <div class="control-group">
+        <%= f.label :last_name, :class=>"control-label" %>
+        <div class="controls">
+          <%= f.text_field :last_name, :placeholder=>"McAwesomesox" %>
+        </div>
+      </div>
+
+      <div class="control-group">
+        <%= f.label :email, :class=>"control-label" %>
+        <div class="controls">
+          <%= f.email_field :email, :placeholder=>"you@veryawesome.com" %>
+        </div>
+      </div>
+      <div class="control-group">
+        <%= f.label :password, "Password and Confirmation", :class=>"control-label" %>
+        <div class="controls">
+          <%= f.password_field :password, :placeholder=>"Sssh! Don't tell anyone!" %>
+          <%= f.password_field :password_confirmation, :placeholder=>"Twice to be sure" %>
+        </div>
+      </div>
+
+      <div class="control-group">
+        <div class="controls">
+          <%= f.submit "Register", :class=>"btn btn-success" %>
+        </div>
+      </div>
+    <% end # form %>
+  </div>
+
+  <!-- Sign In Form -->
+  <div class="span5 offset1">
+    <h2>Sign In</h2>
+    <p>Login using the form, below, to edit your account or registration:</p>
+
+    <%= form_for(resource, :as => resource_name, :url => session_path(resource_name), :html=>{:class=>"form-horizontal"}) do |f| %>
+      <div class="control-group">
+        <%= f.label :email, :class=>"control-label" %>
+        <div class="controls">
+          <%= f.email_field :email, :placeholder=>"you@veryawesome.com" %>
+        </div>
+      </div>
+      <div class="control-group">
+        <%= f.label :password, :class=>"control-label" %>
+        <div class="controls">
+          <%= f.password_field :password, :placeholder=>"Keep it secret!" %>
+        </div>
+      </div>
+
+      <% if devise_mapping.rememberable? -%>
+      <div class="control-group">
+        <%= f.label :remember_me, "Stay logged in?", :class=>"control-label" %>
+        <div class="controls">
+          <%= f.check_box :remember_me %>
+        </div>
+      </div>
+      <% end -%>
+
+      <div class="control-group">
+        <div class="controls">
+          <%= f.submit "Sign In", :class=>"btn btn-primary" %>
+
+          <% if devise_mapping.recoverable? && controller_name != 'passwords' -%>
+            <br/><br/><small><%= link_to "Forgot password?", new_password_path(resource_name) %></small>
+          <% end -%>
+        </div>
+      </div>
+    <% end # form %>
+  </div>
+
+</div>
+
