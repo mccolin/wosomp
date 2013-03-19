@@ -101,7 +101,9 @@
           <div class="box span6">
             <%=image_tag "wosomp_shield.png", :class=>"logo" %>
             <%=link_to "Home", home_path %> <br/>
-            <%=link_to "Register", register_olympiad_path(next_olympiad) %> <br/>
+            <% if next_olympiad.registration_begins_at <= DateTime.now %>
+              <%=link_to "Register", register_olympiad_path(next_olympiad) %> <br/>
+            <% end %>
             <%=link_to "About", about_path %> <br/>
             <%=link_to "Location", location_olympiad_path(next_olympiad) %> <br/>
             <%=link_to "Events", events_olympiad_path(next_olympiad) %> <br/>
@@ -110,7 +112,6 @@
             &copy; 2013 WOSoMP <br/>
             <small>
               <%=link_to "Privacy", "#" -%> •
-              <%=link_to "Terms", "#" -%> •
               <%=link_to "Legalities", "#" -%>
             </small>
           </div>
@@ -119,7 +120,7 @@
     </footer>
 
 
-
+    <% if false %>
     <div id="account-box-content" class="hidden">
       <% if user_signed_in? %>
         <%=image_tag current_user.photo_url, :align=>"left", :class=>"facebook-pic", :style=>"margin:0 5px 5px 0;"%>
@@ -143,6 +144,7 @@
 
       <% end %>
     </div>
+    <% end # if false %>
 
 
     <!-- Le javascript
