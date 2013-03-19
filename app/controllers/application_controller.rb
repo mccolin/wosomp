@@ -18,14 +18,11 @@ class ApplicationController < ActionController::Base
 
   # Prior to site availability, redirect users in production env to teaser:
   def redirect_to_teaser
-    if Rails.env.production?
-    # if user_signed_in? && current_user.admin?
-    #   logger.info "User is a logged-in Admin user. Displaying page."
-    # else
-      logger.info "User is not authorized. Redirecting user to WOSoMP Teaser"
-      render :file=>File.join(Rails.root,"public/teaser.html"), :layout=>nil
-      return
-    end
+    #if Rails.env.production?
+    #   logger.info "User is not authorized. Redirecting user to WOSoMP Teaser"
+    #   render :file=>File.join(Rails.root,"public/teaser.html"), :layout=>nil
+    #   return
+    # end
   end
 
 end
