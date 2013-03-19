@@ -76,6 +76,9 @@
             <%=link_to "About", about_path %> <br/>
             <%=link_to "Location", location_olympiad_path(next_olympiad) %> <br/>
             <%=link_to "Events", events_olympiad_path(next_olympiad) %> <br/>
+            <% if current_user && current_user.admin? %>
+              <%=link_to "Admin", admin_root_path %><br/>
+            <% end %>
           </div>
           <div class="box span6 pull-right">
             &copy; 2013 WOSoMP <br/>
