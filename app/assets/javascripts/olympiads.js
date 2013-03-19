@@ -33,12 +33,42 @@ $(function(){
   /** Trigger button-group radios: **/
   $("[data-toggle='buttons-radio'] button").button();
 
-
   /** Case-sensitive fields: **/
   $("[data-text-transform='uppercase']").on("change", function(e){
     $field = $(this);
     $field.val( $field.val().toUpperCase() );
   });
+
+
+  /** Set the shirt container to the height of the shirt: **/
+  function shirtResize() {
+    $shirtContainer = $("#shirt");
+    if ($shirtContainer)
+      $shirtContainer.height( $shirtContainer.find("img").first().height() );
+  }
+  $(window).on("resize", shirtResize); // function(e){ shirtResize(); });
+  $("#shirt img").on("load", shirtResize)
+  shirtResize();
+
+  /** Update the name on the shirt design: **/
+  function updateShirtName(name) {
+    if (name) {
+      $shirtContainer = $("#shirt");
+      $shirtContainer.find("span.name").first().html(name);
+    }
+  }
+  $("#registration_uniform_name").on("change", function(e){ updateShirtName($(this).val()); });
+  $("#registration_uniform_name").change();
+
+  /** Update the number on the shirt design: **/
+  function updateShirtNumber(num) {
+    if (num) {
+      $shirtContainer = $("#shirt");
+      $shirtContainer.find("span.number").first().html(num);
+    }
+  }
+  $("#registration_uniform_number").on("change", function(e){ updateShirtNumber($(this).val()); });
+  $("#registration_uniform_number").change();
 
 });
 

@@ -45,4 +45,38 @@
 .team.well.unselected button.unselected { display: inline-block; }
 
 
-
+#shirt {
+  border: 1px solid #999;
+  border-radius: 5px;
+  position: relative;
+}
+#shirt img {
+  position: absolute;
+  width: 100%;
+  top: 0;
+  left: 0;
+  z-index: 1;
+}
+#shirt .name, #shirt .number {
+  color: #FFF;
+  clear: both;
+  display: block;
+  margin: auto;
+  text-align: center;
+  text-transform: uppercase;
+  position: absolute;
+  width: 100%;
+  z-index: 2;
+}
+#shirt .name {
+  font-family: CollegeRegular;
+  font-size: 25px;
+  top: 40px;
+  left: 0;
+}
+#shirt .number {
+  font-family: CollegeRegular;
+  font-size: 80px;
+  top: 95px;
+  left: 0;
+}
