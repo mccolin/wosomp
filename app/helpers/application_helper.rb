@@ -39,7 +39,7 @@ module ApplicationHelper
     flash[:info] ||= flash[:notice]
     if flash_message = flash[:error] || flash[:success] || flash[:info]
       flash_class = flash[:error] || flash[:alert] ? "alert-error" : (flash[:success] ? "alert-success" : "alert-info")
-      flash_title = flash[:error] || flash[:alert] ? "Error!" : (flash[:success] ? "Hooray!" : "Yo! Check it:")
+      flash_title = flash[:error] || flash[:alert] ? "Error!" : (flash[:success] ? "Hooray!" : "Note:")
       content_tag(:div, :class=>"alert #{flash_class}") do
         content_tag(:a, "x", :class=>"close", "data-dismiss"=>"alert") +
         content_tag(:strong, flash_title) + " " +

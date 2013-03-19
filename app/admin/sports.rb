@@ -14,16 +14,29 @@ ActiveAdmin.register Sport do
   # Index:
   index do
     selectable_column
-    column :id
-    column :name
-    column :style
-    column :num_per_team
-    column :tournament_style
+    #column :id
+    column "Name", :sortable=>:name do |s|
+      link_to(s.name, [:admin,s])
+    end
+    column "Format", :sortable=>:num_per_team do |s|
+      "#{s.num_per_team}v#{s.num_per_team}"
+    end
+    column "Tourny", :sortable=>:tournament_style do |s|
+      s.tournament_style.capitalize
+    end
     column "Times Played" do |s|
       s.offerings.count
     end
     default_actions
   end
+
+  # Filters
+  filter :name
+  filter :equipment
+  filter :tournament_style, :as=>:select, :collection=>Sport.select("DISTINCT tournament_style").map(&:tournament_style)
+  filter :num_teams
+  filter :num_per_team
+
 
   # Show:
   show do
@@ -56,7 +69,7 @@ ActiveAdmin.register Sport do
       f.input :image, :hint=>"Filename of image under /images/sports"
       f.input :num_teams
       f.input :num_per_team
-      #t.input :tournament_style, :as=>:select, :collection=>%w(bracket ranking)
+      f.input :tournament_style, :as=>:select, :collection=>%w(bracket ranking)
       f.input :description, :input_html=>{:rows=>3}
       f.input :field, :input_html=>{:rows=>3}
       f.input :equipment, :input_html=>{:rows=>3}

@@ -12,7 +12,7 @@ ActiveAdmin.register Olympiad do
   # Index:
   index do
     selectable_column
-    column :id
+    #column :id
     column "Process", :sortable=>:registration_ends_at do |o|
       if o.is_live?
         status_tag("Live",:error)
@@ -24,7 +24,9 @@ ActiveAdmin.register Olympiad do
         status_tag(o.is_past? ? "Past" : "Future", :ok)
       end
     end
-    column :name
+    column "Name", :sortable=>:name do |o|
+      link_to(o.name, [:admin,o])
+    end
     column "Sports" do |o|
       o.sports.count
     end
@@ -45,6 +47,11 @@ ActiveAdmin.register Olympiad do
     table_for olympiad.sports.order(:name) do
       column "Sports Offered" do |sport|
         link_to sport.name, [ :admin, sport ]
+      end
+    end
+    table_for olympiad.teams.order(:name) do
+      column "Participating Teams" do |team|
+        link_to(team.name, [:admin, team])
       end
     end
     attributes_table do

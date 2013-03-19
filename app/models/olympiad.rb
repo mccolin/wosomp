@@ -8,6 +8,7 @@ class Olympiad < ActiveRecord::Base
   has_many :sports, :through=>:offerings
   has_many :registrations
   has_many :users, :through=>:registrations
+  has_many :teams
 
   # Default Sorting, etc:
   default_scope order("begins_at ASC")

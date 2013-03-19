@@ -5,33 +5,44 @@
  * You can use Sass (SCSS) here: http://sass-lang.com/
 **/
 
-
-aside.figure {}
-
-aside.figure#olympiad-date {}
-aside.figure#olympiad-date .day {
-  clear: both;
-  display: block;
-  font-size: 25px;
-  font-weight: bold;
+.reg-form-section {
+  margin-bottom: 4em;
 }
-aside.figure#olympiad-date .year {
-  clear: both;
-  display: block;
-  font-size: 18px;
-  font-weight: lighter;
+.reg-form-section p.lead {
+  margin-bottom: 0;
+}
+.reg-form-section.stack-labels label:first-child {
+  float: left;
+  padding-right: 20px;
+  text-align: right;
+  width: 180px;
 }
 
-aside.figure#olympiad-location {}
-aside.figure#olympiad-location .name {
-  clear: both;
-  display: block;
-  font-size: 25px;
-  font-weight: bold;
+.reg-form-section .hint {
+  font-size: 12px;
+  font-style: italic;
 }
-aside.figure#olympiad-location .city {
-  clear: both;
+.reg-form-section.stack-labels .hint {
   display: block;
-  font-size: 18px;
-  font-weight: lighter;
+  clear: both;
+  margin-left: 200px;
+  max-width: 60%;
 }
+
+.team.well {}
+.team.well.selected {
+  background: #FFF;
+  box-shadow: 0 0 10px rgba(0,0,0,0.8);
+}
+.team.well.unselected {
+  background: #AAA;
+  opacity: 0.6;
+}
+.team.well button.selected { display: none; }
+.team.well.selected button.selected { display: inline-block; }
+.team.well.selected button.unselected { display: none; }
+.team.well.unselected button.selected { display: none; }
+.team.well.unselected button.unselected { display: inline-block; }
+
+
+

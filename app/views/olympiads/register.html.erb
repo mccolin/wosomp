@@ -1,20 +1,185 @@
 <%
   # WOSoMP
   # Olympiad / Register
-%>
+-%>
 
 
 <div class="row">
-
   <h1>Sign Up for <%=@olympiad.name%></h1>
   <p class="lead">Complete the form below to register for our May 4 event in <%=@olympiad.city_state-%></p>
+</div>
+
+<%=form_for @registration, :url=>save_registration_olympiad_path(@olympiad), :html=>{:class=>"form-inline"} do |f| %>
+  <%= f.hidden_field :olympiad_id, :value=>@olympiad.id %>
+  <%= f.hidden_field :team_id %>
+
+<div class="row reg-form-section stack-labels">
+  <p class="lead">Basic Information</p>
+  <p>First, verify some information about yourself to confirm your registration.</p>
+  <p>&nbsp;</p>
+
+  <%= f.fields_for current_user do |u| %>
+    <p>
+      <%= u.label :first_name, "Name:" -%>
+      <%= u.text_field :first_name, :placeholder=>"First Name", :class=>"input-small" -%>
+      <%= u.text_field :last_name, :placeholder=>"Last Name", :class=>"input-medium" -%>
+    </p>
+    <p>
+      <%= u.label :birthday, "Your Birthday:" -%>
+      <%= u.text_field :birthday, :class=>"input-small", "data-type"=>"date", :placeholder=>"MM/DD/YYYY", :value=>(current_user.birthday || 30.years.ago).strftime("%m/%d/%Y") -%>
+    </p>
+    <p>
+      <%= u.label :gender, "Gender:" %>
+      <label class="radio">
+        <%= u.radio_button(:gender, "male") -%>
+        Male
+      </label>
+      <label class="radio">
+        <%= u.radio_button(:gender, "female") -%>
+        Female
+      </label>
+    </p>
+  <% end %>
+  <p>
+    <%= f.label :athlete, "How will you participate?" %>
+    <label class="radio">
+      <%= f.radio_button(:athlete, true) -%>
+      As an Athlete ($30)
+    </label><br/>
+    <label class="radio">
+      <%= f.radio_button(:athlete, false) -%>
+      As a Fan/Supporter ($12)
+    </label>
+    <br/>
+    <span class="hint">
+      Athletes get a customized shirt, take part in the Olympic events, compete for awards, and
+      enjoy the full complement of WOSoMP refreshments. Fans and Supporters get a shirt in their
+      chosen team's colors and enjoy the snacks, but are ineligible to compete.
+    </span>
+  </p>
 
 </div>
 
-<div class="row">
+<div class="row reg-form-section" id="team-select">
+  <p class="lead">Select a Team</p>
+  <p>
+    Now, choose the team on which you wish to compete. This team will be
+    your country throughout the WOSoMP olympiad, so choose wisely.
+    <%=link_to "Learn more about teams", about_path -%>.
+  </p>
+  <p>&nbsp;</p>
 
-  <%=form_for @registration %>
 
+  <% @olympiad.teams.includes(:registrations=>:user).each do |team| %>
+  <% selected_class = @registration.team_id.nil? ? "" : (@registration.team_id == team.id ? "selected" : "unselected") -%>
+  <div class="team well well-small span4 <%=selected_class-%>" data-team-id="<%=team.id-%>" style="border-width:8px 1px 1px 1px; border-color:<%=team.color1_code-%>;">
+    <p>
+      <strong style="color:<%=team.color1_code-%>;">
+        <%= team.name %><span class="badge pull-right"><%=team.athletes.count-%></span>
+      </strong><br/>
+      <% if team.registrations.blank? %>
+        <em>Nobody yet. Be the first!</em>
+      <% else %>
+        <% team.registrations.each do |reg| %>
+          <%= reg.user.name -%> - <%= reg.role.to_s.capitalize -%><br/>
+        <% end # registrations %>
+      <% end %>
+    </p>
+    <p style="text-align:center;">
+      <button type="button" data-toggle="button" class="btn btn-info unselected">Join this Team</button>
+      <button type="button" data-toggle="button" class="btn btn-info selected"><i class="icon-ok"></i> Selected</button>
+    </p>
+  </div>
+  <% end # teams %>
+</div> <!--/#team-select-->
+<div class="row reg-form-section stack-labels">
+  <p>
+    <%= f.label :captain, "Do you want to be a team captain?" %>
+    <label class="radio"><%= f.radio_button :captain, true %> Yes, definitely!</label><br/>
+    <label class="radio"><%= f.radio_button :captain, false %> Nope</label>
+    <br/>
+    <span class="hint">
+      Captains are the first people we contact when we need to notify your team of any changes.
+      They also coordinate team name, color, and strategy decisions.
+    </span>
+  </p>
+</div>
+
+<div class="row reg-form-section stack-labels" id="shirt-design">
+  <p class="lead">Design Your Uniform</p>
+  <p>
+    One of the sweetest parts of WOSoMP is the custom name and number on your very own shirt.
+    Let us know the name and number you prefer on the form below.
+  </p>
+  <p>&nbsp;</p>
+
+  <div class="span6">
+    <p>
+      <%= f.label :uniform_name, "Name on Shirt:" -%>
+      <%= f.text_field :uniform_name, :placeholder=>"NAME", :class=>"input-small", :maxlength=>12, "data-text-transform"=>"uppercase" -%>
+
+    </p>
+    <p>
+      <%= f.label :uniform_number, "Number on Shirt:" -%>
+      <%= f.text_field :uniform_number, :placeholder=>"XX", :class=>"input-small", :maxlength=>2 -%>
+    </p>
+    <p>
+      <%= f.label :uniform_size, "Shirt Size:" -%>
+      <%= f.select :uniform_size, [%w(Small S),%w(Medium M),%w(Large L),%w(X-Large XL),["Youth X-Large","YXL"],["Youth Large","YL"],["Youth Medium","YM"]], {}, :class=>"input-small" %>
+      <br/>
+      <span class="hint">
+        Choosing the right size assures you're comfortable kicking ass!<br/>
+        <%=link_to "View Size Chart", "http://www.customink.com/items/sizing/04600_lineup/standard.htm", :target=>"_blank"-%> to get it right.
+      </span>
+    </p>
+  </div>
+
+  <div id="shirt" class="span3">
+  </div>
 
 </div>
+
+
+<div class="row reg-form-section stack-labels" id="waivers">
+  <p class="lead">Your Commitment</p>
+  <p>
+    Acknowledge, below, that you are committing to attending the
+    <%=@olympiad.name-%> Olympiad in <%=link_to @olympiad.city_state, location_olympiad_path(@olympiad), :target=>"_blank"-%>
+    and willing to pay the registration fee.
+  </p>
+  <p>&nbsp;</p>
+
+  <p>
+    <%= f.label :agree_pay, "Payment:" %>
+    <label class="checkbox"><%= f.check_box :agree_pay, {}, true %> I agree to pay the <span id="waiver-fee-amount">$30</span> registration fee.</label>
+    <span class="hint">
+      Pay with cash when you arrive. Refunds <u>cannot</u> be offered for cancellations or no-shows after our
+      registration deadline of <u><%=@olympiad.registration_ends_at.strftime("%m/%d/%Y")-%></u>. We will offer anyone
+      whose plans change a refund on the portion of their registration fee not dedicated to uniform cost and
+      will have their uniform delivered to them. The fee covers the cost of uniforms, equipment, and refreshments.
+      WOSoMP is a non-profit event.
+    </span>
+  </p>
+  <p>
+    <%= f.label :agree_pay, "Health and Safety:" %>
+    <label class="checkbox"><%= f.check_box :agree_waiver, {}, true %>
+      I acknowledge that I am healthy enough to get my WOSoMP on!
+    </label><br/>
+    <span class="hint">
+      You are acknowledging that WOSoMP is a primarily athletic endeavor, and by participating in
+      <%=link_to "athletic events", events_olympiad_path(@olympiad), :target=>"_blank"-%> you may
+      be subjecting yourself to a somewhat rigorous workout, and that you are healthy enough to
+      participate in such activities.
+    </span>
+  </p>
+
+</div> <!--/#waivers-->
+
+
+<div class="form-actions">
+  <button type="submit" class="btn btn-success">Save Your Registration</button>
+  <button type="button" class="btn">Cancel</button>
+</div>
+
+<% end # form %>
 

@@ -11,6 +11,7 @@ class User < ActiveRecord::Base
 
   # Setup accessible (or protected) attributes for your model
   attr_accessible :email, :facebook_id, :first_name, :last_name, :password, :password_confirmation, :remember_me
+  attr_accessible :gender, :address_street, :address_city, :address_state, :address_zip, :birthday
 
   # Relationships:
   has_many :registrations
@@ -28,7 +29,10 @@ class User < ActiveRecord::Base
   # Quick combined accessors:
   def name; [first_name, last_name].join(" "); end
   def photo_url; "http://graph.facebook.com/#{facebook_id}/picture"; end
-
+  def address
+    addr = [address_street, address_city, address_state].compact.join(", ")+(address_zip ? address_zip : "")
+    addr.blank? ? "Not Provided" : addr
+  end
 
 
   # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
