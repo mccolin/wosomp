@@ -31,15 +31,24 @@ $(function(){
     viewMode: "years"
   });
 
-  /** Trigger button-group radios: **/
-  $("[data-toggle='buttons-radio'] button").button();
+  /** When user changes the Athlete/Spectator field, update all instances of
+   ** the registration fee on the form: **/
+  $("#registration_athlete_true, #registration_athlete_false").on("click", function(e){
+    var $toggle = $(this);
+    var selectedFee = $toggle.attr("data-fee");
+    $("#waiver-fee-amount").html( "$"+selectedFee );
+  });
+
+  /** Force the registration page to reflect the proper rate when it loads: **/
+  var selectedFee = $("#participation-type").find("input[type='radio']:checked").first().attr("data-fee");
+  if (selectedFee) { $("#waiver-fee-amount").html( "$"+selectedFee ); }
+
 
   /** Case-sensitive fields: **/
   $("[data-text-transform='uppercase']").on("change", function(e){
     $field = $(this);
     $field.val( $field.val().toUpperCase() );
   });
-
 
   /** Set the shirt container to the height of the shirt: **/
   function shirtResize() {

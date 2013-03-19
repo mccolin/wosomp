@@ -41,14 +41,14 @@
       </label>
     </p>
   <% end %>
-  <p>
+  <p id="participation-type">
     <%= f.label :athlete, "How will you participate?" %>
     <label class="radio">
-      <%= f.radio_button(:athlete, true) -%>
+      <%= f.radio_button(:athlete, true, "data-fee"=>30) -%>
       As an Athlete ($30)
     </label><br/>
     <label class="radio">
-      <%= f.radio_button(:athlete, false) -%>
+      <%= f.radio_button(:athlete, false, "data-fee"=>12) -%>
       As a Fan/Supporter ($12)
     </label><br/>
     <br/>
