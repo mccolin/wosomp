@@ -1,0 +1,25 @@
+<%
+  # WOSoMP
+  # Olympiad / Register
+-%>
+
+
+<div class="row">
+  <h1>You Are Signed Up!</h1>
+  <p class="lead">You are all booked up for the <%=@olympiad.name-%> WOSoMP event.</p>
+</div>
+
+<textarea><%=@registration.inspect-%></textarea>
+
+<div class="row">
+
+  <div class="span6">
+  </div>
+
+  <div id="shirt" class="span3" style="">
+    <%=image_tag "shirts/blue.jpg" -%>
+    <span class="name"><%=@registration.uniform_name-%></span>
+    <span class="number"><%=@registration.uniform_number-%></span>
+  </div>
+
+</div>

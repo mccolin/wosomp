@@ -9,7 +9,8 @@
   <p class="lead">Complete the form below to register for our May 4 event in <%=@olympiad.city_state-%></p>
 </div>
 
-<%=form_for @registration, :url=>save_registration_olympiad_path(@olympiad), :html=>{:class=>"form-inline"} do |f| %>
+<%=form_for @registration, :url=>save_registration_olympiad_path(@olympiad), :html=>{:method=>:post, :class=>"form-inline"} do |f| %>
+  <%= f.hidden_field :id, :value=>@registration.id %>
   <%= f.hidden_field :olympiad_id, :value=>@olympiad.id %>
   <%= f.hidden_field :team_id %>
 
@@ -49,12 +50,12 @@
     <label class="radio">
       <%= f.radio_button(:athlete, false) -%>
       As a Fan/Supporter ($12)
-    </label>
+    </label><br/>
     <br/>
     <span class="hint">
       Athletes get a customized shirt, take part in the Olympic events, compete for awards, and
       enjoy the full complement of WOSoMP refreshments. Fans and Supporters get a shirt in their
-      chosen team's colors and enjoy the snacks, but are ineligible to compete.
+      chosen team's colors and enjoy the snacks, but are ineligible to compete.<br/><br/>
     </span>
   </p>
 
@@ -130,6 +131,8 @@
       <span class="hint">
         Choosing the right size assures you're comfortable kicking ass!<br/>
         <%=link_to "View Size Chart", "http://www.customink.com/items/sizing/04600_lineup/standard.htm", :target=>"_blank"-%> to get it right.
+        <br/><br/>
+        Don't worry -- the shirt you receive will match your team's color above.
       </span>
     </p>
   </div>
@@ -138,7 +141,6 @@
     <%=image_tag "shirts/red.jpg" -%>
     <span class="name">WOSOMP</span>
     <span class="number">13</span>
-    <div style="clear:both;"></div>
   </div>
 
 </div>

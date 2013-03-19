@@ -36,6 +36,11 @@ class OlympiadsController < ApplicationController
     end
   end
 
+  # Registration: View/Edit your existing registration:
+  def registration
+    @registration = Registration.for_user(current_user).for_olympiad(@olympiad).first
+  end
+
   def save_registration
     begin
       reg_data = params[:registration]
@@ -43,20 +48,22 @@ class OlympiadsController < ApplicationController
       User.transaction do
         current_user.update_attributes(user_data)
         reg_data[:user_id] = current_user.id
-        @registration = Registration.create(reg_data)
+        if reg_id = reg_data.delete(:id)
+          @registration = Registration.where(:id=>reg_id).first
+          @registration.update_attributes(reg_data)
+        else
+          @registration = Registration.create(reg_data)
+        end
         raise Exception.new("Unable to save your registration") if current_user.errors.any? || @registration.errors.any?
       end # transaction
     rescue Exception => e # ActiveRecord::RecordInvalid
       logger.debug "Unable to save Registration: #{e.message}"
       flash.now[:error] = "We were unable to save your registration. Correct the errors on the form before continuing."
-
-      logger.debug ">> REGISTRATION: #{@registration.inspect}"
-      logger.debug ">> OLYMPIAD: #{@olympiad.inspect}"
-
       render :action=>"register"
       return
     else
       flash[:success] = "Awesome! Your registration was successfully saved. We'll see you at WOSoMP!"
+      redirect_to :action=>"registration"
     end
   end
 
