@@ -37,7 +37,10 @@ $(function(){
     var $toggle = $(this);
     var selectedFee = $toggle.attr("data-fee");
     $("#waiver-fee-amount").html( "$"+selectedFee );
-    $toggle.val() == "true" ? $(".athlete-only").slideDown() : $(".athlete-only").slideUp();
+    if ($toggle.val() == "true")
+      $(".athlete-only").slideDown( function(){ $(".spectator-only").slideUp(); });
+    else
+      $(".spectator-only").slideDown( function(){ $(".athlete-only").slideUp(); });
   });
 
   /** Force the registration page to reflect the proper rate when it loads: **/
