@@ -32,11 +32,12 @@ $(function(){
   });
 
   /** When user changes the Athlete/Spectator field, update all instances of
-   ** the registration fee on the form: **/
+   ** the registration fee on the form and show/hide shirt designer: **/
   $("#registration_athlete_true, #registration_athlete_false").on("click", function(e){
     var $toggle = $(this);
     var selectedFee = $toggle.attr("data-fee");
     $("#waiver-fee-amount").html( "$"+selectedFee );
+    $toggle.val() == "true" ? $(".athlete-only").slideDown() : $(".athlete-only").slideUp();
   });
 
   /** Force the registration page to reflect the proper rate when it loads: **/

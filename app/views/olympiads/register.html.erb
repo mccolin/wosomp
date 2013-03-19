@@ -99,7 +99,7 @@
   </div>
   <% end # teams %>
 </div> <!--/#team-select-->
-<div class="row reg-form-section stack-labels">
+<div class="row reg-form-section stack-labels athlete-only" style="<%=@registration.athlete? ? "" : "display:none;"-%>">
   <p>
     <%= f.label :captain, "Do you want to be a team captain?" %>
     <label class="radio"><%= f.radio_button :captain, true %> Yes, definitely!</label><br/>
@@ -112,7 +112,7 @@
   </p>
 </div>
 
-<div class="row reg-form-section stack-labels" id="shirt-design">
+<div class="row reg-form-section stack-labels athlete-only" id="shirt-design" style="<%=@registration.athlete? ? "" : "display:none;"-%>">
   <p class="lead">Design Your Uniform</p>
   <p>
     One of the sweetest parts of WOSoMP is the custom name and number on your very own shirt.
