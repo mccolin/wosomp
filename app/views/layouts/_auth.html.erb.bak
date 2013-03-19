@@ -1,0 +1,24 @@
+
+<div id="account-box-content" class="hidden">
+  <% if user_signed_in? %>
+    <%=image_tag current_user.photo_url, :align=>"left", :class=>"facebook-pic", :style=>"margin:0 5px 5px 0;"%>
+    <p>Logged in as <%=current_user.name%></p>
+    <p>
+      <%=link_to("Your Account", "#", :class=>"btn")%>
+      <%=link_to("Logout", destroy_user_session_path, :method=>"delete", :class=>"btn btn-danger")-%>
+    </p>
+
+  <% else %>
+    <p>Login or register using Facebook or your email address and password:</p>
+    <%= form_for User.new, :as=>"user", :url=>user_session_path do |f| %>
+      <%=f.email_field :email, :placeholder=>"Email Address" %>
+      <%=f.password_field :password, :placeholder=>"Password" %>
+      <br/><%= f.check_box :remember_me %> Remember me<br/><br/>
+      <%=f.submit "Login", :class=>"btn btn-success"%>
+      <%=link_to "Login with Facebook", user_omniauth_authorize_path(:facebook), :class=>"btn btn-primary" %>
+    <% end #form%>
+    <%=link_to "Register", new_user_registration_path, :class=>"btn btn-inverse" %><br/>
+    <%=link_to "Forgot your password?", new_user_password_path %>
+
+  <% end %>
+</div>
