@@ -3,23 +3,107 @@
   # Olympiad / Register
 -%>
 
+<% content_for :javascripts do %>
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=168317356622946";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+<% end %>
+
 
 <div class="row">
   <h1>You Are Signed Up!</h1>
   <p class="lead">You are all booked up for the <%=@olympiad.name-%> WOSoMP event.</p>
 </div>
 
-<textarea><%=@registration.inspect-%></textarea>
-
 <div class="row">
 
-  <div class="span6">
-  </div>
-
-  <div id="shirt" class="span3" style="">
+  <div id="shirt" class="span4 bigger" style="">
     <%=image_tag "shirts/blue.jpg" -%>
     <span class="name"><%=@registration.uniform_name-%></span>
     <span class="number"><%=@registration.uniform_number-%></span>
   </div>
+
+  <div class="span7">
+    <h2>Details</h2>
+
+    <table>
+    <tbody>
+      <tr>
+        <th>Your Name</th>
+        <td><%=@registration.user.name-%></td>
+      </tr>
+      <tr>
+        <th>Your Email</th>
+        <td><%=link_to @registration.user.email, "mailto:#{@registration.user.email}"-%></td>
+      </tr>
+      <tr>
+        <th>Your Birthday</th>
+        <td><%=@registration.user.birthday.try(:strftime, "%B %0d, %Y")-%></td>
+      </tr>
+      <tr>
+        <th>Your Gender</th>
+        <td>
+          <%=@registration.user.gender.capitalize-%>
+          <small>(Competing for Best Overall <%=@registration.user.gender.capitalize-%> trophy)</small>
+        </td>
+      </tr>
+      <tr>
+        <th>Your Team</th>
+        <td><span style="color:<%=@registration.team.color1_code-%>;"><%=@registration.team.name-%></span></td>
+      </tr>
+      <tr>
+        <th>Team Role</th>
+        <td><%=@registration.role.capitalize-%></td>
+      </tr>
+      <tr>
+        <th>Uniform Name:</th>
+        <td><%=@registration.uniform_name-%></td>
+      </tr>
+      <tr>
+        <th>Uniform Number</th>
+        <td><%=@registration.uniform_number-%></td>
+      </tr>
+      <tr>
+        <th>Shirt Size</th>
+        <td><%=@registration.uniform_size-%></td>
+      </tr>
+    </tbody>
+    </table>
+    <p>&nbsp;</p>
+
+    <p>
+      <%=link_to "Edit Your Registration", register_olympiad_path(@olympiad), :class=>"btn btn-primary" -%>
+      <br/><small>
+        Changes can be made through <%=@olympiad.registration_ends_at.strftime("%A, %B %0d, %Y")-%>
+        (<%=distance_of_time_in_words(DateTime.now, @olympiad.registration_ends_at)-%> from now)
+      </small>
+    </p>
+
+    <p>&nbsp;</p>
+    <h2>Your Teammates</h2>
+    <% if @registration.team.registrations.count <= 1 -%>
+      <em>No teammates, yet!</em>
+    <% end -%>
+    <p>
+    <% @registration.team.registrations.each do |reg| -%>
+      <%=reg.user.name-%> (<%=link_to reg.user.email, "mailto:#{reg.user.email}"-%>)<br/>
+    <% end # registrations %>
+    </p>
+
+    <p><em>Share the joy of WOSoMP with your friends and tell them to sign up for your team:</em></p>
+    <p>
+      <div class="fb-like" data-href="http://www.facebook.com/wosomp" data-send="true" data-layout="button_count" data-width="450" data-show-faces="false"></div>
+      <br/><br/>
+      <a href="https://twitter.com/share" class="twitter-share-button" data-url="http://wosomp.com" data-text="Join my team in the WOSoMP Backyard Olympics on May 4th in Kennett Square, PA!" data-via="wosomp" data-hashtags="wosomp">Tweet</a>
+      <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+    </p>
+
+  </div>
+
 
 </div>

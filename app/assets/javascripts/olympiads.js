@@ -27,7 +27,8 @@ $(function(){
 
   /** Trigger all date-pickers: **/
   $("input[data-type=date]").datepicker({
-    format: "mm/dd/yyyy"
+    format: "yyyy-mm-dd",
+    viewMode: "years"
   });
 
   /** Trigger button-group radios: **/

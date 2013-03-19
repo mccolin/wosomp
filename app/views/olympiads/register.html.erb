@@ -27,7 +27,7 @@
     </p>
     <p>
       <%= u.label :birthday, "Your Birthday:" -%>
-      <%= u.text_field :birthday, :class=>"input-small", "data-type"=>"date", :placeholder=>"MM/DD/YYYY", :value=>(current_user.birthday || 30.years.ago).strftime("%m/%d/%Y") -%>
+      <%= u.text_field :birthday, :class=>"input-small", "data-type"=>"date", :placeholder=>"YYYY-MM-DD", :value=>(current_user.birthday ? current_user.birthday.strftime("%Y-%m-%d") : nil)-%>
     </p>
     <p>
       <%= u.label :gender, "Gender:" %>

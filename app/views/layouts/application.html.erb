@@ -45,7 +45,11 @@
           <%= top_nav_item("About", about_path) -%>
           <%= top_nav_item("Location", location_olympiad_path(next_olympiad)) -%>
           <%= top_nav_item("Events", events_olympiad_path(next_olympiad)) -%>
-          <%= top_nav_item("Register", register_olympiad_path(next_olympiad), :class=>"feature pull-right") -%>
+          <% if current_user && current_user.registered_for?(next_olympiad) %>
+            <%= top_nav_item("Your Registration", registration_olympiad_path(next_olympiad), :class=>"feature pull-right") -%>
+          <% else %>
+            <%= top_nav_item("Register", register_olympiad_path(next_olympiad), :class=>"feature pull-right") -%>
+          <% end %>
         </ul><!--/.row-->
       </div><!--/.container-->
     </div>

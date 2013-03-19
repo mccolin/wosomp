@@ -74,9 +74,34 @@
   top: 40px;
   left: 0;
 }
+#shirt.bigger .name {
+  top: 55px;
+  font-size: 40px;
+}
 #shirt .number {
   font-family: CollegeRegular;
   font-size: 80px;
   top: 95px;
   left: 0;
+}
+#shirt.bigger .number {
+  top: 160px;
+  font-size: 150px;
+}
+
+
+table {
+  border: 1px solid #CCC;
+  border-radius: 5px;
+}
+table th {
+  background: #DDD;
+  font-weight: bold;
+  text-align: left;
+}
+table th, table td {
+  border-color: #CCC;
+  border-style: solid;
+  border-width: 0 1px 1px 0;
+  padding: 0.5em;
 }

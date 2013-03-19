@@ -3,7 +3,7 @@
 
 class OlympiadsController < ApplicationController
 
-  before_filter :authenticate_user!, :only=>[:register]
+  before_filter :authenticate_user!, :only=>[:register, :registration, :save_registration]
 
   before_filter :load_olympiad, :except=>[:index]
 
@@ -48,7 +48,10 @@ class OlympiadsController < ApplicationController
       User.transaction do
         current_user.update_attributes(user_data)
         reg_data[:user_id] = current_user.id
-        if reg_id = reg_data.delete(:id)
+        #user_data[:birthday] = Date.strptime(user_data[:birthday], "%m/%d/%Y").to_s
+        logger.info "Converted date: #{user_data[:birthday]} #{user_data[:birthday].inspect}"
+        reg_id = reg_data.delete(:id)
+        unless reg_id.blank?
           @registration = Registration.where(:id=>reg_id).first
           @registration.update_attributes(reg_data)
         else

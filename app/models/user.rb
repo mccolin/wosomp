@@ -35,6 +35,10 @@ class User < ActiveRecord::Base
   end
 
 
+  def registered_for?(olympiad)
+    Registration.for_user(self).for_olympiad(olympiad).first
+  end
+
   # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
   class << self
 
