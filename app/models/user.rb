@@ -11,7 +11,7 @@ class User < ActiveRecord::Base
 
   # Setup accessible (or protected) attributes for your model
   attr_accessible :email, :facebook_id, :first_name, :last_name, :password, :password_confirmation, :remember_me
-  attr_accessible :gender, :address_street, :address_city, :address_state, :address_zip, :birthday
+  attr_accessible :gender, :address_street, :address_city, :address_state, :address_zip, :birthday, :bio
 
   # Relationships:
   has_many :registrations

@@ -53,15 +53,21 @@
     </label><br/>
     <br/>
     <span class="hint">
-      Athletes get a customized shirt, take part in the Olympic events, compete for awards, and
-      enjoy the full complement of WOSoMP refreshments. Fans and Supporters get a shirt in their
+      <b>Athletes</b> get a customized shirt, take part in the Olympic events, compete for awards, and
+      enjoy the full complement of WOSoMP refreshments. <b>Fans and Supporters</b> get a shirt in their
       chosen team's colors and enjoy the snacks, but are ineligible to compete.<br/><br/>
     </span>
   </p>
+  <%= f.fields_for current_user do |u| %>
+    <p>
+      <%= u.label :bio, "Your Bio:" -%>
+      <%= u.text_area :bio, :rows=>3, :class=>"span4", :placeholder=>"Tell us a bit about your style, trash talk your competitors, or wax philosophical on sporting." -%>
+    </p>
+  <% end %>
 
 </div>
 
-<div class="row reg-form-section" id="team-select">
+<div class="row reg-form-section" id="team-select" style="margin-bottom:2em;">
   <p class="lead">Select a Team</p>
   <p>
     Now, choose the team on which you wish to compete. This team will be

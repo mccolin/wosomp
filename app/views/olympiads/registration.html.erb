@@ -72,6 +72,10 @@
         <th>Shirt Size</th>
         <td><%=@registration.uniform_size-%></td>
       </tr>
+      <tr>
+        <th>Your Bio:</th>
+        <td><%=truncate(@registration.user.bio, :length=>65)-%></td>
+      </tr>
     </tbody>
     </table>
     <p>&nbsp;</p>
