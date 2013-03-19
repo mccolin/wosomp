@@ -35,6 +35,9 @@ ActiveAdmin.register Olympiad do
     end
     column "City", :location_city
     column "State", :location_state
+    column "Fees", :sortable=>:registration_fee do |o|
+      "$#{o.registration_fee || 0} / $#{o.spectator_fee || 0}"
+    end
     default_actions
   end
 
@@ -43,6 +46,7 @@ ActiveAdmin.register Olympiad do
     attributes_table do
       row :name
       row :registration_fee
+      row :spectator_fee
     end
     table_for olympiad.sports.order(:name) do
       column "Sports Offered" do |sport|
@@ -78,6 +82,7 @@ ActiveAdmin.register Olympiad do
     f.inputs "Basics" do
       f.input :name
       f.input :registration_fee
+      f.input :spectator_fee
     end
     f.inputs "Sports" do
       f.input :sports, :as=>:check_boxes
