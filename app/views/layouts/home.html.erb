@@ -38,21 +38,30 @@
   <body class="home">
 
     <div id="intro">
-      Welcome to the official homepage of the Weekend Olympic Showdown of Massive Proportions
-      <% if current_user %>
-      <span class="pull-right">
-        Hello, <%=current_user.email-%>!
+      <% unless current_user %>
+        Welcome to the official homepage of the Weekend Olympic Showdown of Massive Proportions.
+        <%=link_to("Log In", new_user_session_path)-%>
+      <% else %>
+        Welcome back, <%=current_user.first_name || current_user.email-%>!
+        <%=link_to("Your Registration", registration_olympiad_path(next_olympiad))-%> •
         <%=link_to("Logout", destroy_user_session_path, :method=>"delete")-%>
-      </span>
       <% end %>
     </div>
     <div id="mast" class="<%=%w(cornholer dogball football wickets).sample()-%>">
       <h1 id="logo"><span>WOSoMP 2013</span></h1>
       <h2>Backyard sports are fun again</h2>
-      <p class="lead">Registration now open for our May 4 event in Kennett Square, PA</p>
-      <p>
-        <%=link_to "Sign Up to Complete", register_olympiad_path(next_olympiad), :class=>"btn btn-success btn-large"%>
-      </p>
+
+      <% if next_olympiad.is_registering? %>
+        <p class="lead">Registration now open for our <%=next_olympiad.begins_at.strftime("%B %-d")-%> event in <%=next_olympiad.city_state-%></p>
+        <p><%=link_to "Sign Up to Play", register_olympiad_path(next_olympiad), :class=>"btn btn-success btn-large"%></p>
+      <% elsif next_olympiad.is_live? %>
+        <p class="lead">The <%=next_olympiad.name-%> WOSoMP event is underway right now! <%=link_to "Follow It Live!", live_path-%></p>
+        <p><%=link_to "Live Stats and Ranks", live_path, :class=>"btn btn-success btn-large"%></p>
+      <% else %>
+        <p class="lead">Registration for our <%=next_olympiad.begins_at.strftime("%B %-d")-%> event in <%=next_olympiad.city_state-%> opens soon</p>
+        <p><%=link_to "Learn More", about_path, :class=>"btn btn-success btn-large"%></p>
+      <% end %>
+
       <div id="photo-attributions">
         <span rel="cornholer">Photo: <%=link_to "Cornhole Action", "http://www.flickr.com/photos/niemster/3769423941/in/photostream/", :target=>"_blank"%> by Matt Niemi</span>
         <span rel="dogball">Photo: <%=link_to "His favorite sport", "http://www.flickr.com/photos/gzahnd/2815081942/in/photostream/", :target=>"_blank"%> by Gino</span>
@@ -67,10 +76,13 @@
           <%= top_nav_item("About", about_path) -%>
           <%= top_nav_item("Location", location_olympiad_path(next_olympiad)) -%>
           <%= top_nav_item("Events", events_olympiad_path(next_olympiad)) -%>
+
+          <% if next_olympiad.registration_begins_at <= DateTime.now %>
           <% if current_user && current_user.registered_for?(next_olympiad) %>
             <%= top_nav_item("Your Registration", registration_olympiad_path(next_olympiad), :class=>"feature pull-right") -%>
           <% else %>
             <%= top_nav_item("Register", register_olympiad_path(next_olympiad), :class=>"feature pull-right") -%>
+          <% end %>
           <% end %>
         </ul><!--/.row-->
       </div><!--/.container-->

@@ -50,6 +50,12 @@
       <%=link_to "Get Directions", "http://maps.google.com/maps?q=#{@olympiad.mappable_address}", :target=>"_blank"-%>
     </p>
     <dl>
+      <dt>The Event:</dt>
+      <dd><%=@olympiad.begins_at.strftime("%B %-d, %Y")-%></dd>
+
+      <dt>Registration Begins:</dt>
+      <dd><%=@olympiad.registration_begins_at.strftime("%B %-d, %Y")-%></dd>
+
       <dt>Parking:</dt>
       <dd>Free Street Parking</dd>
 

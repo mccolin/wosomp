@@ -39,6 +39,7 @@ class OlympiadsController < ApplicationController
   # Registration: View/Edit your existing registration:
   def registration
     @registration = Registration.for_user(current_user).for_olympiad(@olympiad).first
+    redirect_to :action=>"register" unless @registration
   end
 
   def save_registration
