@@ -62,7 +62,7 @@ class OlympiadsController < ApplicationController
       end # transaction
     rescue Exception => e # ActiveRecord::RecordInvalid
       logger.debug "Unable to save Registration: #{e.message}"
-      flash.now[:error] = "We were unable to save your registration. Correct the errors on the form before continuing."
+      #flash.now[:error] = "We were unable to save your registration. Correct the errors on the form before continuing."
       render :action=>"register"
       return
     else

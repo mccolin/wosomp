@@ -9,6 +9,26 @@
   <p class="lead">Complete the form below to register for our May 4 event in <%=@olympiad.city_state-%></p>
 </div>
 
+<% if current_user.errors.any? || @registration.errors.any? %>
+<div id="form-errors" class="alert alert-block alert-error">
+  <button type="button" class="close" data-dismiss="alert">&times;</button>
+  <h4>Please correct the following errors with your registration:</h4>
+  <ul>
+  <% current_user.errors.messages.each do |field, error_messages| %>
+    <% error_messages.each do |message| %>
+    <li><%=message-%></li>
+    <% end %>
+  <% end # errors %>
+  <% @registration.errors.messages.each do |field, error_messages| %>
+    <% error_messages.each do |message| %>
+    <li><%=message-%></li>
+    <% end %>
+  <% end # errors %>
+  </ul>
+</div>
+<% end # if errors %>
+
+
 <%=form_for @registration, :url=>save_registration_olympiad_path(@olympiad), :html=>{:method=>:post, :class=>"form-inline"} do |f| %>
   <%= f.hidden_field :id, :value=>@registration.id %>
   <%= f.hidden_field :olympiad_id, :value=>@olympiad.id %>

@@ -22,8 +22,10 @@ class User < ActiveRecord::Base
   scope :admin, where(:admin=>true)
 
   # Validations:
-  validates :first_name, :presence=>{:message=>"required"}
-  validates :last_name, :presence=>{:message=>"required"}
+  validates :first_name, :presence=>{:message=>"Tell us your first name"}
+  validates :last_name, :presence=>{:message=>"Tell us your last name"}
+  validates :email, :presence=>{:message=>"You must provide an email address"}
+  validates :birthday, :presence=>{:message=>"Provide your birthday"}
 
 
   # Quick combined accessors:
