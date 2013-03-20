@@ -5,7 +5,7 @@
 
 <div class="row">
   <h2>About WOSoMP</h2>
-  <p class="lead">What's the deal with this miraculous, hilarious, and exciting olympic event!?</p>
+  <p class="lead">What's the deal with this miraculous, hilarious, and exciting Olympic-style event!?</p>
 </div>
 
 <div class="row">
@@ -13,13 +13,13 @@
   <div class="span7">
     <h2>Games &amp; Sports</h2>
     <p>
-      At its heart, The Weekend Olympic Showdown of Massive Proportions -- better known was
-      <strong>WOSoMP</strong> -- is an Olympic-style competition amongst friends in events
-      known as <strong>faux sports</strong>. These sports are completely imagined by the event
-      organized or offer modifications to existing games that add new twists and challenges.
+      At its heart, The Weekend Olympic Showdown of Massive Proportions is an Olympic-style
+      competition staged between new and old friends in events known as <strong>faux sports</strong>.
+      These sports are completely new games imagined by the event organizers or modified
+      versions of classic games with new twists and challenges.
     </p>
     <p>
-      Each WOSoMP olympiad acts as its own standalone tournament, in which athletes and their
+      Each WOSoMP olympiad acts as its own stand-alone tournament, in which athletes and their
       teams compete in individual and team sports in the quest for medals. Typically, an olympiad
       offers between seven and ten sports to its competitors, spread near-equally between
       individual skill challenges and team competitions.
@@ -32,9 +32,10 @@
 
     <h2>Your Team is Your Country</h2>
     <p>
-      Like the Olympics, each athlete represents a home team. When registerring foreach WOSoMP
-      event, athletes select their team. During the games, they'll wear the colors of their home
-      team as they play throughout the day.
+      Like the Olympics, each athlete represents a home team. When registerring for each WOSoMP
+      event, athletes select or form a team of their choice and recruit friends and family to join
+      them. During the games, they'll wear the colors of their home team as they play throughout
+      the day, and the points each athlete earns affect the outcome of the team championship.
     </p>
     <p>
       For competition sports, athletes will form smaller groups formed from players on their parent
@@ -61,14 +62,6 @@
       including water, beer, and food. Past events have operated at a small loss in order to keep
       fees paid by participants as low as possible.
     </p>
-
-    <% if next_olympiad.is_registering? %>
-    <p>&nbsp;</p>
-    <p style="text-align:center;">
-      So, if you've heard enough about it, why not sign up to play!?<br/><br/>
-      <%=link_to "Register for #{next_olympiad.name} Now!", register_olympiad_path(next_olympiad), :class=>"btn btn-success btn-large"%></p>
-    </p>
-    <% end %>
   </div>
 
   <div class="span4 offset1" style="text-align:center; font-size: 12px;">
@@ -76,22 +69,27 @@
       <%=image_tag "history/logo2007.jpg", :alt=>"WOSoMP 2007 Logo", :style=>"width:85%;" %>
     </p>
     <p>
-      The first WOSoMP event was held in September 2007 in Branchburg, NJ. Attended by over
-      30 athletes, the tournament offered nine sports, though a handful were rained out or
-      delayed. Events included
+      The first WOSoMP event was held in September 2007 in Branchburg, NJ. The tournament
+      offered nine sports, including Xtreme Air Hockey, Homemade Disc Golf, Beotch Ball,
+      Boomshakalaka Ball, and more.
     </p>
+
+    <hr/>
 
     <p><%=image_tag "history/athletes.jpg", :alt=>"Athletes Harland Westgate, Jess Victor, Tony Bacigalupo, and John Harrold", :style=>"width:85%;" %></p>
     <p>
       The Fall 2007 WOSoMP was contested by over 30 athletes representing eight teams. The
-      championship trophy was award to "The Independents," at team composed of walk-up athletes.
+      championship trophy was award to "The Independents," a team composed entirely of
+      walk-up athletes.
     </p>
+
+    <hr/>
 
     <p><%=image_tag "history/medals.jpg", :alt=>"Awards and Medals", :style=>"width:85%;" %></p>
     <p>
       Athletes and teams compete for medals, which are awarded for performance in every event.
       Also, trophies are awarded to the Best Overall Athletes, both male and female. Teams are
-      competing, on the heels of their member athletes, to win the Championship Trophy, awarded
+      competing, on the efforts of their member athletes, to win the Championship Trophy, awarded
       to the team with the best overall combined performance during the olympiad.
     </p>
     <p>&nbsp;</p>
@@ -99,4 +97,9 @@
 
   </div>
 
+</div>
+
+<hr/>
+<div class="row" style="text-align:center;">
+  <%=render "home/major_enticement" %>
 </div>

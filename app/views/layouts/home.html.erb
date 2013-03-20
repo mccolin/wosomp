@@ -51,16 +51,7 @@
       <h1 id="logo"><span>WOSoMP 2013</span></h1>
       <h2>Backyard sports are fun again</h2>
 
-      <% if next_olympiad.is_registering? %>
-        <p class="lead">Registration now open for our <%=next_olympiad.begins_at.strftime("%B %-d")-%> event in <%=next_olympiad.city_state-%></p>
-        <p><%=link_to "Sign Up to Play", register_olympiad_path(next_olympiad), :class=>"btn btn-success btn-large"%></p>
-      <% elsif next_olympiad.is_live? %>
-        <p class="lead">The <%=next_olympiad.name-%> WOSoMP event is underway right now! <%=link_to "Follow It Live!", live_path-%></p>
-        <p><%=link_to "Live Stats and Ranks", live_path, :class=>"btn btn-success btn-large"%></p>
-      <% else %>
-        <p class="lead">Registration for our <%=next_olympiad.begins_at.strftime("%B %-d")-%> event in <%=next_olympiad.city_state-%> opens soon</p>
-        <p><%=link_to "Learn More", about_path, :class=>"btn btn-success btn-large"%></p>
-      <% end %>
+      <%= render "home/major_enticement" %>
 
       <div id="photo-attributions">
         <span rel="cornholer">Photo: <%=link_to "Cornhole Action", "http://www.flickr.com/photos/niemster/3769423941/in/photostream/", :target=>"_blank"%> by Matt Niemi</span>
