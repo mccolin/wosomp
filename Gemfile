@@ -3,38 +3,30 @@
 
 source "https://rubygems.org"
 
-# Stable version of Rails:
+# Lock in language and platform:
+ruby "1.9.3"
 gem "rails", "3.2.11"
 
-# Deployed to Heroku:
-gem "pg"
+# System Updates:
+gem "json", ">=1.7.7"                 # Version force for CVE-2013-0269
 
-# But developed on MySQL:
-gem "mysql2"
-
-# Authentication:
+# App Features:
 gem "devise", "~> 2.0.4"
 gem "omniauth-facebook", "~> 1.2.0"
-
-# Administrative Panels:
 gem "activeadmin"
 #gem "sass-rails"
 gem "meta_search", ">= 1.1.0.pre"
-
-# Fanciness:
 gem "stringex", "~> 1.3.2"
 gem "slugged"
-gem "doeskeyvalue"
+#gem "doeskeyvalue"
 #gem "doeskeyvalue", :path=>"/Users/colin/git/awexome/doeskeyvalue"
-gem "awesome_print"
+#gem "awesome_print"
+gem "less-rails"                      # Bootstrap Asset Pipeline LESS Support
+gem "twitter-bootstrap-rails"         # Twitter Bootstrap
+gem "jquery-rails"
+gem "has_heartbeat", "~> 0.1.1"       # Heartbeat for uptime monitoring
+gem "newrelic_rpm"                    # New Relic perf and uptime pinging
 
-# Gems used only in development
-group :development do
-  gem "quiet_assets"
-end
-
-# Gems used only for assets and not required
-# in production environments by default.
 group :assets do
   gem "sass-rails",   "~> 3.2.3"
   gem "coffee-rails", "~> 3.2.1"
@@ -42,10 +34,14 @@ group :assets do
   gem "therubyracer"
 end
 
-gem "less-rails"                          # Bootstrap Asset Pipeline LESS Support
-gem "twitter-bootstrap-rails"             # Twitter Bootstrap
+group :development do
+  gem "mysql2"
+  gem "quiet_assets"
+end
 
-gem "jquery-rails"
-gem "has_heartbeat", "~> 0.1.1"           # Heartbeat for uptime monitoring
-gem "newrelic_rpm"                        # New Relic perf and uptime pinging
-
+group :production, :staging do
+  gem "pg"
+  gem "unicorn"                       # Unicorn concurrent rack web server
+  gem "dalli"                         # Dalli Memcached library
+  gem "rack-timeout"                  # Timeout/abort mgmt for rack processes
+end
