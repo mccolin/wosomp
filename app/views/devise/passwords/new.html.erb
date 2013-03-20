@@ -1,12 +1,43 @@
-<h2>Forgot your password?</h2>
+<%
+  # WOSoMP
+  # Devise / Forgotten Password
+%>
 
-<%= form_for(resource, :as => resource_name, :url => password_path(resource_name), :html => { :method => :post }) do |f| %>
-  <%= devise_error_messages! %>
+<div class="row">
 
-  <div><%= f.label :email %><br />
-  <%= f.email_field :email %></div>
+  <div class="span5">
 
-  <div><%= f.submit "Send me reset password instructions" %></div>
-<% end %>
+    <h2>Forgot your password?</h2>
+    <p>No problem! We'll help you get back in:</p>
+    <p>&nbsp;</p>
 
-<%= render "links" %>
+    <%= form_for(resource, :as => resource_name, :url => password_path(resource_name), :html => { :method => :post, :class=>"form-horizontal" }) do |f| %>
+      <%= devise_error_messages! %>
+
+      <div class="control-group">
+        <%= f.label :email, :class=>"control-label" %>
+        <div class="controls">
+          <%= f.email_field :email, :placeholder=>"you@prettydamncool.com" %>
+        </div>
+      </div>
+
+      <div class="control-group">
+        <div class="controls">
+          <%= f.submit "Reset My Password", :class=>"btn btn-primary" %>
+
+          <br/><br/><small>
+          <%- if controller_name != 'sessions' %>
+            <%= link_to "Login", new_session_path(resource_name) %><br />
+          <% end -%>
+
+          <%- if devise_mapping.registerable? && controller_name != 'registrations' %>
+            <%= link_to "Create an Account", new_registration_path(resource_name) %><br />
+          <% end -%></small>
+
+        </div>
+      </div>
+
+    <% end %>
+
+  </div>
+</div>
