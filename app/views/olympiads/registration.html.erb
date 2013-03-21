@@ -47,7 +47,7 @@
       </tr>
       <tr>
         <th>Your Bio:</th>
-        <td><%=truncate(@registration.user.bio, :length=>65)-%></td>
+        <td><%=@registration.user.bio-%></td>
       </tr>
     </tbody>
     </table>
@@ -93,6 +93,16 @@
       <br/><small>
         Changes can be made through <%=@olympiad.registration_ends_at.strftime("%A, %B %0d, %Y")-%>
         (<%=distance_of_time_in_words(DateTime.now, @olympiad.registration_ends_at)-%> from now)
+      </small>
+    </p>
+
+    <p style="margin-top:3em;">
+      <%=button_to "Cancel Registration", unregister_olympiad_path(@olympiad), :method=>:delete,
+      :confirm=>"Are you sure you want to cancel your registration? Your registration will be deleted and if you change your mind, you'll have to re-register before the deadline.",
+      :class=>"btn btn-danger" -%>
+      <small>
+        Canceling a registration is only reversible by re-registering. Plus, why would you want to miss
+        out on something like WOSoMP!?
       </small>
     </p>
 

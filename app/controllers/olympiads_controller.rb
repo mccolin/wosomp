@@ -71,6 +71,11 @@ class OlympiadsController < ApplicationController
     end
   end
 
+  def unregister
+    @registration.destroy if @registration = Registration.for_user(current_user).for_olympiad(@olympiad).first
+    flash.now[:success] = "Your registration for #{@olympiad.name} has been cancelled."
+  end
+
 
   private
 

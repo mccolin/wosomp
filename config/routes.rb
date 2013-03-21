@@ -34,6 +34,7 @@ Wosomp::Application.routes.draw do
       get :register             # Register for event
       get :registration         # View/Edit registration
       post :save_registration   # Save/Update registration
+      delete :unregister        # Cancel registration for event
     end
   end
 

@@ -1,0 +1,17 @@
+<%
+  # WOSOMP
+  # Olympiad / Cancel Registration
+%>
+
+<div class="row">
+  <h2>Registration Canceled</h2>
+  <p>
+    Your registration has been canceled. We're said to see you back out. You're probably just
+    too chicken to compete. Yeah, that's probably it. Can't take the heat. Can't take the pressure.
+  </p>
+  <p>
+    <%=link_to "Prove You're Not Chicken", register_olympiad_path(@olympiad), :class=>"btn btn-success"-%>
+    <%=link_to "I really am chicken :-(", home_path -%>
+  </p>
+</div>
+
