@@ -31,6 +31,9 @@ class Registration < ActiveRecord::Base
   validates :agree_pay, :acceptance=>{:accept=>true, :message=>"Please agree to pay. You can pay cash when you arrive at the event"}
 
 
+  def name
+    [olympiad.name, user.name].join("-").gsub(/\s+/, "")
+  end
 
   def role
     athlete? ? (captain? ? :captain : :athlete) : :supporter
