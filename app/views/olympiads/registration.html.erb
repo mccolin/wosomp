@@ -121,8 +121,9 @@
     </div>
     <% end %>
 
-    <% if @registration.athlete? || @registration.uniform_shirt? -%>
+    <% if @registration.team -%>
       <h2>Your Team</h2>
+      <p>Team Role: <%=@registration.role.capitalize-%></p>
       <% if @registration.team.registrations.count <= 1 -%>
         <p><em>No teammates, yet!</em></p>
       <% else -%>
