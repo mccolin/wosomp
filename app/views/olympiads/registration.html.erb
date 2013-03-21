@@ -115,7 +115,7 @@
     <% if @registration.athlete? -%>
     <h2>Your Uniform</h2>
     <div id="shirt" class="bigger">
-      <%=image_tag "shirts/blue.jpg" -%>
+      <%=image_tag "shirts/#{@registration.team.shirt_color || 'red'}.jpg", :class=>"selected" -%>
       <span class="name"><%=@registration.uniform_name-%></span>
       <span class="number"><%=@registration.uniform_number-%></span>
     </div>

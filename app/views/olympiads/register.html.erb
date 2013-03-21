@@ -133,7 +133,7 @@
 
   <% @olympiad.teams.includes(:registrations=>:user).each do |team| %>
   <% selected_class = @registration.team_id.nil? ? "" : (@registration.team_id == team.id ? "selected" : "unselected") -%>
-  <div class="team well well-small span4 <%=selected_class-%>" data-team-id="<%=team.id-%>" style="border-width:8px 1px 1px 1px; border-color:<%=team.color1_code-%>;">
+  <div class="team well well-small span4 <%=selected_class-%>" data-team-id="<%=team.id-%>" data-shirt-color="<%=team.shirt_color-%>" style="border-width:8px 1px 1px 1px; border-color:<%=team.color1_code-%>;">
     <p>
       <strong style="color:<%=team.color1_code-%>;">
         <%= team.name %><span class="badge pull-right"><%=team.athletes.count-%></span>
@@ -197,7 +197,11 @@
   </div>
 
   <div id="shirt" class="span3" style="">
-    <%=image_tag "shirts/red.jpg" -%>
+    <%=image_tag "shirts/red.jpg", :class=>"stunt-shirt" -%>
+    <% Team.shirt_colors.each do |color| -%>
+      <% css_class = @registration.team && @registration.team.shirt_color == color ? "shirt-#{color} selected" : "shirt-#{color}" -%>
+      <%=image_tag "shirts/#{color}.jpg", :class=>css_class -%>
+    <% end -%>
     <span class="name">WOSOMP</span>
     <span class="number">13</span>
   </div>

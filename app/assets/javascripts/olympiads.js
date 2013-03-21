@@ -16,6 +16,10 @@ $(function(){
 
     $("#team-select .team").removeClass("selected").addClass("unselected");
     $teamWell.removeClass("unselected").addClass("selected");
+
+    var teamShirtColor = $teamWell.attr("data-shirt-color");
+    $("#shirt img").removeClass("selected");
+    $("#shirt img.shirt-"+teamShirtColor).addClass("selected");
   });
 
   /** On registration page, set all team select wells to same height: **/

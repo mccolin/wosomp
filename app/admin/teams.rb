@@ -15,14 +15,13 @@ ActiveAdmin.register Team do
     end
     column :olympiad, :sortable=>:olympiad_id
     column "Color", :sortable=>:color1 do |t|
-      if t.color1 && t.color1_code
-        %{<span style='color:#{t.color1_code}'>#{t.color1.capitalize}</span>}.html_safe
-      elsif t.color1
-        t.color1.capitalize
+      if t.color1
+        %{<span style='color:#{t.color1_code};font-weight:bold;'>#{t.color1.capitalize}</span>}.html_safe
       else
         "Undecided"
       end
     end
+    column :shirt_color
     column "Members" do |t|
       t.users.count
     end
@@ -33,6 +32,7 @@ ActiveAdmin.register Team do
   # Filters
   filter :olympiad
   filter :name
+  filter :shirt_color
   filter :color1, :as=>:select, :collection=>Team.select("DISTINCT color1").map(&:color1)
 
 
@@ -41,6 +41,7 @@ ActiveAdmin.register Team do
     attributes_table do
       row :name
       row :colors
+      row :shirt_color
       row :olympiad
       row :bio
       row :created_at
@@ -59,6 +60,7 @@ ActiveAdmin.register Team do
     f.inputs "Basics" do
       f.input :name
       f.input :olympiad
+      f.input :shirt_color, :as=>:select, :collection=>Team.shirt_colors, :hint=>"Shirt color for printing/ordering purposes"
       f.input :color1, :hint=>"Team's primary (shirt) color"
       f.input :color2, :hint=>"Team's secondary color (if applicable)"
       f.input :color1_code, :hint=>"HTML color code for primary color"

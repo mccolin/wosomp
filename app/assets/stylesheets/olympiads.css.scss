@@ -52,11 +52,15 @@
   position: relative;
 }
 #shirt img {
+  display: none;
   position: absolute;
   width: 100%;
   top: 0;
   left: 0;
   z-index: 1;
+}
+#shirt img.selected, #shirt img.stunt-shirt {
+  display: block;
 }
 #shirt .name, #shirt .number {
   color: #FFF;
