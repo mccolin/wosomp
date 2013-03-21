@@ -33,7 +33,7 @@ class Registration < ActiveRecord::Base
 
 
   def role
-    captain? ? :captain : (athlete? ? :athlete : :fan)
+    athlete? ? (captain? ? :captain : :athlete) : :supporter
   end
 
 

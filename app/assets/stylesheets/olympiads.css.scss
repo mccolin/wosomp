@@ -6,7 +6,7 @@
 **/
 
 .reg-form-section {
-  margin-bottom: 4em;
+  margin-bottom: 2em;
 }
 .reg-form-section p.lead {
   margin-bottom: 0;
@@ -48,6 +48,7 @@
 #shirt {
   border: 1px solid #999;
   border-radius: 5px;
+  min-height: 210px;
   position: relative;
 }
 #shirt img {

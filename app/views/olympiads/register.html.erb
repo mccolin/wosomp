@@ -34,6 +34,7 @@
   <%= f.hidden_field :olympiad_id, :value=>@olympiad.id %>
   <%= f.hidden_field :team_id %>
 
+<!-- User and Registration Type -->
 <div class="row reg-form-section stack-labels">
   <p class="lead">Basic Information</p>
   <p>First, verify some information about yourself to confirm your registration.</p>
@@ -61,6 +62,7 @@
       </label>
     </p>
   <% end %>
+
   <p id="participation-type">
     <%= f.label :athlete, "How will you participate?" %>
     <label class="radio">
@@ -70,14 +72,18 @@
     <label class="radio">
       <%= f.radio_button(:athlete, false, "data-fee"=>@olympiad.spectator_fee) -%>
       As a Fan/Supporter ($<%=@olympiad.spectator_fee-%>)
-    </label><br/>
+    </label>
+    <% if false %>
+    <br/>
     <br/>
     <span class="hint">
       <b>Athletes</b> get a customized shirt, take part in the Olympic events, compete for awards, and
-      enjoy the full complement of WOSoMP refreshments. <b>Fans and Supporters</b> get a shirt in their
-      chosen team's colors and enjoy the snacks, but are ineligible to compete.<br/><br/>
+      enjoy the full complement of WOSoMP refreshments. <b>Fans and Supporters</b> can choose to receive
+      a shirt in their chosen team's colors and enjoy the snacks, but are ineligible to compete.<br/><br/>
     </span>
+    <% end # false %>
   </p>
+
   <p id="uniform-opt-out" class="spectator-only" style="<%=@registration.athlete? ? "display:none;" : ""-%>">
     <%= f.label :uniform, "Do you want a team shirt?" -%>
     <label class="radio">
@@ -87,12 +93,18 @@
     <label class="radio">
       <%= f.radio_button(:uniform_shirt, false, "data-fee"=>0) -%>
       No, thanks. I don't need a shirt I'll just cheer (No added fee)
-    </label><br/><br/>
+    </label>
+  </p>
+
+  <p id="shirt-size" class="shirt-only" style="<%=@registration.uniform_shirt? ? "" : "display:none;"-%>">
+    <%= f.label :uniform_size, "Shirt Size:" -%>
+    <%= f.select :uniform_size, [%w(Small S),%w(Medium M),%w(Large L),%w(X-Large XL),["Youth X-Large","YXL"],["Youth Large","YL"],["Youth Medium","YM"]], {:selected=>@registration.uniform_size || "M"}, :class=>"input-medium" %>
+    <br/>
     <span class="hint">
-      As a Fan Supporter, <b>you can choose to get a shirt in the color of the team you're
-      supporting</b>. It's optional, but a fun way to get you into the spirit.<br/><br/>
+      <%=link_to "View Size Chart", "http://www.customink.com/items/sizing/04600_lineup/standard.htm", :target=>"_blank"-%> to get it right.
     </span>
   </p>
+
   <%= f.fields_for current_user do |u| %>
     <p>
       <%= u.label :bio, "Your Athlete/Fan Bio:" -%>
@@ -102,6 +114,9 @@
 
 </div>
 
+
+
+<!-- Team Selection -->
 <div class="row reg-form-section shirt-only" id="team-select" style="margin-bottom:2em; <%=@registration.athlete? || @registration.uniform_shirt? ? "" : "display:none;"-%>">
   <p class="lead">Select a Team</p>
   <p class="athlete-only" style="<%=@registration.athlete? ? "" : "display:none;"-%>">
@@ -157,6 +172,8 @@
   </p>
 </div>
 
+
+<!-- Uniform Design -->
 <div class="row reg-form-section stack-labels athlete-only" id="shirt-design" style="<%=@registration.athlete? ? "" : "display:none;"-%>">
   <p class="lead">Design Your Uniform</p>
   <p>
@@ -168,22 +185,13 @@
   <div class="span6">
     <p>
       <%= f.label :uniform_name, "Name on Shirt:" -%>
-      <%= f.text_field :uniform_name, :placeholder=>"NAME", :class=>"input-small", :maxlength=>12, "data-text-transform"=>"uppercase" -%>
-
+      <%= f.text_field :uniform_name, :placeholder=>"NAME", :class=>"input-medium", :maxlength=>12, "data-text-transform"=>"uppercase" -%>
     </p>
     <p>
       <%= f.label :uniform_number, "Number on Shirt:" -%>
-      <%= f.text_field :uniform_number, :placeholder=>"XX", :class=>"input-small", :maxlength=>2 -%>
-    </p>
-    <p>
-      <%= f.label :uniform_size, "Shirt Size:" -%>
-      <%= f.select :uniform_size, [%w(Small S),%w(Medium M),%w(Large L),%w(X-Large XL),["Youth X-Large","YXL"],["Youth Large","YL"],["Youth Medium","YM"]], {}, :class=>"input-small" %>
-      <br/>
+      <%= f.text_field :uniform_number, :placeholder=>"XX", :class=>"input-mini", :maxlength=>2 -%>
       <span class="hint">
-        Choosing the right size assures you're comfortable kicking ass!<br/>
-        <%=link_to "View Size Chart", "http://www.customink.com/items/sizing/04600_lineup/standard.htm", :target=>"_blank"-%> to get it right.
-        <br/><br/>
-        Don't worry -- the shirt you receive will match your team's color above.
+        Don't worry -- the shirt you receive will match your team's color from above.
       </span>
     </p>
   </div>
