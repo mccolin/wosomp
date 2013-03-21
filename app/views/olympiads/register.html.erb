@@ -40,6 +40,12 @@
   <p>First, verify some information about yourself to confirm your registration.</p>
   <p>&nbsp;</p>
 
+  <div class="well well-small span4 pull-right" style="text-align:center;">
+    <strong style="color:#A00;">Don't worry about this being final!</strong><br/>
+    You will be able to edit your selections and make changes to your registration
+    all the way up through <%=@olympiad.registration_ends_at.strftime("%B %-d")-%>.
+  </div>
+
   <%= f.fields_for current_user do |u| %>
     <p>
       <%= u.label :first_name, "Name:" -%>
@@ -215,6 +221,9 @@
     Acknowledge, below, that you are committing to attending the
     <%=@olympiad.name-%> Olympiad in <%=link_to @olympiad.city_state, location_olympiad_path(@olympiad), :target=>"_blank"-%>
     and willing to pay the registration fee.
+  </p>
+  <p>
+    <em>After submitting, you'll be able to change or cancel your registration trough the registration deadline of <%=@olympiad.registration_ends_at.strftime("%B %-d, %Y")-%>.</em>
   </p>
   <p>&nbsp;</p>
 
