@@ -22,13 +22,7 @@
 
 <div class="row">
 
-  <div id="shirt" class="span4 bigger" style="">
-    <%=image_tag "shirts/blue.jpg" -%>
-    <span class="name"><%=@registration.uniform_name-%></span>
-    <span class="number"><%=@registration.uniform_number-%></span>
-  </div>
-
-  <div class="span7">
+    <div class="span7">
     <h2>Details</h2>
 
     <table>
@@ -49,19 +43,37 @@
         <th>Your Gender</th>
         <td>
           <%=@registration.user.gender.capitalize-%>
-          <small>(Competing for Best Overall <%=@registration.user.gender.capitalize-%> trophy)</small>
         </td>
       </tr>
       <tr>
+        <th>Your Bio:</th>
+        <td><%=truncate(@registration.user.bio, :length=>65)-%></td>
+      </tr>
+    </tbody>
+    </table>
+
+    <% if @registration.athlete? || @registration.uniform_shirt? %>
+    <table>
+    <tbody>
+      <tr>
         <th>Your Team</th>
-        <td><span style="color:<%=@registration.team.color1_code-%>;"><%=@registration.team.name-%></span></td>
+        <td style="font-weight:bold; background-color:<%=@registration.team.color1_code-%>; color:<%=@registration.team.color2_code-%>">
+          <%=@registration.team.name-%>
+        </td>
       </tr>
       <tr>
         <th>Team Role</th>
         <td><%=@registration.role.capitalize-%></td>
       </tr>
+    </tbody>
+    </table>
+    <% end # if %>
+
+    <% if @registration.uniform_shirt? -%>
+    <table>
+    <tbody>
       <tr>
-        <th>Uniform Name:</th>
+        <th>Uniform Name</th>
         <td><%=@registration.uniform_name-%></td>
       </tr>
       <tr>
@@ -72,13 +84,9 @@
         <th>Shirt Size</th>
         <td><%=@registration.uniform_size-%></td>
       </tr>
-      <tr>
-        <th>Your Bio:</th>
-        <td><%=truncate(@registration.user.bio, :length=>65)-%></td>
-      </tr>
     </tbody>
     </table>
-    <p>&nbsp;</p>
+    <% end -%>
 
     <p>
       <%=link_to "Edit Your Registration", register_olympiad_path(@olympiad), :class=>"btn btn-primary" -%>
@@ -89,15 +97,32 @@
     </p>
 
     <p>&nbsp;</p>
-    <h2>Your Teammates</h2>
-    <% if @registration.team.registrations.count <= 1 -%>
-      <em>No teammates, yet!</em>
+
+
+  </div> <!--/details-->
+
+  <div class="span4" style="">
+    <% if @registration.athlete? -%>
+    <h2>Your Uniform</h2>
+    <div id="shirt" class="bigger">
+      <%=image_tag "shirts/blue.jpg" -%>
+      <span class="name"><%=@registration.uniform_name-%></span>
+      <span class="number"><%=@registration.uniform_number-%></span>
+    </div>
+    <% end %>
+
+    <% if @registration.athlete? || @registration.uniform_shirt? -%>
+      <h2>Your Team</h2>
+      <% if @registration.team.registrations.count <= 1 -%>
+        <p><em>No teammates, yet!</em></p>
+      <% else -%>
+        <p>
+        <% (@registration.team.registrations - @registration).each do |reg| -%>
+          <%=reg.user.name-%> (<%=link_to reg.user.email, "mailto:#{reg.user.email}"-%>)<br/>
+        <% end # registrations %>
+        </p>
+      <% end -%>
     <% end -%>
-    <p>
-    <% @registration.team.registrations.each do |reg| -%>
-      <%=reg.user.name-%> (<%=link_to reg.user.email, "mailto:#{reg.user.email}"-%>)<br/>
-    <% end # registrations %>
-    </p>
 
     <p><em>Share the joy of WOSoMP with your friends and tell them to sign up for your team:</em></p>
     <p>
@@ -106,8 +131,9 @@
       <a href="https://twitter.com/share" class="twitter-share-button" data-url="http://wosomp.com" data-text="Join my team in the WOSoMP Backyard Olympics on May 4th in Kennett Square, PA!" data-via="wosomp" data-hashtags="wosomp">Tweet</a>
       <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
     </p>
-
   </div>
+
+
 
 
 </div>

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130319191416) do
+ActiveRecord::Schema.define(:version => 20130321001700) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.string   "resource_id",   :null => false
@@ -47,6 +47,7 @@ ActiveRecord::Schema.define(:version => 20130319191416) do
     t.datetime "registration_ends_at"
     t.integer  "registration_fee"
     t.integer  "spectator_fee"
+    t.integer  "spectator_shirt_fee"
     t.string   "location_name"
     t.string   "location_address"
     t.string   "location_city"
@@ -68,6 +69,7 @@ ActiveRecord::Schema.define(:version => 20130319191416) do
     t.integer  "team_id"
     t.boolean  "athlete",                      :default => true
     t.boolean  "captain"
+    t.boolean  "uniform_shirt",                :default => true
     t.string   "uniform_size",   :limit => 3
     t.string   "uniform_number", :limit => 4
     t.string   "uniform_name",   :limit => 12

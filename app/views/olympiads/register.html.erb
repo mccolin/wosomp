@@ -78,16 +78,31 @@
       chosen team's colors and enjoy the snacks, but are ineligible to compete.<br/><br/>
     </span>
   </p>
+  <p id="uniform-opt-out" class="spectator-only" style="<%=@registration.athlete? ? "display:none;" : ""-%>">
+    <%= f.label :uniform, "Do you want a team shirt?" -%>
+    <label class="radio">
+      <%= f.radio_button(:uniform_shirt, true, "data-fee"=>@olympiad.spectator_shirt_fee) -%>
+      Yes! I want to support a team by wearing a matching shirt! ($<%=@olympiad.spectator_shirt_fee-%> added)
+    </label><br/>
+    <label class="radio">
+      <%= f.radio_button(:uniform_shirt, false, "data-fee"=>0) -%>
+      No, thanks. I don't need a shirt I'll just cheer (No added fee)
+    </label><br/><br/>
+    <span class="hint">
+      As a Fan Supporter, <b>you can choose to get a shirt in the color of the team you're
+      supporting</b>. It's optional, but a fun way to get you into the spirit.<br/><br/>
+    </span>
+  </p>
   <%= f.fields_for current_user do |u| %>
     <p>
-      <%= u.label :bio, "Your Bio:" -%>
+      <%= u.label :bio, "Your Athlete/Fan Bio:" -%>
       <%= u.text_area :bio, :rows=>3, :class=>"span4", :placeholder=>"Tell us a bit about your style, trash talk your competitors, or wax philosophical on sporting." -%>
     </p>
   <% end %>
 
 </div>
 
-<div class="row reg-form-section" id="team-select" style="margin-bottom:2em;">
+<div class="row reg-form-section shirt-only" id="team-select" style="margin-bottom:2em; <%=@registration.athlete? || @registration.uniform_shirt? ? "" : "display:none;"-%>">
   <p class="lead">Select a Team</p>
   <p class="athlete-only" style="<%=@registration.athlete? ? "" : "display:none;"-%>">
     Now, choose the team on which you wish to compete. This team will be
@@ -202,7 +217,7 @@
       WOSoMP is a non-profit event.
     </span>
   </p>
-  <p>
+  <p class="athlete-only">
     <%= f.label :agree_pay, "Health and Safety:" %>
     <label class="checkbox"><%= f.check_box :agree_waiver, {}, true %>
       I acknowledge that I am healthy enough to get my WOSoMP on!

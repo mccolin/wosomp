@@ -93,11 +93,14 @@
 table {
   border: 1px solid #CCC;
   border-radius: 5px;
+  margin: 0 0 2em;
+  width: 95%;
 }
 table th {
   background: #DDD;
   font-weight: bold;
   text-align: left;
+  width: 33%;
 }
 table th, table td {
   border-color: #CCC;

@@ -31,21 +31,46 @@ $(function(){
     viewMode: "years"
   });
 
-  /** When user changes the Athlete/Spectator field, update all instances of
-   ** the registration fee on the form and show/hide shirt designer: **/
-  $("#registration_athlete_true, #registration_athlete_false").on("click", function(e){
-    var $toggle = $(this);
-    var selectedFee = $toggle.attr("data-fee");
-    $("#waiver-fee-amount").html( "$"+selectedFee );
-    if ($toggle.val() == "true")
-      $(".athlete-only").slideDown( function(){ $(".spectator-only").slideUp(); });
-    else
-      $(".spectator-only").slideDown( function(){ $(".athlete-only").slideUp(); });
-  });
+  /** Based on current user selections, calculate and update the registration fee
+   ** displayed on the form: **/
+  function updateFeeAndToggleFields() {
+    var $regAthleteToggle = $("#registration_athlete_true");
+    var $regSupporterToggle = $("#registration_athlete_false");
+    var $optInShirtToggle = $("#registration_uniform_shirt_true");
+    var $optOutShirtToggle = $("#registration_uniform_shirt_false");
 
-  /** Force the registration page to reflect the proper rate when it loads: **/
-  var selectedFee = $("#participation-type").find("input[type='radio']:checked").first().attr("data-fee");
-  if (selectedFee) { $("#waiver-fee-amount").html( "$"+selectedFee ); }
+    var regFee = 0;
+    if ($regAthleteToggle.is(":checked")) {
+      regFee += parseInt($regAthleteToggle.attr("data-fee"));
+      $optInShirtToggle.prop("checked",true);
+    }
+    else {
+      regFee += parseInt($regSupporterToggle.attr("data-fee"));
+      if ($optInShirtToggle.is(":checked")) { regFee += parseInt($optInShirtToggle.attr("data-fee")); }
+      else { regFee += parseInt($optOutShirtToggle.attr("data-fee")); }
+    }
+
+    $("#waiver-fee-amount").html( "$"+regFee );
+
+    if ($regAthleteToggle.is(":checked")) {
+      $(".spectator-only").slideUp( function(){ $(".athlete-only, .shirt-only").slideDown(); });
+    }
+    else {
+      $(".athlete-only").slideUp( function(){
+        $(".spectator-only").slideDown();
+        if ($optInShirtToggle.is(":checked"))
+          $(".shirt-only").slideDown();
+        else
+          $(".shirt-only").slideUp();
+      });
+
+    }
+  }
+
+  /** When users toggle fee-respective settings, update appropriate items on the page: **/
+  $("#registration_athlete_true, #registration_athlete_false, #registration_uniform_shirt_true, #registration_uniform_shirt_false").on("click", updateFeeAndToggleFields);
+  updateFeeAndToggleFields();
+
 
 
   /** Case-sensitive fields: **/

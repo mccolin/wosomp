@@ -18,7 +18,7 @@ class Registration < ActiveRecord::Base
 
   # Attributes:
   attr_accessible :user_id, :olympiad_id, :team_id, :captain, :uniform_name, :uniform_number, :uniform_size
-  attr_accessible :athlete, :paid, :agree_pay, :agree_waiver
+  attr_accessible :athlete, :paid, :agree_pay, :agree_waiver, :uniform_shirt
 
   # Validations:
   validates :team_id, :presence=>{:message=>"You didn't select a team to join"}
