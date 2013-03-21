@@ -128,7 +128,7 @@
         <p><em>No teammates, yet!</em></p>
       <% else -%>
         <p>
-        <% (@registration.team.registrations - @registration).each do |reg| -%>
+        <% @registration.team.registrations.each do |reg| -%>
           <%=reg.user.name-%> (<%=link_to reg.user.email, "mailto:#{reg.user.email}"-%>)<br/>
         <% end # registrations %>
         </p>
