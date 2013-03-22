@@ -158,6 +158,20 @@
     </p>
   </div>
   <% end # teams %>
+
+
+  <% if @unsigned_users.any? -%>
+  <div id="team-free-agents" class="span8">
+    <strong>WOSoMP Free Agents</strong>: <%= @unsigned_users.map(&:name).join(", ") %>
+    <br/>
+    <small>
+      <em>Free agents have created accounts, but not registered for <%=@olympiad.name-%>, yet.
+      If you know them, encourage them to join your team!</em><br/><br/>
+    </small>
+  </div>
+  <% end -%>
+
+
   <p style="clear:both;">
     <span class="hint">
       Soon, we'll add the ability for teams to customize their team colors and name. For now,

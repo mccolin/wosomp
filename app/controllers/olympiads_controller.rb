@@ -29,6 +29,7 @@ class OlympiadsController < ApplicationController
 
   # Register: Sign up to participate in an Olympiad:
   def register
+    @unsigned_users = @olympiad.unsigned_users()
     if @registration = Registration.for_user(current_user).for_olympiad(@olympiad).first
       flash.now[:notice] = "You have already registered for this event. Feel free to make changes to your registration, below."
     else

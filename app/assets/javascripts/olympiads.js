@@ -27,7 +27,7 @@ $(function(){
   $("#team-select .team.well").each(function(idx, el){
     if ( $(this).height() > tallestHeight ) { tallestHeight = $(this).height(); }
   });
-  $("#team-select .team.well").css("min-height", tallestHeight);
+  $("#team-select .team.well").css("min-height", tallestHeight+"px");
 
   /** Trigger all date-pickers: **/
   $("input[data-type=date]").datepicker({

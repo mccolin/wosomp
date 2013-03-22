@@ -54,6 +54,11 @@ class Olympiad < ActiveRecord::Base
     "#{location_address}, #{city_state_zip}".gsub(/\s/,"+")
   end
 
+  # Return a list of user accounts NOT registerred for this olympiad:
+  def unsigned_users
+    @unsigned_users ||= User.all - users
+  end
+
   # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
   class << self
 
