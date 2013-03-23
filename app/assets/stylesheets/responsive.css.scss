@@ -1,0 +1,44 @@
+/**
+ * WOSoMP
+ * Responsive Stylesheet - Specific Responsive things
+ *
+ * You can use Sass (SCSS) here: http://sass-lang.com/
+**/
+
+
+/* Large desktop */
+@media (min-width: 1200px) { }
+
+/* Portrait tablet to landscape and desktop */
+@media (min-width: 768px) and (max-width: 979px) { }
+
+/* Landscape phone to portrait tablet */
+@media (max-width: 767px) {
+  body {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
+  body.inside {
+    padding-top: 0;
+  }
+}
+
+/* Landscape phones and down */
+@media (max-width: 480px) {
+
+  #nav-wrapper.inside {
+    height: 30px;
+  }
+  ul#top-nav li {
+    font-size: 11px !important;
+    padding: 0.5em !important;
+  }
+  h1#logo.inside {
+    display:none;
+    -webkit-transform: scale(0.75);
+    -moz-transform: scale(0.75);
+    transform: scale(0.75);
+    top: -10px;
+    margin-right: -10px;
+  }
+}
