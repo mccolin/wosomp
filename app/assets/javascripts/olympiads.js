@@ -113,6 +113,10 @@ $(function(){
   $("#registration_uniform_number").on("change", function(e){ updateShirtNumber($(this).val()); });
   $("#registration_uniform_number").change();
 
+
+  /** Apply any tooltips: **/
+  $("[data-toggle='tooltip']").tooltip();
+
 });
 
 

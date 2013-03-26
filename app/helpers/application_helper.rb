@@ -63,7 +63,7 @@ module ApplicationHelper
     else
       inner_html += content_tag(:span, "Fan", :class=>"name") + content_tag(:span, "#1", :class=>"number")
     end
-    content_tag :div, inner_html.html_safe, :title=>reg.user.name, :class=>"athlete-icon shirt-#{reg.team.shirt_color} #{reg.captain? ? 'captain' : ''}", :style=>"inline-block"
+    content_tag :div, inner_html.html_safe, "data-toggle"=>"tooltip", "data-placement"=>"bottom", :title=>reg.user.name, :class=>"athlete-icon shirt-#{reg.team.shirt_color} #{reg.captain? ? 'captain' : ''}", :style=>"inline-block"
   end
 
 
