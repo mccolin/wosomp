@@ -37,6 +37,10 @@
 .team.well.unselected {
   background: #AAA;
   opacity: 0.6;
+  // background: rgba(0,0,0,0.1);
+  // border-left-color: rgba(0,0,0,0.2) !important;
+  // border-right-color: rgba(0,0,0,0.2) !important;
+  // border-bottom-color: rgba(0,0,0,0.2) !important;
 }
 .team.well button.selected { display: none; }
 .team.well.selected button.selected { display: inline-block; }
@@ -129,6 +133,8 @@
 }
 .athlete-icon .name {
   font-size: 9px;
+  max-height: 1.5em;
+  overflow-y: hidden;
   top: 10%;
 }
 .athlete-icon .number {
