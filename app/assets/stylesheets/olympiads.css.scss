@@ -95,6 +95,49 @@
 }
 
 
+.athlete-icon {
+  background: url(shirts/red.jpg) no-repeat;
+  -webkit-background-size: 50px 50px !important;
+  -moz-background-size: 50px 50px !important;
+  background-size: 50px 50px !important;
+  border: 1px solid #999;
+  border-radius: 5px;
+  display: inline-block;
+  margin: 5px;
+  position: relative;
+  width: 50px;
+  height: 50px;
+  vertical-align: middle;
+}
+.athlete-icon.captain {
+  border: 1px solid red;
+}
+.athlete-icon.shirt-black { background: url(shirts/black.jpg) no-repeat; }
+.athlete-icon.shirt-blue { background: url(shirts/blue.jpg) no-repeat; }
+.athlete-icon.shirt-gold { background: url(shirts/gold.jpg) no-repeat; }
+.athlete-icon.shirt-gray { background: url(shirts/gray.jpg) no-repeat; }
+.athlete-icon.shirt-green { background: url(shirts/green.jpg) no-repeat; }
+.athlete-icon.shirt-purple { background: url(shirts/purple.jpg) no-repeat; }
+.athlete-icon.shirt-red { background: url(shirts/red.jpg) no-repeat; }
+.athlete-icon .name, .athlete-icon .number {
+  color: #FFF;
+  font-family: CollegeRegular;
+  position: absolute;
+  text-align: center;
+  width: 100%;
+  left: 0;
+}
+.athlete-icon .name {
+  font-size: 9px;
+  top: 10%;
+}
+.athlete-icon .number {
+  font-size: 22px;
+  top: 40%;
+}
+
+
+
 table {
   border: 1px solid #CCC;
   border-radius: 5px;

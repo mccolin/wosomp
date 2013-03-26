@@ -129,7 +129,8 @@
       <% else -%>
         <p>
         <% @registration.team.registrations.each do |reg| -%>
-          <%=reg.user.name-%> (<%=link_to reg.user.email, "mailto:#{reg.user.email}"-%>)<br/>
+          <%=reg_icon(reg)-%>
+          <%=link_to reg.user.name, "mailto:#{reg.user.email}", :title=>"#{reg.user.name} - #{reg.user.email}" -%><br/>
         <% end # registrations %>
         </p>
       <% end -%>

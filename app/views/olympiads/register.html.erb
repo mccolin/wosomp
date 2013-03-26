@@ -148,7 +148,8 @@
         <em>Nobody yet. Be the first!</em>
       <% else %>
         <% team.registrations.each do |reg| %>
-          <%= reg.user.name -%> - <%= reg.role.to_s.capitalize -%><br/>
+          <%= reg_icon(reg) -%>
+          <!-- <%= reg.user.name -%> - <%= reg.role.to_s.capitalize -%><br/> -->
         <% end # registrations %>
       <% end %>
     </p>

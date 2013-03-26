@@ -55,6 +55,18 @@ module ApplicationHelper
   end
 
 
+  # Render an icon for an athlete registration:
+  def reg_icon(reg)
+    inner_html = ""
+    if reg.athlete?
+      inner_html += content_tag(:span, reg.uniform_name, :class=>"name") + content_tag(:span, reg.uniform_number, :class=>"number")
+    else
+      inner_html += content_tag(:span, "Fan", :class=>"name") + content_tag(:span, "#1", :class=>"number")
+    end
+    content_tag :div, inner_html.html_safe, :title=>reg.user.name, :class=>"athlete-icon shirt-#{reg.team.shirt_color} #{reg.captain? ? 'captain' : ''}", :style=>"inline-block"
+  end
+
+
   # Return the next/upcoming Olympiad:
   def next_olympiad
     @next_olympiad ||= Olympiad.next_olympiad()
