@@ -116,16 +116,21 @@
 .athlete-icon.captain {
   border: 1px solid red;
 }
-<% Team.shirt_colors.each do |color| %>
-.athlete-icon.shirt-<%=color%> { background: url(shirts/<%=color%>.jpg) no-repeat; }
-<% end %>
-// .athlete-icon.shirt-black { background: url(shirts/black.jpg) no-repeat; }
-// .athlete-icon.shirt-blue { background: url(shirts/blue.jpg) no-repeat; }
-// .athlete-icon.shirt-gold { background: url(shirts/gold.jpg) no-repeat; }
-// .athlete-icon.shirt-gray { background: url(shirts/gray.jpg) no-repeat; }
-// .athlete-icon.shirt-green { background: url(shirts/green.jpg) no-repeat; }
-// .athlete-icon.shirt-purple { background: url(shirts/purple.jpg) no-repeat; }
-// .athlete-icon.shirt-red { background: url(shirts/red.jpg) no-repeat; }
+.athlete-icon.shirt-black { background: url(shirts/black.jpg) no-repeat; }
+.athlete-icon.shirt-blue { background: url(shirts/blue.jpg) no-repeat; }
+.athlete-icon.shirt-brown { background: url(shirts/brown.jpg) no-repeat; }
+.athlete-icon.shirt-gold { background: url(shirts/gold.jpg) no-repeat; }
+.athlete-icon.shirt-gray { background: url(shirts/gray.jpg) no-repeat; }
+.athlete-icon.shirt-green { background: url(shirts/green.jpg) no-repeat; }
+.athlete-icon.shirt-heather { background: url(shirts/heather.jpg) no-repeat; }
+.athlete-icon.shirt-kiwi { background: url(shirts/kiwi.jpg) no-repeat; }
+.athlete-icon.shirt-maroon { background: url(shirts/maroon.jpg) no-repeat; }
+.athlete-icon.shirt-orange { background: url(shirts/orange.jpg) no-repeat; }
+.athlete-icon.shirt-purple { background: url(shirts/purple.jpg) no-repeat; }
+.athlete-icon.shirt-red { background: url(shirts/red.jpg) no-repeat; }
+.athlete-icon.shirt-royal { background: url(shirts/royal.jpg) no-repeat; }
+.athlete-icon.shirt-sand { background: url(shirts/sand.jpg) no-repeat; }
+.athlete-icon.shirt-teal { background: url(shirts/teal.jpg) no-repeat; }
 .athlete-icon .name, .athlete-icon .number {
   color: #FFF;
   font-family: CollegeRegular;
