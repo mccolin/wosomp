@@ -69,6 +69,15 @@ module ApplicationHelper
     content_tag :div, inner_html.html_safe, "data-toggle"=>"tooltip", "data-placement"=>"bottom", :title=>tooltip_text, :class=>"athlete-icon shirt-#{reg.team.shirt_color} #{reg.captain? ? 'captain' : ''}", :style=>"inline-block"
   end
 
+  # Render a registration's shirt for display on confirmation:
+  def reg_shirt(reg)
+    content_tag :div, :id=>"shirt", :class=>"bigger" do
+      image_tag("shirts/#{reg.team.shirt_color || 'red'}.jpg", :class=>"selected") +
+      content_tag(:span, reg.uniform_name, :class=>"name") +
+      content_tag(:span, reg.uniform_number, :class=>"number")
+    end
+  end
+
 
   # Return the next/upcoming Olympiad:
   def next_olympiad

@@ -11,16 +11,15 @@ ActiveAdmin.register_page "Dashboard" do
     # end
 
     columns do
-      Olympiad.next_olympiad.teams.each do |team|
+      olympiad = Olympiad.next_olympiad
+      olympiad.teams.each do |team|
         column do
           h2 :style=>"color:#{team.color1_code};" do
             span team.name
           end
           panel "Athletes (#{team.athletes.count})" do
-            ul do
-              team.athletes.each do |u|
-                li u.name
-              end
+            team.registrations.where(:athlete=>true).order(:uniform_number).each do |r|
+              span reg_icon(r)
             end
           end # panel
           panel "Fans/Supporters (#{team.supporters.count})" do
