@@ -72,6 +72,7 @@
     <% if @registration.uniform_shirt? -%>
     <table>
     <tbody>
+      <% if @registration.athlete? -%>
       <tr>
         <th>Uniform Name</th>
         <td><%=@registration.uniform_name-%></td>
@@ -80,6 +81,7 @@
         <th>Uniform Number</th>
         <td><%=@registration.uniform_number-%></td>
       </tr>
+      <% end # athlete? -%>
       <tr>
         <th>Shirt Size</th>
         <td><%=@registration.uniform_size-%></td>
