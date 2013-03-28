@@ -16,7 +16,7 @@ class Team < ActiveRecord::Base
   attr_accessible :user_ids
 
   def self.shirt_colors
-    %w(black brown gray heather maroon purple royal teal blue gold green kiwi orange red sand)
+    %w(black blue brown green gold gray kiwi heather maroon purple orange red royal sand teal)
   end
 
 
@@ -35,6 +35,10 @@ class Team < ActiveRecord::Base
 
   def colors
     [color1, color2].join(" & ")
+  end
+
+  def member?(user)
+    users.include?(user)
   end
 
 end

@@ -18,8 +18,8 @@ $(function(){
     $teamWell.removeClass("unselected").addClass("selected");
 
     var teamShirtColor = $teamWell.attr("data-shirt-color");
-    $("#shirt img").removeClass("selected");
-    $("#shirt img.shirt-"+teamShirtColor).addClass("selected");
+    $("div.shirt-preview img").removeClass("selected");
+    $("div.shirt-preview img.shirt-"+teamShirtColor).addClass("selected");
   });
 
   /** On registration page, set all team select wells to same height: **/
@@ -85,18 +85,18 @@ $(function(){
 
   /** Set the shirt container to the height of the shirt: **/
   function shirtResize() {
-    $shirtContainer = $("#shirt");
+    $shirtContainer = $("div.shirt-preview");
     if ($shirtContainer)
       $shirtContainer.height( $shirtContainer.find("img").first().height() );
   }
   $(window).on("resize", shirtResize); // function(e){ shirtResize(); });
-  $("#shirt img").on("load", shirtResize)
+  $("div.shirt-preview img").on("load", shirtResize)
   shirtResize();
 
   /** Update the name on the shirt design: **/
   function updateShirtName(name) {
     if (name) {
-      $shirtContainer = $("#shirt");
+      $shirtContainer = $("div.shirt-preview");
       $shirtContainer.find("span.name").first().html(name);
     }
   }
@@ -106,7 +106,7 @@ $(function(){
   /** Update the number on the shirt design: **/
   function updateShirtNumber(num) {
     if (num) {
-      $shirtContainer = $("#shirt");
+      $shirtContainer = $("div.shirt-preview");
       $shirtContainer.find("span.number").first().html(num);
     }
   }
@@ -114,8 +114,25 @@ $(function(){
   $("#registration_uniform_number").change();
 
 
+  /** When captain is editing team shirt, update colors: */
+  $("select#team_shirt_color").on("change", function(e){
+    var $select = $(this);
+    var teamShirtColor = $select.val();
+    $("div.shirt-preview img").removeClass("selected");
+    $("div.shirt-preview img.shirt-"+teamShirtColor).addClass("selected");
+  });
+
+
   /** Apply any tooltips: **/
   $("[data-toggle='tooltip']").tooltip();
+
+
+  /** Activate any tabs: **/
+  $("#tab-navigation a").click(function(e){
+    e.preventDefault();
+    $(this).tab("show");
+  });
+
 
 });
 

@@ -49,13 +49,13 @@
 .team.well.unselected button.unselected { display: inline-block; }
 
 
-#shirt {
+div.shirt-preview {
   border: 1px solid #999;
   border-radius: 5px;
   min-height: 210px;
   position: relative;
 }
-#shirt img {
+div.shirt-preview img {
   display: none;
   position: absolute;
   width: 100%;
@@ -63,10 +63,10 @@
   left: 0;
   z-index: 1;
 }
-#shirt img.selected, #shirt img.stunt-shirt {
+div.shirt-preview img.selected, div.shirt-preview img.stunt-shirt {
   display: block;
 }
-#shirt .name, #shirt .number {
+div.shirt-preview .name, div.shirt-preview .number {
   color: #FFF;
   clear: both;
   display: block;
@@ -77,23 +77,23 @@
   width: 100%;
   z-index: 2;
 }
-#shirt .name {
+div.shirt-preview .name {
   font-family: CollegeRegular;
   font-size: 25px;
   top: 40px;
   left: 0;
 }
-#shirt.bigger .name {
+div.shirt-preview.bigger .name {
   top: 55px;
   font-size: 40px;
 }
-#shirt .number {
+div.shirt-preview .number {
   font-family: CollegeRegular;
   font-size: 80px;
   top: 95px;
   left: 0;
 }
-#shirt.bigger .number {
+div.shirt-preview.bigger .number {
   top: 160px;
   font-size: 150px;
 }
@@ -152,22 +152,27 @@
 
 
 
-table {
+table.registration-table {
   border: 1px solid #CCC;
   border-radius: 5px;
   margin: 0 0 2em;
   width: 95%;
 }
-table th {
+table.registration-table th {
   background: #DDD;
   font-weight: bold;
   text-align: left;
   vertical-align: top;
   width: 33%;
 }
-table th, table td {
+table.registration-table th, table.registration-table td {
   border-color: #CCC;
   border-style: solid;
   border-width: 0 1px 1px 0;
   padding: 0.5em;
 }
+
+#tab-navigation li:first-child {
+  margin-left: 2em;
+}
+

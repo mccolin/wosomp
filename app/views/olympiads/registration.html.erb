@@ -21,133 +21,237 @@
 </div>
 
 <div class="row">
-
-    <div class="span7">
-    <h2>Details</h2>
-
-    <table>
-    <tbody>
-      <tr>
-        <th>Your Name</th>
-        <td><%=@registration.user.name-%></td>
-      </tr>
-      <tr>
-        <th>Your Email</th>
-        <td><%=link_to @registration.user.email, "mailto:#{@registration.user.email}"-%></td>
-      </tr>
-      <tr>
-        <th>Your Birthday</th>
-        <td><%=@registration.user.birthday.try(:strftime, "%B %0d, %Y")-%></td>
-      </tr>
-      <tr>
-        <th>Your Gender</th>
-        <td style="text-transform:capitalize;">
-          <%=@registration.user.gender-%>
-        </td>
-      </tr>
-      <tr>
-        <th>Your Bio</th>
-        <td><%=@registration.user.bio-%></td>
-      </tr>
-    </tbody>
-    </table>
-
-    <% if @registration.athlete? || @registration.uniform_shirt? %>
-    <table>
-    <tbody>
-      <tr>
-        <th>Your Team</th>
-        <td style="font-weight:bold; background-color:<%=@registration.team.color1_code-%>; color:<%=@registration.team.color2_code-%>">
-          <%=@registration.team.name-%>
-        </td>
-      </tr>
-      <tr>
-        <th>Team Role</th>
-        <td><%=@registration.role.capitalize-%></td>
-      </tr>
-    </tbody>
-    </table>
-    <% end # if %>
-
-    <% if @registration.uniform_shirt? -%>
-    <table>
-    <tbody>
-      <% if @registration.athlete? -%>
-      <tr>
-        <th>Uniform Name</th>
-        <td><%=@registration.uniform_name-%></td>
-      </tr>
-      <tr>
-        <th>Uniform Number</th>
-        <td><%=@registration.uniform_number-%></td>
-      </tr>
-      <% end # athlete? -%>
-      <tr>
-        <th>Shirt Size</th>
-        <td><%=@registration.uniform_size-%></td>
-      </tr>
-    </tbody>
-    </table>
-    <% end -%>
-
-    <p>
-      <%=link_to "Edit Your Registration", register_olympiad_path(@olympiad), :class=>"btn btn-primary" -%>
-      <br/><small>
-        Changes can be made through <%=@olympiad.registration_ends_at.strftime("%A, %B %0d, %Y")-%>
-        (<%=distance_of_time_in_words(DateTime.now, @olympiad.registration_ends_at)-%> from now)
-      </small>
-    </p>
-
-    <p style="margin-top:3em;">
-      <%=button_to "Cancel Registration", unregister_olympiad_path(@olympiad), :method=>:delete,
-      :confirm=>"Are you sure you want to cancel your registration? Your registration will be deleted and if you change your mind, you'll have to re-register before the deadline.",
-      :class=>"btn btn-danger" -%>
-      <small>
-        Canceling a registration is only reversible by re-registering. Plus, why would you want to miss
-        out on something like WOSoMP!?
-      </small>
-    </p>
-
-    <p>&nbsp;</p>
-
-
-  </div> <!--/details-->
-
-  <div class="span4" style="">
-    <% if @registration.athlete? -%>
-    <h2>Your Uniform</h2>
-    <div id="shirt" class="bigger">
-      <%=image_tag "shirts/#{@registration.team.shirt_color || 'red'}.jpg", :class=>"selected" -%>
-      <span class="name"><%=@registration.uniform_name-%></span>
-      <span class="number"><%=@registration.uniform_number-%></span>
-    </div>
+  <ul class="nav nav-tabs" id="tab-navigation" data-tabs="tabs">
+    <li class="<%=@active_tab=="me" ? "active" : ""-%>"><a href="#me" data-toggle="tab">Your Info</a></li>
+    <% if @registration.captain? %>
+      <li class="<%=@active_tab=="team" ? "active" : ""-%>"><a href="#team" data-toggle="tab">Captain: Edit Team</a></li>
     <% end %>
-
-    <% if @registration.team -%>
-      <h2>Your Team</h2>
-      <p>Team Role: <%=@registration.role.capitalize-%></p>
-      <% if @registration.team.registrations.count <= 1 -%>
-        <p><em>No teammates, yet!</em></p>
-      <% else -%>
-        <p>
-        <% @registration.team.registrations.each do |reg| -%>
-          <%=reg_icon(reg)-%>
-          <%=link_to reg.user.name, "mailto:#{reg.user.email}", :title=>"#{reg.user.name} - #{reg.user.email}" -%><br/>
-        <% end # registrations %>
-        </p>
-      <% end -%>
-    <% end -%>
-
-    <p><em>Share the joy of WOSoMP with your friends and tell them to sign up for your team:</em></p>
-    <p>
-      <div class="fb-like" data-href="http://www.facebook.com/wosomp" data-send="true" data-layout="button_count" data-width="450" data-show-faces="false"></div>
-      <br/><br/>
-      <a href="https://twitter.com/share" class="twitter-share-button" data-url="http://wosomp.com" data-text="Join my team in the WOSoMP Backyard Olympics on May 4th in Kennett Square, PA!" data-via="wosomp" data-hashtags="wosomp">Tweet</a>
-      <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
-    </p>
-  </div>
-
-
-
-
+  </ul>
 </div>
+
+
+<div class="tab-content">
+
+  <!-- Personal Details -->
+  <div class="row tab-pane <%=@active_tab=="me" ? "active" : ""-%>" id="me">
+    <div class="span7">
+      <h3>Your Details</h3>
+
+      <table class="registration-table">
+      <tbody>
+        <tr>
+          <th>Your Name</th>
+          <td><%=@registration.user.name-%></td>
+        </tr>
+        <tr>
+          <th>Your Email</th>
+          <td><%=link_to @registration.user.email, "mailto:#{@registration.user.email}"-%></td>
+        </tr>
+        <tr>
+          <th>Your Birthday</th>
+          <td><%=@registration.user.birthday.try(:strftime, "%B %0d, %Y")-%></td>
+        </tr>
+        <tr>
+          <th>Your Gender</th>
+          <td style="text-transform:capitalize;">
+            <%=@registration.user.gender-%>
+          </td>
+        </tr>
+        <tr>
+          <th>Your Bio</th>
+          <td><%=@registration.user.bio-%></td>
+        </tr>
+      </tbody>
+      </table>
+
+      <% if @registration.athlete? || @registration.uniform_shirt? %>
+      <table class="registration-table">
+      <tbody>
+        <tr>
+          <th>Your Team</th>
+          <td style="font-weight:bold; background-color:<%=@registration.team.color1_code-%>; color:<%=@registration.team.color2_code-%>">
+            <%=@registration.team.name-%>
+          </td>
+        </tr>
+        <tr>
+          <th>Team Role</th>
+          <td><%=@registration.role.capitalize-%></td>
+        </tr>
+      </tbody>
+      </table>
+      <% end # if %>
+
+      <% if @registration.uniform_shirt? -%>
+      <table class="registration-table">
+      <tbody>
+        <% if @registration.athlete? -%>
+        <tr>
+          <th>Uniform Name</th>
+          <td><%=@registration.uniform_name-%></td>
+        </tr>
+        <tr>
+          <th>Uniform Number</th>
+          <td><%=@registration.uniform_number-%></td>
+        </tr>
+        <% end # athlete? -%>
+        <tr>
+          <th>Shirt Size</th>
+          <td><%=@registration.uniform_size-%></td>
+        </tr>
+      </tbody>
+      </table>
+      <% end -%>
+
+      <p>
+        <%=link_to "Edit Your Registration", register_olympiad_path(@olympiad), :class=>"btn btn-primary" -%>
+        <br/><small>
+          Changes can be made through <%=@olympiad.registration_ends_at.strftime("%A, %B %0d, %Y")-%>
+          (<%=distance_of_time_in_words(DateTime.now, @olympiad.registration_ends_at)-%> from now)
+        </small>
+      </p>
+
+      <p style="margin-top:3em;">
+        <%=button_to "Cancel Registration", unregister_olympiad_path(@olympiad), :method=>:delete,
+        :confirm=>"Are you sure you want to cancel your registration? Your registration will be deleted and if you change your mind, you'll have to re-register before the deadline.",
+        :class=>"btn btn-danger" -%>
+        <small>
+          Canceling a registration is only reversible by re-registering. Plus, why would you want to miss
+          out on something like WOSoMP!?
+        </small>
+      </p>
+
+      <p>&nbsp;</p>
+
+
+    </div> <!--/details-->
+
+    <div class="span4" style="">
+      <% if @registration.athlete? -%>
+      <h3>Your Uniform</h3>
+      <div class="shirt-preview bigger">
+        <%=image_tag "shirts/gray.jpg", :class=>"stunt-shirt" -%>
+        <% Team.shirt_colors.each do |color| -%>
+          <% css_class = @registration.team && @registration.team.shirt_color == color ? "shirt-#{color} selected" : "shirt-#{color}" -%>
+          <%=image_tag "shirts/#{color}.jpg", :class=>css_class -%>
+        <% end -%>
+        <span class="name"><%=@registration.uniform_name-%></span>
+        <span class="number"><%=@registration.uniform_number-%></span>
+      </div>
+      <% end %>
+
+      <% if @registration.team -%>
+        <h3>Your Team</h3>
+        <p>Team Role: <%=@registration.role.capitalize-%></p>
+        <% if @registration.team.registrations.count <= 1 -%>
+          <p><em>No teammates, yet!</em></p>
+        <% else -%>
+          <p>
+          <% @registration.team.registrations.each do |reg| -%>
+            <%=reg_icon(reg)-%>
+            <%=link_to reg.user.name, "mailto:#{reg.user.email}", :title=>"#{reg.user.name} - #{reg.user.email}" -%><br/>
+          <% end # registrations %>
+          </p>
+        <% end -%>
+      <% end -%>
+
+      <p><em>Share the joy of WOSoMP with your friends and tell them to sign up for your team:</em></p>
+      <p>
+        <div class="fb-like" data-href="http://www.facebook.com/wosomp" data-send="true" data-layout="button_count" data-width="450" data-show-faces="false"></div>
+        <br/><br/>
+        <a href="https://twitter.com/share" class="twitter-share-button" data-url="http://wosomp.com" data-text="Join my team in the WOSoMP Backyard Olympics on May 4th in Kennett Square, PA!" data-via="wosomp" data-hashtags="wosomp">Tweet</a>
+        <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+      </p>
+    </div>
+
+  </div> <!--/#me-->
+
+
+  <% if @registration.captain? -%>
+  <!-- Captains Panel: Edit Team -->
+  <div class="row tab-pane <%=@active_tab=="team" ? "active" : ""-%>" id="team" style="min-height:800px;">
+
+    <div id="team-fields" class="span7">
+      <h3>Edit Your Team</h3>
+      <p><em>Only captains have access to this view</em></p>
+
+      <%=form_for @registration.team, :url=>save_team_olympiad_path(@olympiad), :html=>{:method=>:post, :class=>"form-horizontal"} do |f| %>
+        <%= f.hidden_field :id, :value=>@registration.team.id %>
+
+        <div class="control-group">
+          <%= f.label :name, :class=>"control-label" %>
+          <div class="controls">
+            <%= f.text_field :name, :placeholder=>"Team Name" %>
+          </div>
+        </div>
+        <div class="control-group">
+          <%= f.label :shirt_color, "Shirt Color", :class=>"control-label" %>
+          <div class="controls">
+            <%= f.select :shirt_color, Team.shirt_colors.collect{|c| [c.capitalize, c]}, :class=>"input-medium" %>
+          </div>
+        </div>
+        <div class="control-group">
+          <%= f.label :color1, "Display Primary Color", :class=>"control-label" %>
+          <div class="controls">
+            <%= f.text_field :color1, :placeholder=>"e.g., Orange, Red, Black" %>
+            <%= f.text_field :color1_code, :placeholder=>"#FFF" %>
+          </div>
+        </div>
+        <div class="control-group">
+          <%= f.label :color2, "Display Secondary Color", :class=>"control-label" %>
+          <div class="controls">
+            <%= f.text_field :color2, :placeholder=>"e.g., White, Grey, Black" %>
+            <%= f.text_field :color2_code, :placeholder=>"#FFF" %>
+          </div>
+        </div>
+        <div class="control-group">
+          <%= f.label :bio, "Team Bio", :class=>"control-label" %>
+          <div class="controls">
+            <%= f.text_area :bio, :rows=>3, :class=>"input-xlarge", :placeholder=>"Tell us about your team's ruthless sensibilities or caring, respectful attitude." %>
+          </div>
+        </div>
+
+
+        <div class="control-group">
+          <div class="controls">
+            <%= f.submit "Save Team", :class=>"btn btn-success" %>
+            <%= f.button "Reset Form", :type=>"reset", :class=>"btn" %>
+          </div>
+        </div>
+
+      <% end # form %>
+
+    </div> <!--/#team-fields-->
+
+    <div id="team-preview" class="span4">
+      <h3>Team Insignia</h3>
+
+      <table id="preview-colors" class="registration-table">
+      <tbody>
+        <tr>
+          <th>Display:</th>
+          <td style="font-weight:bold; background-color:<%=@registration.team.color1_code-%>; color:<%=@registration.team.color2_code-%>">
+            <%=@registration.team.name-%>
+          </td>
+        </tr>
+      </tbody>
+      </table>
+
+      <div class="shirt-preview bigger">
+        <%=image_tag "shirts/gray.jpg", :class=>"stunt-shirt" -%>
+        <% Team.shirt_colors.each do |color| -%>
+          <% css_class = @registration.team && @registration.team.shirt_color == color ? "shirt-#{color} selected" : "shirt-#{color}" -%>
+          <%=image_tag "shirts/#{color}.jpg", :class=>css_class -%>
+        <% end -%>
+        <span class="name">WOSOMP</span>
+        <span class="number">13</span>
+      </div>
+
+      <div style="clear:both;"></div>
+
+    </div> <!--/#team-preview-->
+
+  </div> <!--/#team-->
+  <% end # if captain? %>
+
+
+</div> <!--/.tab-content-->

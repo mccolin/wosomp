@@ -42,6 +42,7 @@ class OlympiadsController < ApplicationController
   # Registration: View/Edit your existing registration:
   def registration
     @registration = Registration.for_user(current_user).for_olympiad(@olympiad).first
+    @active_tab = params[:page] || "me"
     redirect_to :action=>"register" unless @registration
   end
 
@@ -84,6 +85,18 @@ class OlympiadsController < ApplicationController
   def unregister
     @registration.destroy if @registration = Registration.for_user(current_user).for_olympiad(@olympiad).first
     flash.now[:success] = "Your registration for #{@olympiad.name} has been cancelled."
+  end
+
+
+  def save_team
+    team_data = params[:team]
+    begin
+      team = Team.where(:id=>team_data[:id]).first
+      if team && registration = Registration.on_team(team).for_user(current_user).first
+        team.update_attributes(team_data) if registration.captain?
+      end
+    end
+    redirect_to :action=>"registration", :page=>"team"
   end
 
 
