@@ -22,6 +22,9 @@ class Registration < ActiveRecord::Base
 
   # Validations:
   validates :team_id, :presence=>{:message=>"You didn't select a team to join"}
+  with_options :if=>:uniform_shirt do |r|
+    r.validates :uniform_size, :presence=>{:message=>"Tell us your shirt size"}
+  end
   with_options :if=>:athlete do |r|
     r.validates :uniform_size, :presence=>{:message=>"Tell us your shirt size for your uniform"}
     r.validates :uniform_name, :presence=>{:message=>"Provide a kickass name for the back of your uniform"}

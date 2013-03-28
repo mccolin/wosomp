@@ -30,10 +30,12 @@ class OlympiadsController < ApplicationController
   # Register: Sign up to participate in an Olympiad:
   def register
     @unsigned_users = @olympiad.unsigned_users()
-    if @registration = Registration.for_user(current_user).for_olympiad(@olympiad).first
-      flash.now[:notice] = "You have already registered for this event. Feel free to make changes to your registration, below."
-    else
-      @registration = Registration.new
+    unless @registration
+      if @registration = Registration.for_user(current_user).for_olympiad(@olympiad).first
+        flash.now[:notice] = "You have already registered for this event. Feel free to make changes to your registration, below."
+      else
+        @registration = Registration.new
+      end
     end
   end
 
@@ -51,7 +53,7 @@ class OlympiadsController < ApplicationController
         current_user.update_attributes(user_data)
         reg_data[:user_id] = current_user.id
         #user_data[:birthday] = Date.strptime(user_data[:birthday], "%m/%d/%Y").to_s
-        logger.info "Converted date: #{user_data[:birthday]} #{user_data[:birthday].inspect}"
+
         reg_id = reg_data.delete(:id)
         unless reg_id.blank?
           @registration = Registration.where(:id=>reg_id).first
@@ -59,11 +61,18 @@ class OlympiadsController < ApplicationController
         else
           @registration = Registration.create(reg_data)
         end
-        raise Exception.new("Unable to save your registration") if current_user.errors.any? || @registration.errors.any?
+
+        if current_user.errors.any? || @registration.errors.any?
+          error_messages = {user: current_user.errors.to_hash, registration: @registration.errors.to_hash}
+          raise Exception.new("Unable to save your registration. #{error_messages.to_s}")
+        end
+
       end # transaction
     rescue Exception => e # ActiveRecord::RecordInvalid
+      logger.debug "==="
       logger.debug "Unable to save Registration: #{e.message}"
-      #flash.now[:error] = "We were unable to save your registration. Correct the errors on the form before continuing."
+      @registration ||= Registration.new(reg_data)
+      register
       render :action=>"register"
       return
     else
