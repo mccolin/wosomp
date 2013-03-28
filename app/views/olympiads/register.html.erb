@@ -172,13 +172,6 @@
   </div>
   <% end -%>
 
-
-  <p style="clear:both;">
-    <span class="hint">
-      Soon, we'll add the ability for teams to customize their team colors and name. For now,
-      organize your friends together. We'll open up the customizations soon!
-    </span>
-  </p>
 </div> <!--/#team-select-->
 <div class="row reg-form-section stack-labels athlete-only" style="<%=@registration.athlete? ? "" : "display:none;"-%>">
   <p>
@@ -187,8 +180,8 @@
     <label class="radio"><%= f.radio_button :captain, false %> Nope</label>
     <br/>
     <span class="hint">
-      Captains are the first people we contact when we need to notify your team of any changes.
-      They also coordinate team name, color, and strategy decisions.
+      <b>Captains can change the name and color of their teams</b>. Also, we contact them first
+      when we need to notify your team of any changes.
     </span>
   </p>
 </div>
@@ -212,7 +205,8 @@
       <%= f.label :uniform_number, "Number on Shirt:" -%>
       <%= f.text_field :uniform_number, :placeholder=>"XX", :class=>"input-mini", :maxlength=>2 -%>
       <span class="hint">
-        All of your teammates and supporters will wear the same shirt color.
+        All of your teammates and supporters will wear the same shirt color, which
+        is selected by the captains.
       </span>
     </p>
   </div>

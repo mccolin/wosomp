@@ -193,14 +193,14 @@
           <%= f.label :color1, "Display Primary Color", :class=>"control-label" %>
           <div class="controls">
             <%= f.text_field :color1, :placeholder=>"e.g., Orange, Red, Black" %>
-            <%= f.text_field :color1_code, :placeholder=>"#FFF" %>
+            <%= f.text_field :color1_code, :placeholder=>"#FFF", "data-type"=>"color" %>
           </div>
         </div>
         <div class="control-group">
           <%= f.label :color2, "Display Secondary Color", :class=>"control-label" %>
           <div class="controls">
             <%= f.text_field :color2, :placeholder=>"e.g., White, Grey, Black" %>
-            <%= f.text_field :color2_code, :placeholder=>"#FFF" %>
+            <%= f.text_field :color2_code, :placeholder=>"#FFF", "data-type"=>"color" %>
           </div>
         </div>
         <div class="control-group">
@@ -229,7 +229,7 @@
       <tbody>
         <tr>
           <th>Display:</th>
-          <td style="font-weight:bold; background-color:<%=@registration.team.color1_code-%>; color:<%=@registration.team.color2_code-%>">
+          <td id="team-colors-preview" style="font-weight:bold; background-color:<%=@registration.team.color1_code-%>; color:<%=@registration.team.color2_code-%>">
             <%=@registration.team.name-%>
           </td>
         </tr>

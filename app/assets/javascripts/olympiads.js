@@ -134,6 +134,15 @@ $(function(){
   });
 
 
+  /** Trigger any color selectors on the page: **/
+  $("#team_color1_code").colorpicker().on("changeColor", function(ev){
+    $("#team-colors-preview").css("background-color", ev.color.toHex());
+  });
+  $("#team_color2_code").colorpicker().on("changeColor", function(ev){
+    $("#team-colors-preview").css("color", ev.color.toHex());
+  });
+
+
 });
 
 
