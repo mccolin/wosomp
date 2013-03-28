@@ -42,5 +42,9 @@ class Registration < ActiveRecord::Base
     athlete? ? (captain? ? :captain : :athlete) : :supporter
   end
 
+  def fee
+    athlete? ? 30 : (uniform_shirt? ? 20 : 10)
+  end
+
 
 end

@@ -59,21 +59,50 @@ ActiveAdmin.register Olympiad do
         link_to(team.name, [:admin, team])
       end
     end
-    attributes_table do
-      row :location_name
-      row :location_address
-      row :location_city
-      row :location_state
-      row :location_zip
-      row :location_info
+    panel "Host Location" do
+      attributes_table_for olympiad do
+        row :location_name
+        row :location_address
+        row :location_city
+        row :location_state
+        row :location_zip
+        row :location_info
+      end
     end
-    attributes_table do
-      row :begins_at
-      row :ends_at
-      row :planning_begins_at
-      row :planning_ends_at
-      row :registration_begins_at
-      row :registration_ends_at
+    panel "Timing" do
+      attributes_table_for olympiad do
+        row :begins_at
+        row :ends_at
+        row :planning_begins_at
+        row :planning_ends_at
+        row :registration_begins_at
+        row :registration_ends_at
+      end
+    end
+
+    # Shirt Order:
+    panel "Registrations / Shirt Order Details" do
+      table_for olympiad.registrations.includes(:team, :user).order(:team_id, :uniform_number) do
+        column "Registration" do |reg|
+          link_to reg.name, [:admin, reg]
+        end
+        column :role
+        column "Color" do |reg|
+          reg.team.shirt_color
+        end
+        column "Size" do |reg|
+          reg.athlete? || reg.uniform_shirt? ? reg.uniform_size : nil
+        end
+        column "Num" do |reg|
+          reg.athlete? ? reg.uniform_number : nil
+        end
+        column "Name" do |reg|
+          reg.athlete? ? reg.uniform_name : nil
+        end
+        column "" do |reg|
+          link_to "View", [:admin, reg]
+        end
+      end
     end
   end
 

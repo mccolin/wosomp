@@ -43,27 +43,46 @@ ActiveAdmin.register Registration do
 
   # Show:
   show do
-    attributes_table do
-      row :olympiad
-      row :user
-      row :team
-      row :athlete
-      row :captain
-    end
-    if registration.athlete? || registration.uniform_shirt
-      attributes_table do
-        row :uniform_shirt
-        row :uniform_size
-        row :uniform_name
-        row :uniform_number
+    panel "Connections" do
+      attributes_table_for registration do
+        row :olympiad
+        row :user
+        row :team
+        row :athlete
+        row :captain
+        row "Fee" do |reg|
+          "$#{reg.fee}"
+        end
       end
     end
-    attributes_table do
-      row :agree_pay
-      row :agree_waiver
-      row :paid
-      row :created_at
-      row :updated_at
+    if registration.athlete? || registration.uniform_shirt?
+      panel "Shirt" do
+        attributes_table_for registration do
+          row "Receives Uniform?" do |reg|
+            reg.uniform_shirt? ? status_tag("Yes", :ok) : status_tag("No", :warn)
+          end
+          row :uniform_size
+          if registration.athlete?
+            row :uniform_name
+            row :uniform_number
+          end
+        end
+      end
+    end
+    panel "Agreements, Timing" do
+      attributes_table_for registration do
+        row "Agrees to Pay?" do |reg|
+          reg.agree_pay? ? status_tag("Yes", :ok) : status_tag("No", :warn)
+        end
+        row "Agrees to Waiver?" do |reg|
+          reg.agree_waiver? ? status_tag("Yes", :ok) : status_tag("No", :warn)
+        end
+        row "Has Paid?" do |reg|
+          reg.paid? ? status_tag("Yes", :ok) : status_tag("No", :warn)
+        end
+        row :created_at
+        row :updated_at
+      end
     end
   end
 
