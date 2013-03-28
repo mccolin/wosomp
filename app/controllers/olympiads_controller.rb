@@ -96,6 +96,7 @@ class OlympiadsController < ApplicationController
         team.update_attributes(team_data) if registration.captain?
       end
     end
+    flash[:success] = "Your team changes were saved successfully. Check them out:"
     redirect_to :action=>"registration", :page=>"team"
   end
 
