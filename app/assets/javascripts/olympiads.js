@@ -120,6 +120,19 @@ $(function(){
     var teamShirtColor = $select.val();
     $("div.shirt-preview img").removeClass("selected");
     $("div.shirt-preview img.shirt-"+teamShirtColor).addClass("selected");
+    if (drawShirt) {
+      drawShirt({image: $("div.shirt-preview img.selected").first().prop("src") });
+    }
+  });
+
+  /** Allow teammembers to preview each other's shirts on the Registration review page: **/
+  $("div.athlete-icon.previewable").on("click", function(e){
+    if (drawShirt) {
+      var $icon = $(this);
+      var athleteName = $icon.find(".name").first().html();
+      var athleteNumber = $icon.find(".number").first().html();
+      drawShirt({name: athleteName, number: athleteNumber});
+    }
   });
 
 

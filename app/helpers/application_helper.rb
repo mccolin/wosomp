@@ -56,7 +56,7 @@ module ApplicationHelper
 
 
   # Render an icon for an athlete registration:
-  def reg_icon(reg)
+  def reg_icon(reg, html_classes="")
     inner_html = ""
     tooltip_text = reg.user.name
     if reg.athlete?
@@ -66,7 +66,7 @@ module ApplicationHelper
       inner_html += content_tag(:span, "Fan", :class=>"name") + content_tag(:span, "#1", :class=>"number")
       tooltip_text += " - Supporter"
     end
-    content_tag :div, inner_html.html_safe, "data-toggle"=>"tooltip", "data-placement"=>"bottom", :title=>tooltip_text, :class=>"athlete-icon shirt-#{reg.team.shirt_color} #{reg.captain? ? 'captain' : ''}", :style=>"inline-block"
+    content_tag :div, inner_html.html_safe, "data-toggle"=>"tooltip", "data-placement"=>"bottom", :title=>tooltip_text, :class=>"athlete-icon shirt-#{reg.team.shirt_color} #{reg.captain? ? 'captain' : ''} #{html_classes}", :style=>"inline-block"
   end
 
   # Render a registration's shirt for display on confirmation:
