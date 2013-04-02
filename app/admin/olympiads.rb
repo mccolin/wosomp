@@ -45,9 +45,18 @@ ActiveAdmin.register Olympiad do
   show do
     attributes_table do
       row :name
-      row :registration_fee
-      row :spectator_fee
-      row :spectator_shirt_fee
+      row "Athlete Fee" do
+        "$#{olympiad.registration_fee}"
+      end
+      row "Spectator Fee" do
+        "$#{olympiad.spectator_fee}"
+      end
+      row "Spectator Shirt Fee" do
+        "$#{olympiad.spectator_shirt_fee}"
+      end
+      row "Registered Budget" do
+        "<b style='color:#A00;'>$#{olympiad.registrations.sum(&:fee)}</b>".html_safe
+      end
     end
     table_for olympiad.sports.order(:name) do
       column "Sports Offered" do |sport|
@@ -86,9 +95,12 @@ ActiveAdmin.register Olympiad do
         column "Registration" do |reg|
           link_to reg.name, [:admin, reg]
         end
+        column "Fee" do |reg|
+          "$#{reg.fee}"
+        end
         column :role
         column "Color" do |reg|
-          reg.team.shirt_color
+          reg.team.shirt_color.capitalize
         end
         column "Size" do |reg|
           reg.athlete? || reg.uniform_shirt? ? reg.uniform_size : nil
