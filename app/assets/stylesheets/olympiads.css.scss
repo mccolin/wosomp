@@ -106,9 +106,9 @@ div.shirt-preview.bigger .number {
 
 .athlete-icon {
   background: url(shirts/red.jpg) no-repeat;
-  -webkit-background-size: 50px 50px !important;
-  -moz-background-size: 50px 50px !important;
-  background-size: 50px 50px !important;
+  -webkit-background-size: 100% 100% !important;
+  -moz-background-size: 100% 100% !important;
+  background-size: 100% 100% !important;
   border: 1px solid #999;
   border-radius: 5px;
   display: inline-block;
@@ -117,6 +117,13 @@ div.shirt-preview.bigger .number {
   width: 50px;
   height: 50px;
   vertical-align: middle;
+}
+.athlete-icon.double {
+  width: 100px;
+  height: 100px;
+}
+.athlete-icon.no-frills {
+  border-color: #999 !important;
 }
 .athlete-icon.previewable {
   cursor: pointer;
@@ -153,9 +160,17 @@ div.shirt-preview.bigger .number {
   overflow-y: hidden;
   top: 10%;
 }
+.athlete-icon.double .name {
+  font-size: 12px;
+  top: 15%;
+}
 .athlete-icon .number {
   font-size: 22px;
   top: 40%;
+}
+.athlete-icon.double .number {
+  font-size: 48px;
+  top: 45%;
 }
 
 

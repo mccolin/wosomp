@@ -31,26 +31,18 @@ ActiveAdmin.register_page "Dashboard" do
           end # panel
         end # column
       end # Teams.each
+      column do
+        h2 "Unaffiliated"
+        panel "Users (#{olympiad.unsigned_users.count})" do
+          ul do
+            olympiad.unsigned_users.each do |u|
+              li u.name
+            end
+          end
+        end # panel
+      end # column
     end # columns
 
-    # Here is an example of a simple dashboard with columns and panels.
-    #
-    # columns do
-    #   column do
-    #     panel "Recent Posts" do
-    #       ul do
-    #         Post.recent(5).map do |post|
-    #           li link_to(post.title, admin_post_path(post))
-    #         end
-    #       end
-    #     end
-    #   end
-
-    #   column do
-    #     panel "Info" do
-    #       para "Welcome to ActiveAdmin."
-    #     end
-    #   end
-    # end
   end # content
+
 end
