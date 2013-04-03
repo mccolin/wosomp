@@ -36,6 +36,7 @@ Wosomp::Application.routes.draw do
       post :save_registration   # Save/Update registration
       delete :unregister        # Cancel registration for event
       post :save_team           # Save/Update Team Details
+      post :save_team_post      # Write on a Team Wall
     end
   end
 

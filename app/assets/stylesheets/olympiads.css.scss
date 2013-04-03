@@ -199,3 +199,30 @@ table.registration-table th, table.registration-table td {
   margin-left: 2em;
 }
 
+
+
+// Team Wall Display
+ul.wall {
+  list-style: none;
+}
+ul.wall li.post {
+  list-style: none;
+  clear: both;
+  display: block;
+  padding: 1em 0;
+}
+ul.wall li.post .athlete-icon {
+  float: left;
+}
+ul.wall li.post .details {}
+ul.wall li.post .author {
+  font-weight: bold;
+}
+ul.wall li.post .author-email {
+  font-size: 80%;
+}
+ul.wall li.post .body {}
+ul.wall li.post .dateline {
+  font-size: 80%;
+  color: #666;
+}

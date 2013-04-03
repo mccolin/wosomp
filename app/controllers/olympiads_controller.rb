@@ -101,6 +101,19 @@ class OlympiadsController < ApplicationController
   end
 
 
+  def save_team_post
+    post_data = params[:team_post]
+    begin
+      post = TeamPost.create(post_data)
+    rescue Exception => e
+      flash[:error] = "Unable to save your post. Please try again."
+    else
+      flash[:success] = "Your post has been added to the team wall."
+    end
+    redirect_to :action=>"registration", :page=>"wall"
+  end
+
+
   private
 
   def load_olympiad

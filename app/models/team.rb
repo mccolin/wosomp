@@ -7,6 +7,7 @@ class Team < ActiveRecord::Base
   belongs_to :olympiad
   has_many :registrations
   has_many :users, :through=>:registrations
+  has_many :posts, :class_name=>"TeamPost"
 
   # Scopes:
   scope :for_olympiad, lambda{|o| where(:olympiad_id=>o.id) }

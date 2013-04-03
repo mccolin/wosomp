@@ -1,0 +1,38 @@
+<%
+  # WOSoMP
+  # Olympiad / Registration / Team Wall
+-%>
+
+    <div id="team-wall" class="span7">
+      <h3>Team Messages</h3>
+      <p><em>Share strategy and group messages with your teammates.</em></p>
+
+      <ul id="team-wall" class="wall">
+        <li class="post">
+          <%= reg_icon(@registration) -%>
+          <%=form_for TeamPost.new, :url=>save_team_post_olympiad_path(@olympiad), :html=>{:method=>:post, :class=>"form-inline", :style=>"margin:0;"} do |f| %>
+            <%= f.hidden_field :team_id, :value=>@registration.team.id %>
+            <%= f.hidden_field :author_id, :value=>current_user.id %>
+            <%= f.hidden_field :registration_id, :value=>@registration.id %>
+            <%= f.text_area :body, :rows=>3, :class=>"input-xlarge", :style=>"width:80%;", :placeholder=>"Write a new wall post for your team" %>
+            <%= f.submit "Post", :class=>"btn btn-primary", :style=>"margin: 0.5em 60px;" %>
+          <% end # form %>
+        </li>
+        <hr/>
+      <% @registration.team.posts.includes(:registration, :author).order("id DESC").each do |post| %>
+        <li class="post" style="<%=post.registration.team_id == @registration.team_id ? '' : 'opacity:0.5'-%>">
+          <%= reg_icon(post.registration) -%>
+          <span class="details">
+            <span class="author"><%= post.author.name -%></span>
+            <span class="author-email"><%=link_to post.author.email, "mailto:#{post.author.email}"-%></span>
+            <br/>
+            <span class="body"><%= post.body -%></span>
+            <br/>
+            <span class="dateline"><%= time_ago_in_words(post.created_at) -%> ago</span>
+          </span>
+        </li>
+      <% end -%>
+      </ul>
+
+
+    </div> <!--/#team-wall-->

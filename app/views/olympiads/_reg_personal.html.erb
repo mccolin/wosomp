@@ -1,0 +1,194 @@
+<%
+  # WOSoMP
+  # Olympiad / Registration / Personal Details
+-%>
+
+<% content_for :javascripts do %>
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=168317356622946";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+<% end %>
+
+    <div class="span7">
+      <h3>Your Details</h3>
+
+      <table class="registration-table">
+      <tbody>
+        <tr>
+          <th>Your Name</th>
+          <td><%=@registration.user.name-%></td>
+        </tr>
+        <tr>
+          <th>Your Email</th>
+          <td><%=link_to @registration.user.email, "mailto:#{@registration.user.email}"-%></td>
+        </tr>
+        <tr>
+          <th>Your Birthday</th>
+          <td><%=@registration.user.birthday.try(:strftime, "%B %0d, %Y")-%></td>
+        </tr>
+        <tr>
+          <th>Your Gender</th>
+          <td style="text-transform:capitalize;">
+            <%=@registration.user.gender-%>
+          </td>
+        </tr>
+        <tr>
+          <th>Your Bio</th>
+          <td><%=@registration.user.bio-%></td>
+        </tr>
+      </tbody>
+      </table>
+
+      <% if @registration.athlete? || @registration.uniform_shirt? %>
+      <table class="registration-table">
+      <tbody>
+        <tr>
+          <th>Your Team</th>
+          <td style="font-weight:bold; background-color:<%=@registration.team.color1_code-%>; color:<%=@registration.team.color2_code-%>">
+            <%=@registration.team.name-%>
+          </td>
+        </tr>
+        <tr>
+          <th>Team Role</th>
+          <td><%=@registration.role.capitalize-%></td>
+        </tr>
+        <tr>
+          <th>&nbsp;</th>
+          <td><a href="#wall" data-toggle="tab">Share Messages with Teammates</a></td>
+        </tr>
+      </tbody>
+      </table>
+      <% end # if %>
+
+      <% if @registration.uniform_shirt? -%>
+      <table class="registration-table">
+      <tbody>
+        <% if @registration.athlete? -%>
+        <tr>
+          <th>Uniform Name</th>
+          <td><%=@registration.uniform_name-%></td>
+        </tr>
+        <tr>
+          <th>Uniform Number</th>
+          <td><%=@registration.uniform_number-%></td>
+        </tr>
+        <% end # athlete? -%>
+        <tr>
+          <th>Shirt Size</th>
+          <td><%=@registration.uniform_size-%></td>
+        </tr>
+      </tbody>
+      </table>
+      <% end -%>
+
+      <p>
+        <%=link_to "Edit Your Registration", register_olympiad_path(@olympiad), :class=>"btn btn-primary" -%>
+        <br/><small>
+          Changes can be made through <%=@olympiad.registration_ends_at.strftime("%A, %B %0d, %Y")-%>
+          (<%=distance_of_time_in_words(DateTime.now, @olympiad.registration_ends_at)-%> from now)
+        </small>
+      </p>
+
+      <p style="margin-top:3em;">
+        <%=button_to "Cancel Registration", unregister_olympiad_path(@olympiad), :method=>:delete,
+        :confirm=>"Are you sure you want to cancel your registration? Your registration will be deleted and if you change your mind, you'll have to re-register before the deadline.",
+        :class=>"btn btn-danger" -%>
+        <small>
+          Canceling a registration is only reversible by re-registering. Plus, why would you want to miss
+          out on something like WOSoMP!?
+        </small>
+      </p>
+
+      <p>&nbsp;</p>
+
+
+    </div> <!--/details-->
+
+    <div class="span4" style="">
+      <% if @registration.athlete? -%>
+      <h3>Your Uniform</h3>
+
+      <canvas id="shirt-canvas" width="300" height="285">
+        <div class="shirt-preview bigger">
+          <%=image_tag "shirts/gray.jpg", :class=>"stunt-shirt" -%>
+          <% Team.shirt_colors.each do |color| -%>
+            <% css_class = @registration.team && @registration.team.shirt_color == color ? "shirt-#{color} selected" : "shirt-#{color}" -%>
+            <%=image_tag "shirts/#{color}.jpg", :class=>css_class -%>
+          <% end -%>
+          <span class="name"><%=@registration.uniform_name-%></span>
+          <span class="number"><%=@registration.uniform_number-%></span>
+        </div>
+      </canvas>
+      <button class="btn" onclick="saveShirtImage();">Open Shirt Image</button>
+
+      <script type="text/javascript">
+        var starterShirtImageSrc = '<%=image_path("shirts/#{@registration.team.shirt_color}.jpg")-%>';
+
+        function drawShirt(opts) {
+          // Prep the options:
+          opts = opts || {};
+          var imgSrc = opts.image ? opts.image : starterShirtImageSrc;
+          var shirtName = opts.name ? opts.name : "<%=@registration.uniform_name-%>";
+          var shirtNumber = opts.number ? opts.number : "<%=@registration.uniform_number-%>";
+
+          // Capture canvas and ready for rendering:
+          var shirtCanvas = document.getElementById("shirt-canvas");
+          var c = shirtCanvas.getContext("2d");
+          c.clearRect(0, 0, shirtCanvas.width, shirtCanvas.height);
+
+          // Prep font sizes, image, and begin drawing:
+          var fontSizeName = shirtName.length <= 9 ? "35px" : "27px";
+          var shirtImage = new Image();
+          shirtImage.src = imgSrc;
+          shirtImage.onload = function() {
+            c.drawImage(this,0,0,shirtCanvas.width,shirtCanvas.height);
+            c.fillStyle = "#FFF";
+            c.font = "normal "+fontSizeName+" CollegeRegular,sans-serif";
+            c.textAlign = "center";
+            c.textBaseline = "middle";
+            c.fillText(shirtName, 150, 60);
+            c.font = "normal 150px CollegeRegular,sans-serif";
+            c.fillText(shirtNumber, 150, 140);
+          }
+        }
+
+        function saveShirtImage() {
+          var shirtCanvas = document.getElementById("shirt-canvas");
+          window.open(shirtCanvas.toDataURL("image/png"));
+        }
+
+        drawShirt();
+      </script>
+
+      <% end # if athlete? %>
+
+
+
+      <% if @registration.team -%>
+        <h3>Your Team</h3>
+        <p>Team Role: <%=@registration.role.capitalize-%></p>
+        <% if @registration.team.registrations.count <= 1 -%>
+          <p><em>No teammates, yet!</em></p>
+        <% else -%>
+          <p>
+          <% @registration.team.registrations.each do |reg| -%>
+            <%=reg_icon(reg, "previewable")-%>
+            <%=link_to reg.user.name, "mailto:#{reg.user.email}", :title=>"#{reg.user.name} - #{reg.user.email}" -%><br/>
+          <% end # registrations %>
+          </p>
+        <% end -%>
+      <% end -%>
+
+      <p><em>Share the joy of WOSoMP with your friends and tell them to sign up for your team:</em></p>
+      <p>
+        <div class="fb-like" data-href="http://www.facebook.com/wosomp" data-send="true" data-layout="button_count" data-width="450" data-show-faces="false"></div>
+        <br/><br/>
+        <a href="https://twitter.com/share" class="twitter-share-button" data-url="http://wosomp.com" data-text="Join my team in the WOSoMP Backyard Olympics on May 4th in Kennett Square, PA!" data-via="wosomp" data-hashtags="wosomp">Tweet</a>
+        <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+      </p>
+    </div>

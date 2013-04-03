@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130321055331) do
+ActiveRecord::Schema.define(:version => 20130403203756) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.string   "resource_id",   :null => false
@@ -35,6 +35,9 @@ ActiveRecord::Schema.define(:version => 20130321055331) do
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
   end
+
+  add_index "offerings", ["olympiad_id", "sport_id"], :name => "index_offerings_on_olympiad_id_and_sport_id"
+  add_index "offerings", ["sport_id", "olympiad_id"], :name => "index_offerings_on_sport_id_and_olympiad_id"
 
   create_table "olympiads", :force => true do |t|
     t.string   "name",                   :null => false
@@ -80,6 +83,10 @@ ActiveRecord::Schema.define(:version => 20130321055331) do
     t.datetime "updated_at",                                      :null => false
   end
 
+  add_index "registrations", ["olympiad_id"], :name => "index_registrations_on_olympiad_id"
+  add_index "registrations", ["team_id"], :name => "index_registrations_on_team_id"
+  add_index "registrations", ["user_id", "olympiad_id"], :name => "index_registrations_on_user_id_and_olympiad_id"
+
   create_table "slugs", :force => true do |t|
     t.string   "scope"
     t.string   "slug"
@@ -107,6 +114,18 @@ ActiveRecord::Schema.define(:version => 20130321055331) do
     t.string   "image"
   end
 
+  create_table "team_posts", :force => true do |t|
+    t.integer  "team_id"
+    t.integer  "author_id"
+    t.integer  "registration_id"
+    t.string   "subject"
+    t.text     "body"
+    t.datetime "created_at",      :null => false
+    t.datetime "updated_at",      :null => false
+  end
+
+  add_index "team_posts", ["team_id"], :name => "index_team_posts_on_team_id"
+
   create_table "teams", :force => true do |t|
     t.integer  "olympiad_id"
     t.string   "name",        :null => false
@@ -119,6 +138,8 @@ ActiveRecord::Schema.define(:version => 20130321055331) do
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
   end
+
+  add_index "teams", ["olympiad_id"], :name => "index_teams_on_olympiad_id"
 
   create_table "users", :force => true do |t|
     t.string   "email",                               :default => "",    :null => false
