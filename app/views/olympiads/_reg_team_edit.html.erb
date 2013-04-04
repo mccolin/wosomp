@@ -69,15 +69,7 @@
       </tbody>
       </table>
 
-      <div class="shirt-preview bigger">
-        <%=image_tag "shirts/gray.jpg", :class=>"stunt-shirt" -%>
-        <% Team.shirt_colors.each do |color| -%>
-          <% css_class = @registration.team && @registration.team.shirt_color == color ? "shirt-#{color} selected" : "shirt-#{color}" -%>
-          <%=image_tag "shirts/#{color}.jpg", :class=>css_class -%>
-        <% end -%>
-        <span class="name">WOSOMP</span>
-        <span class="number">13</span>
-      </div>
+      <%= reg_shirt(@registration, :id=>"team-preview", :name=>"WOSOMP", :number=>"13") %>
 
       <div style="clear:both;"></div>
 

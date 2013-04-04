@@ -17,17 +17,12 @@ $(function(){
     $("#team-select .team").removeClass("selected").addClass("unselected");
     $teamWell.removeClass("unselected").addClass("selected");
 
-    var teamShirtColor = $teamWell.attr("data-shirt-color");
-    $("div.shirt-preview img").removeClass("selected");
-    $("div.shirt-preview img.shirt-"+teamShirtColor).addClass("selected");
+    updateShirt($("canvas#shirt-designer"), {
+      color: $teamWell.attr("data-shirt-color")
+    });
   });
 
   /** On registration page, set all team select wells to same height: **/
-  // var tallestHeight = 0;
-  // $("#team-select .team.well").each(function(idx, el){
-  //   if ( $(this).height() > tallestHeight ) { tallestHeight = $(this).height(); }
-  // });
-  // $("#team-select .team.well").css("min-height", tallestHeight+"px");
   var tallestHeight = 0;
   $("#team-select .team, .teams .team").each(function(idx, el){
     if ( $(this).height() > tallestHeight ) { tallestHeight = $(this).height(); }
@@ -81,63 +76,51 @@ $(function(){
   updateFeeAndToggleFields();
 
 
-
   /** Case-sensitive fields: **/
   $("[data-text-transform='uppercase']").on("change", function(e){
     $field = $(this);
     $field.val( $field.val().toUpperCase() );
   });
 
-  /** Set the shirt container to the height of the shirt: **/
-  function shirtResize() {
-    $shirtContainer = $("div.shirt-preview");
-    if ($shirtContainer)
-      $shirtContainer.height( $shirtContainer.find("img").first().height() );
-  }
-  $(window).on("resize", shirtResize); // function(e){ shirtResize(); });
-  $("div.shirt-preview img").on("load", shirtResize)
-  shirtResize();
+
+  /** Trigger any canvas shirt elements on the page: */
+  $("canvas[data-shirt-preview]").each(function(el, idx){
+    drawShirt( $(this) );
+  });
+
 
   /** Update the name on the shirt design: **/
-  function updateShirtName(name) {
-    if (name) {
-      $shirtContainer = $("div.shirt-preview");
-      $shirtContainer.find("span.name").first().html(name);
-    }
-  }
-  $("#registration_uniform_name").on("change", function(e){ updateShirtName($(this).val()); });
-  $("#registration_uniform_name").change();
+  $("#registration_uniform_name").on("change", function(e){
+    var $nameField = $(this);
+    var $shirtDesigner = $("canvas#shirt-designer");
+    updateShirt($shirtDesigner, {name: $nameField.val()} );
+  });
 
   /** Update the number on the shirt design: **/
-  function updateShirtNumber(num) {
-    if (num) {
-      $shirtContainer = $("div.shirt-preview");
-      $shirtContainer.find("span.number").first().html(num);
-    }
-  }
-  $("#registration_uniform_number").on("change", function(e){ updateShirtNumber($(this).val()); });
-  $("#registration_uniform_number").change();
+  $("#registration_uniform_number").on("change", function(e){
+    var $numField = $(this);
+    var $shirtDesigner = $("canvas#shirt-designer");
+    updateShirt($shirtDesigner, {number: $numField.val()} );
+  });
 
 
   /** When captain is editing team shirt, update colors: */
   $("select#team_shirt_color").on("change", function(e){
     var $select = $(this);
-    var teamShirtColor = $select.val();
-    $("div.shirt-preview img").removeClass("selected");
-    $("div.shirt-preview img.shirt-"+teamShirtColor).addClass("selected");
-    if (drawShirt) {
-      drawShirt({image: $("div.shirt-preview img.selected").first().prop("src") });
-    }
+    $("canvas.shirt-preview").each(function(idx, el){
+      updateShirt($(this), {color: $select.val()});
+    });
+
   });
 
   /** Allow teammembers to preview each other's shirts on the Registration review page: **/
   $("div.athlete-icon.previewable").on("click", function(e){
-    if (drawShirt) {
-      var $icon = $(this);
-      var athleteName = $icon.find(".name").first().html();
-      var athleteNumber = $icon.find(".number").first().html();
-      drawShirt({name: athleteName, number: athleteNumber});
-    }
+    var $icon = $(this);
+    var $shirtPreview = $("canvas#shirt-preview");
+    updateShirt($shirtPreview, {
+      name: $icon.find(".name").first().html(),
+      number: $icon.find(".number").first().html()
+    });
   });
 
 
@@ -151,7 +134,6 @@ $(function(){
     $(this).tab("show");
   });
 
-
   /** Trigger any color selectors on the page: **/
   $("#team_color1_code").colorpicker().on("changeColor", function(ev){
     $("#team-colors-preview").css("background-color", ev.color.toHex());
@@ -164,4 +146,54 @@ $(function(){
 });
 
 
+/*
+<canvas
+  data-shirt-image="/assets/shirts/purple.jpg"
+  data-shirt-name="MCCOLIN"
+  data-shirt-number="88"
+  data-shirt-preview="true"
+  height="285"
+  width="300">
+</canvas>
+*/
+
+function drawShirt(canvas) {
+  // Capture the canvas and its context, cleared:
+  var canvasEl = canvas.get(0);
+  var c = canvasEl.getContext("2d");
+  c.clearRect(0, 0, canvasEl.width, canvasEl.height);
+
+  // Load the data properties from this canvas tag:
+  var shirtName = canvas.attr("data-shirt-name");
+  var shirtNumber = canvas.attr("data-shirt-number");
+  var fontSizeName = shirtName.length <= 9 ? "35px" : "27px";   // << Make responsive to canvas dimensions
+  var shirtImage = new Image();
+  shirtImage.onload = function() {
+    c.drawImage(this,0,0,canvasEl.width,canvasEl.height);
+    c.fillStyle = "#FFF";
+    c.font = "normal "+fontSizeName+" CollegeRegular,sans-serif";
+    c.textAlign = "center";
+    c.textBaseline = "middle";
+    c.fillText(shirtName, 150, 60);
+    c.font = "normal 150px CollegeRegular,sans-serif";
+    c.fillText(shirtNumber, 150, 140);
+  }
+  shirtImage.src = canvas.attr("data-shirt-image");
+}
+
+function updateShirt(canvas, opts) {
+  opts = opts || {};
+  if (opts.name)
+    canvas.attr("data-shirt-name", opts.name);
+  if (opts.number)
+    canvas.attr("data-shirt-number", opts.number);
+  if (opts.color)
+    canvas.attr("data-shirt-image", "/assets/shirts/"+opts.color+".jpg");
+  drawShirt(canvas);
+}
+
+function openShirtImage(canvas) {
+  var canvasEl = canvas.get(0);
+  window.open(canvasEl.toDataURL("image/png"));
+}
 

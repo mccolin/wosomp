@@ -112,59 +112,9 @@
     <div class="span4" style="">
       <% if @registration.athlete? -%>
       <h3>Your Uniform</h3>
-
-      <canvas id="shirt-canvas" width="300" height="285">
-        <div class="shirt-preview bigger">
-          <%=image_tag "shirts/gray.jpg", :class=>"stunt-shirt" -%>
-          <% Team.shirt_colors.each do |color| -%>
-            <% css_class = @registration.team && @registration.team.shirt_color == color ? "shirt-#{color} selected" : "shirt-#{color}" -%>
-            <%=image_tag "shirts/#{color}.jpg", :class=>css_class -%>
-          <% end -%>
-          <span class="name"><%=@registration.uniform_name-%></span>
-          <span class="number"><%=@registration.uniform_number-%></span>
-        </div>
-      </canvas>
-      <button class="btn" onclick="saveShirtImage();">Open Shirt Image</button>
-
-      <script type="text/javascript">
-        var starterShirtImageSrc = '<%=image_path("shirts/#{@registration.team.shirt_color}.jpg")-%>';
-
-        function drawShirt(opts) {
-          // Prep the options:
-          opts = opts || {};
-          var imgSrc = opts.image ? opts.image : starterShirtImageSrc;
-          var shirtName = opts.name ? opts.name : "<%=@registration.uniform_name-%>";
-          var shirtNumber = opts.number ? opts.number : "<%=@registration.uniform_number-%>";
-
-          // Capture canvas and ready for rendering:
-          var shirtCanvas = document.getElementById("shirt-canvas");
-          var c = shirtCanvas.getContext("2d");
-          c.clearRect(0, 0, shirtCanvas.width, shirtCanvas.height);
-
-          // Prep font sizes, image, and begin drawing:
-          var fontSizeName = shirtName.length <= 9 ? "35px" : "27px";
-          var shirtImage = new Image();
-          shirtImage.src = imgSrc;
-          shirtImage.onload = function() {
-            c.drawImage(this,0,0,shirtCanvas.width,shirtCanvas.height);
-            c.fillStyle = "#FFF";
-            c.font = "normal "+fontSizeName+" CollegeRegular,sans-serif";
-            c.textAlign = "center";
-            c.textBaseline = "middle";
-            c.fillText(shirtName, 150, 60);
-            c.font = "normal 150px CollegeRegular,sans-serif";
-            c.fillText(shirtNumber, 150, 140);
-          }
-        }
-
-        function saveShirtImage() {
-          var shirtCanvas = document.getElementById("shirt-canvas");
-          window.open(shirtCanvas.toDataURL("image/png"));
-        }
-
-        drawShirt();
-      </script>
-
+      <%= reg_shirt(@registration, :id=>"shirt-preview") %>
+      <br/>
+      <button class="btn" onclick="openShirtImage( $('#shirt-preview') );">Open Shirt Image</button>
       <% end # if athlete? %>
 
 

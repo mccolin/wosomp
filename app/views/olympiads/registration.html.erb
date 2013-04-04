@@ -14,7 +14,7 @@
     <% if @registration.team -%>
       <li class="<%=@active_tab=="wall" ? "active" : ""-%>"><a href="#wall" data-toggle="tab">Team Wall</a></li>
     <% end %>
-    <% if @registration.captain? %>
+    <% if @registration.team && @registration.captain? %>
       <li class="<%=@active_tab=="team" ? "active" : ""-%>"><a href="#team" data-toggle="tab">Captain: Edit Team</a></li>
     <% end %>
   </ul>
@@ -35,7 +35,7 @@
   <% end # if team %>
 
 
-  <% if @registration.captain? -%>
+  <% if @registration.team && @registration.captain? -%>
   <!-- Captains Panel: Edit Team -->
   <div class="row tab-pane <%=@active_tab=="team" ? "active" : ""-%>" id="team" style="min-height:800px;">
     <%= render "reg_team_edit" %>

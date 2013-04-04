@@ -73,11 +73,27 @@ module ApplicationHelper
   end
 
   # Render a registration's shirt for display on confirmation:
-  def reg_shirt(reg)
-    content_tag :div, :id=>"shirt", :class=>"bigger" do
-      image_tag("shirts/#{reg.team.shirt_color || 'red'}.jpg", :class=>"selected") +
-      content_tag(:span, reg.uniform_name, :class=>"name") +
-      content_tag(:span, reg.uniform_number, :class=>"number")
+  def reg_shirt(reg, opts={})
+    c_width = opts[:width] || 300
+    c_height = opts[:height] || 285
+    r_name = opts[:name] || reg.uniform_name || "WOSoMP"
+    r_number = opts[:number] || reg.uniform_number || DateTime.now.year - 2000
+    r_shirt_image = if opts[:color]
+      image_path("shirts/#{opts[:color]}.jpg")
+    elsif reg.team.shirt_color
+      image_path("shirts/#{reg.team.shirt_color}.jpg")
+    else
+      image_path("shirts/gray.jpg")
+    end
+    html_classes = opts[:class] ? "shirt-preview #{opts[:class]}" : "shirt-preview"
+    html_id = opts[:id] || "shirt-reg-#{reg.id}"
+
+    content_tag(:canvas, "id"=>html_id, "class"=>html_classes, "width"=>c_width, "height"=>c_height, "data-shirt-preview"=>true, "data-shirt-name"=>r_name, "data-shirt-number"=>r_number, "data-shirt-image"=>r_shirt_image) do
+      content_tag(:div, :id=>html_id, :class=>html_classes) do
+        image_tag(r_shirt_image, :class=>"selected") +
+        content_tag(:span, r_name, :class=>"name") +
+        content_tag(:span, r_number, :class=>"number")
+      end
     end
   end
 
