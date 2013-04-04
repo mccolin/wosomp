@@ -88,30 +88,6 @@ class OlympiadsController < ApplicationController
   end
 
 
-  def save_team
-    team_data = params[:team]
-    begin
-      team = Team.where(:id=>team_data[:id]).first
-      if team && registration = Registration.on_team(team).for_user(current_user).first
-        team.update_attributes(team_data) if registration.captain?
-      end
-    end
-    flash[:success] = "Your team changes were saved successfully. Check them out:"
-    redirect_to :action=>"registration", :page=>"team"
-  end
-
-
-  def save_team_post
-    post_data = params[:team_post]
-    begin
-      post = TeamPost.create(post_data)
-    rescue Exception => e
-      flash[:error] = "Unable to save your post. Please try again."
-    else
-      flash[:success] = "Your post has been added to the team wall."
-    end
-    redirect_to :action=>"registration", :page=>"wall"
-  end
 
 
   private

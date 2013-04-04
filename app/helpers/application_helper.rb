@@ -66,7 +66,10 @@ module ApplicationHelper
       inner_html += content_tag(:span, "Fan", :class=>"name") + content_tag(:span, "#1", :class=>"number")
       tooltip_text += " - Supporter"
     end
-    content_tag :div, inner_html.html_safe, "data-toggle"=>"tooltip", "data-placement"=>"bottom", :title=>tooltip_text, :class=>"athlete-icon shirt-#{reg.team.shirt_color} #{reg.captain? ? 'captain' : ''} #{html_classes}", :style=>"inline-block"
+    html_classes = ["athlete-icon", html_classes]
+    html_classes << "shirt-#{reg.team.shirt_color}" if reg.team
+    html_classes << "captain" if reg.captain?
+    content_tag :div, inner_html.html_safe, "data-toggle"=>"tooltip", "data-placement"=>"bottom", :title=>tooltip_text, :class=>html_classes.join(" "), :style=>""
   end
 
   # Render a registration's shirt for display on confirmation:

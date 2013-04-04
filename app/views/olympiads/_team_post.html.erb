@@ -1,0 +1,20 @@
+<%
+  # WOSoMP
+  # Olympiad / Registration / Team Post (wall post partial)
+
+  # Normalize:
+  post ||= team_post
+-%>
+
+<% if post && post.registration %>
+<li class="post" style="<%=post.registration.team_id == @registration.team_id ? '' : 'opacity:0.5'-%>">
+  <%= reg_icon(post.registration, "no-frills") -%>
+  <span class="details">
+    <span class="author"><%= link_to post.author.name, "mailto:#{post.author.email}" -%></span>
+    <span class="dateline"><%= time_ago_in_words(post.created_at) -%> ago</span>
+    <br/>
+    <span class="body"><%= post.body -%></span>
+    <br/>
+  </span>
+</li>
+<% end %>

@@ -25,7 +25,11 @@ Wosomp::Application.routes.draw do
   # resources :users
 
   resources :olympiads do
-    resources :teams
+    resources :teams, :only=>[:index, :show, :update] do
+      member do
+        post :save_post         # Write on a Team Wall
+      end
+    end
     member do
       get :events               # Events Listing
       get :location             # Location details, directions
@@ -33,8 +37,8 @@ Wosomp::Application.routes.draw do
       get :registration         # View/Edit registration
       post :save_registration   # Save/Update registration
       delete :unregister        # Cancel registration for event
-      post :save_team           # Save/Update Team Details
-      post :save_team_post      # Write on a Team Wall
+      #post :save_team           # Save/Update Team Details
+      #post :save_team_post      # Write on a Team Wall
     end
   end
 

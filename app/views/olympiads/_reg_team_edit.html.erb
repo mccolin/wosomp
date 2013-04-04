@@ -7,7 +7,7 @@
       <h3>Edit Your Team</h3>
       <p><em>Only captains have access to this view</em></p>
 
-      <%=form_for @registration.team, :url=>save_team_olympiad_path(@olympiad), :html=>{:method=>:post, :class=>"form-horizontal"} do |f| %>
+      <%=form_for @registration.team, :url=>olympiad_team_path(@olympiad, @registration.team), :html=>{:class=>"form-horizontal"} do |f| %>
         <%= f.hidden_field :id, :value=>@registration.team.id %>
 
         <div class="control-group">
