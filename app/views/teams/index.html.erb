@@ -32,11 +32,11 @@
     </ul>
     <div class="info">
       <div class="members">
-        <% (team.registrations * 8).each do |reg| %>
+        <% team.registrations.each do |reg| %>
           <%= reg_icon(reg, "no-frills") -%>
         <% end # registrations %>
       </div>
-      <p class="bio">This is our team bio. We rock every day. Hard.<%= team.bio %></p>
+      <p class="bio"><%= team.bio %></p>
     </div>
   </div>
   <% end # teams %>
