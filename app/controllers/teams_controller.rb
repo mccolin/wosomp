@@ -43,6 +43,15 @@ class TeamsController < ApplicationController
     redirect_to registration_olympiad_path(@olympiad, :page=>"wall")
   end
 
+  # Delete an existing team wall post:
+  def delete_post
+    if post = TeamPost.where(:id=>params[:post_id]).first
+      post.destroy
+      flash[:success] = "Your post has been deleted."
+    end
+    redirect_to registration_olympiad_path(@olympiad, :page=>"wall")
+  end
+
 
 
   private
