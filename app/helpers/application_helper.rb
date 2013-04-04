@@ -80,7 +80,7 @@ module ApplicationHelper
     r_number = opts[:number] || reg.uniform_number || DateTime.now.year - 2000
     r_shirt_image = if opts[:color]
       image_path("shirts/#{opts[:color]}.jpg")
-    elsif reg.team.shirt_color
+    elsif reg.team && reg.team.shirt_color
       image_path("shirts/#{reg.team.shirt_color}.jpg")
     else
       image_path("shirts/gray.jpg")
