@@ -37,7 +37,7 @@
 
   <% if @registration.team && @registration.captain? -%>
   <!-- Captains Panel: Edit Team -->
-  <div class="row tab-pane <%=@active_tab=="team" ? "active" : ""-%>" id="team" style="min-height:800px;">
+  <div class="row tab-pane <%=@active_tab=="team" ? "active" : ""-%>" id="team">
     <%= render "reg_team_edit" %>
   </div> <!--/#team-->
   <% end # if captain? %>
