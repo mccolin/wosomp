@@ -1,0 +1,44 @@
+<%
+  # WOSoMP
+  # Teams / Index
+%>
+
+
+<div class="row">
+
+  <h1><%=@olympiad.name-%> Teams</h1>
+  <p>
+    Check out the <%=@teams.count-%> teams participating in this WOSoMP event.
+  </p>
+
+</div>
+
+
+<div class="row teams">
+
+  <% @teams.each do |team| %>
+  <div class="span5 team" id="team-<%=team.id-%>">
+    <span class="ribbon" style="border-color: <%=team.color1_code-%>;"></span>
+    <h2 style="color:<%=team.color1_code-%>; border-color:<%=team.color2_code-%>;"><%=team.name-%></h2>
+    <ul class="menu">
+    <% if team.users.include?(current_user) %>
+      <li><%=link_to "Team Wall", registration_olympiad_path(@olympiad, :page=>"wall"), :class=>"btn btn-small"-%></li>
+      <% if team.captains.include?(current_user) %>
+        <li><%=link_to "Edit Team", registration_olympiad_path(@olympiad, :page=>"team"), :class=>"btn btn-small"-%></li>
+      <% end %>
+    <% else %>
+      <li><%=link_to "Join Team", register_olympiad_path(@olympiad), :class=>"btn btn-small"-%></li>
+    <% end %>
+    </ul>
+    <div class="info">
+      <div class="members">
+        <% (team.registrations * 8).each do |reg| %>
+          <%= reg_icon(reg, "no-frills") -%>
+        <% end # registrations %>
+      </div>
+      <p class="bio">This is our team bio. We rock every day. Hard.<%= team.bio %></p>
+    </div>
+  </div>
+  <% end # teams %>
+
+</div>

@@ -25,9 +25,7 @@ Wosomp::Application.routes.draw do
   # resources :users
 
   resources :olympiads do
-    # resources :registrations
-    # resources :events
-    # resources :dates
+    resources :teams
     member do
       get :events               # Events Listing
       get :location             # Location details, directions

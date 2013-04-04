@@ -23,11 +23,16 @@ $(function(){
   });
 
   /** On registration page, set all team select wells to same height: **/
+  // var tallestHeight = 0;
+  // $("#team-select .team.well").each(function(idx, el){
+  //   if ( $(this).height() > tallestHeight ) { tallestHeight = $(this).height(); }
+  // });
+  // $("#team-select .team.well").css("min-height", tallestHeight+"px");
   var tallestHeight = 0;
-  $("#team-select .team.well").each(function(idx, el){
+  $("#team-select .team, .teams .team").each(function(idx, el){
     if ( $(this).height() > tallestHeight ) { tallestHeight = $(this).height(); }
   });
-  $("#team-select .team.well").css("min-height", tallestHeight+"px");
+  $("#team-select .team, .teams .team").css("min-height", tallestHeight+"px");
 
   /** Trigger all date-pickers: **/
   $("input[data-type=date]").datepicker({

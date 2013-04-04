@@ -32,6 +32,7 @@
           <%= top_nav_item("About", about_path) -%>
           <%= top_nav_item("Location", location_olympiad_path(next_olympiad)) -%>
           <%= top_nav_item("Events", events_olympiad_path(next_olympiad)) -%>
+          <%= top_nav_item("Teams", olympiad_teams_path(next_olympiad)) -%>
 
           <% if next_olympiad.registration_begins_at <= DateTime.now %>
           <% if current_user && current_user.registered_for?(next_olympiad) %>

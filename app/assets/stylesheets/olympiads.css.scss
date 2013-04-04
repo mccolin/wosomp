@@ -226,3 +226,60 @@ ul.wall li.post .dateline {
   font-size: 80%;
   color: #666;
 }
+
+
+
+.teams .team {
+  position: relative;
+  padding: 0.5em 1em 1em;
+  border-radius: 5px;
+  margin-bottom: 4em;
+}
+.teams .team .ribbon {
+  //content: "";
+  position: absolute;
+  display: block;
+  top: 0;
+  left: 0;
+  border: 4em solid #CCC;
+  border-bottom-color: transparent !important;
+  z-index: -1;
+  width: 0;
+  min-height: 8em;
+}
+.teams .team h2 {
+  background: #FFF;
+  background-color: rgba(255,255,255,0.8);
+  border: 2px solid #CCC;
+  border-width: 3px 0;
+  margin: 0;
+  padding: 0 0.25em;
+  text-align: left;
+}
+.teams .team:hover h2 {
+  background-color: #FFF;
+}
+.teams .team ul.menu {
+  display: block;
+  float: left;
+  left: -1em;
+  list-style: none;
+  margin: 0.5em 0;
+  min-height: 10em;
+  padding: 0;
+  position: relative;
+  text-align: center;
+  width: 8em;
+}
+.teams .team ul.menu li {
+  display: inline-block;
+  padding-bottom: 0.25em;
+}
+.teams .team .info {
+  display: block;
+  //float: left;
+  padding-left: 7.5em;
+}
+.teams .team .info .bio {
+  margin: 1em 0 1em;
+}
