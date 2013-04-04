@@ -21,11 +21,12 @@ class Registration < ActiveRecord::Base
   attr_accessible :athlete, :paid, :agree_pay, :agree_waiver, :uniform_shirt
 
   # Validations:
-  validates :team_id, :presence=>{:message=>"You didn't select a team to join"}
   with_options :if=>:uniform_shirt do |r|
+    r.validates :team_id, :presence=>{:message=>"You didn't select a team to support"}
     r.validates :uniform_size, :presence=>{:message=>"Tell us your shirt size"}
   end
   with_options :if=>:athlete do |r|
+    r.validates :team_id, :presence=>{:message=>"You didn't select a team to join"}
     r.validates :uniform_size, :presence=>{:message=>"Tell us your shirt size for your uniform"}
     r.validates :uniform_name, :presence=>{:message=>"Provide a kickass name for the back of your uniform"}
     r.validates :uniform_number, :presence=>{:message=>"Select a number for your uniform"}
