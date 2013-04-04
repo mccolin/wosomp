@@ -100,7 +100,7 @@ ActiveAdmin.register Olympiad do
         end
         column :role
         column "Color" do |reg|
-          reg.team.shirt_color.capitalize
+          reg.team ? reg.team.shirt_color.capitalize : nil
         end
         column "Size" do |reg|
           reg.athlete? || reg.uniform_shirt? ? reg.uniform_size : nil
