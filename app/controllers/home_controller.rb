@@ -15,5 +15,9 @@ class HomeController < ApplicationController
     render :layout=>"home"
   end
 
+  def testenv
+    render :text=>ENV.collect{|k,v| "#{k.ljust(40)} = #{v}"}.sort().join("\n"), :content_type=>"text/plain"
+  end
+
 
 end

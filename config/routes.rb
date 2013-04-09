@@ -15,6 +15,9 @@ Wosomp::Application.routes.draw do
   # Our Application Root:
   root :to=>"home#index",             :as=>"home"
 
+  # A simple env var check route (dev only):
+  get "/env" => "home#testenv" if Rails.env.development?
+
   # Root Activities:
   get "/about" => "home#about",       :as=>"about"
   get "/terms" => "home#terms",       :as=>"terms"
@@ -22,8 +25,7 @@ Wosomp::Application.routes.draw do
   # Live Event Display:
   get "/live" => "live#index",        :as=>"live"
 
-  # resources :users
-
+  # Olympiads, Registration, etc.
   resources :olympiads, :only=>[:index, :show] do
     resources :teams, :only=>[:index, :show, :update] do
       member do
