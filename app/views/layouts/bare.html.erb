@@ -5,13 +5,13 @@
   <%= stylesheet_link_tag    "application", :media => "all" %>
   <%= javascript_include_tag "application" %>
   <%= csrf_meta_tags %>
-  
+
   <%= yield :head %>
 </head>
 <body>
-  
+
   <div class="container">
-  
+
   <header id="header">
     <h1>WOSoMP</h1>
     <nav id="top-nav">
@@ -20,7 +20,7 @@
         <span class="ribbon-content">
           <li id="link-home" class="active"><%=link_to "Home", home_path%></li>
           <li id="link-about"><%=link_to "About", about_path%></li>
-          <li id="link-olympiad"><%=link_to next_olympiad_name, olympiad_path(next_olympiad) %></li>
+          <li id="link-olympiad"><%=link_to featured_olympiad_name, olympiad_path(featured_olympiad) %></li>
           <li id="link-history"><%=link_to "History", olympiads_path%></li>
           <li>
             <%#login_status%>
@@ -31,18 +31,18 @@
       <span class="shadow-right"></span>
     </nav>
   </header>
-  
+
   <div id="content">
     <%= yield %>
     <div class="clear"></div>
   </div>
-  
+
   <footer id="footer">
     <nav id="footer-nav">
       <ul>
         <li><%=link_to "Home", home_path%></li>
         <li><%=link_to "About", about_path%></li>
-        <li><%=link_to next_olympiad_name, olympiad_path(next_olympiad) %></li>
+        <li><%=link_to featured_olympiad_name, olympiad_path(featured_olympiad) %></li>
         <li><%=link_to "History", olympiads_path%></li>
         <li><%=login_logout_link(:login=>{:id=>"facebook-login-button"})%></li>
       </ul>
@@ -61,7 +61,7 @@
   </footer>
 
   <%= yield :foot %>
-  
+
   </div> <!--/.container-->
 </body>
 </html>

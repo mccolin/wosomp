@@ -11,7 +11,7 @@ ActiveAdmin.register_page "Dashboard" do
     # end
 
     columns do
-      olympiad = Olympiad.next_olympiad
+      olympiad = Olympiad.featured_olympiad(:registrations, :teams, :users)
       olympiad.teams.each do |team|
         column do
           h2 :style=>"color:#{team.color1_code};" do

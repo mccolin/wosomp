@@ -1,11 +1,11 @@
 
-<% if next_olympiad.is_registering? %>
-  <p class="lead">Registration now open for our <%=next_olympiad.begins_at.strftime("%B %-d")-%> event in <%=next_olympiad.city_state-%></p>
-  <p><%=link_to "Sign Up to Play", register_olympiad_path(next_olympiad), :class=>"btn btn-success btn-large"%></p>
-<% elsif next_olympiad.is_live? %>
-  <p class="lead">The <%=next_olympiad.name-%> WOSoMP event is underway right now! <%=link_to "Follow It Live!", live_path-%></p>
+<% if featured_olympiad.is_registering? %>
+  <p class="lead">Registration now open for our <%=featured_olympiad.begins_at.strftime("%B %-d")-%> event in <%=featured_olympiad.city_state-%></p>
+  <p><%=link_to "Sign Up to Play", register_olympiad_path(featured_olympiad), :class=>"btn btn-success btn-large"%></p>
+<% elsif featured_olympiad.is_live? %>
+  <p class="lead">The <%=featured_olympiad.name-%> WOSoMP event is underway right now! <%=link_to "Follow It Live!", live_path-%></p>
   <p><%=link_to "Live Stats and Ranks", live_path, :class=>"btn btn-success btn-large"%></p>
 <% else %>
-  <p class="lead">Registration for our <%=next_olympiad.begins_at.strftime("%B %-d")-%> event in <%=next_olympiad.city_state-%> opens soon</p>
+  <p class="lead">Registration for our <%=featured_olympiad.begins_at.strftime("%B %-d")-%> event in <%=featured_olympiad.city_state-%> opens soon</p>
   <p><%=link_to "Learn More", about_path, :class=>"btn btn-success btn-large"%></p>
 <% end %>

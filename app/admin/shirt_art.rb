@@ -4,7 +4,7 @@ ActiveAdmin.register_page "Shirt Art" do
 
   content :title => "Shirt Art" do
 
-    olympiad = Olympiad.next_olympiad
+    olympiad = Olympiad.featured_olympiad(:registrations, :teams)
     olympiad.registrations.each do |r|
       span reg_icon(r, "double no-frills")
     end

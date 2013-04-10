@@ -30,15 +30,15 @@
         <ul id="top-nav" class="row">
           <%# top_nav_item("Home", home_path) -%>
           <%= top_nav_item("About", about_path) -%>
-          <%= top_nav_item("Location", location_olympiad_path(next_olympiad)) -%>
-          <%= top_nav_item("Events", events_olympiad_path(next_olympiad)) -%>
-          <%= top_nav_item("Teams", olympiad_teams_path(next_olympiad)) -%>
+          <%= top_nav_item("Location", location_olympiad_path(featured_olympiad)) -%>
+          <%= top_nav_item("Events", events_olympiad_path(featured_olympiad)) -%>
+          <%= top_nav_item("Teams", olympiad_teams_path(featured_olympiad)) -%>
 
-          <% if next_olympiad.registration_begins_at <= DateTime.now %>
-          <% if current_user && current_user.registered_for?(next_olympiad) %>
-            <%= top_nav_item("Your Registration", registration_olympiad_path(next_olympiad), :class=>"feature pull-right") -%>
+          <% if featured_olympiad.registration_begins_at <= DateTime.now %>
+          <% if current_user && current_user.registered_for?(featured_olympiad) %>
+            <%= top_nav_item("Your Registration", registration_olympiad_path(featured_olympiad), :class=>"feature pull-right") -%>
           <% else %>
-            <%= top_nav_item("Register", register_olympiad_path(next_olympiad), :class=>"feature pull-right") -%>
+            <%= top_nav_item("Register", register_olympiad_path(featured_olympiad), :class=>"feature pull-right") -%>
           <% end %>
           <% end %>
         </ul><!--/.row-->

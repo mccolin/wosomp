@@ -99,13 +99,13 @@ module ApplicationHelper
 
 
   # Return the next/upcoming Olympiad:
-  def next_olympiad
-    @next_olympiad ||= Olympiad.next_olympiad()
+  def featured_olympiad
+    @featured_olympiad ||= Olympiad.featured_olympiad()
   end
 
   # Return the name of the next/upcoming Olympiad:
-  def next_olympiad_name
-    next_olympiad.name
+  def featured_olympiad_name
+    featured_olympiad.name
   end
 
 

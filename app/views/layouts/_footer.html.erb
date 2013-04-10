@@ -5,12 +5,12 @@
       <div class="box span6">
         <%=image_tag "wosomp_shield.png", :class=>"logo" %>
         <%=link_to "Home", home_path %> <br/>
-        <% if next_olympiad.registration_begins_at <= DateTime.now %>
-          <%=link_to "Register", register_olympiad_path(next_olympiad), :style=>"color:#FFD700" %> <br/>
+        <% if featured_olympiad.registration_begins_at <= DateTime.now %>
+          <%=link_to "Register", register_olympiad_path(featured_olympiad), :style=>"color:#FFD700" %> <br/>
         <% end %>
         <%=link_to "About", about_path %> <br/>
-        <%=link_to "Location", location_olympiad_path(next_olympiad) %> <br/>
-        <%=link_to "Events", events_olympiad_path(next_olympiad) %> <br/>
+        <%=link_to "Location", location_olympiad_path(featured_olympiad) %> <br/>
+        <%=link_to "Events", events_olympiad_path(featured_olympiad) %> <br/>
         <% if current_user %>
           <%=link_to("Logout", destroy_user_session_path, :method=>"delete")-%>
           <% if current_user.admin? %>
