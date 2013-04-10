@@ -4,92 +4,73 @@
 -%>
 
 
-<ol id="player-rank" class="leaderboard">
+<div id="team-rank" class="span8">
+  <% @teams.each do |team| -%>
+  <div class="progress" id="rank-team-<%=team.id-%>" data-score="<%=team.award_value_total-%>" data-count="<%=team.award_total_count-%>" style="background:<%=team.color1_code-%>;">
+    <span class="name" style="color:<%=team.color2_code-%>;">
+      <%= team.name %> (<%=team.award_value_total-%> pts)
+    </span>
+    <div class="bar bar-gold" data-score="<%=team.award_gold_score-%>" data-count="<%=team.award_gold_count-%>" title="<%=team.award_gold_count-%> Gold"></div>
+    <div class="bar bar-silver" data-score="<%=team.award_silver_score-%>" data-count="<%=team.award_silver_count-%>" title="<%=team.award_silver_count-%> Silver"></div>
+    <div class="bar bar-bronze" data-score="<%=team.award_bronze_score-%>" data-count="<%=team.award_bronze_count-%>" title="<%=team.award_bronze_count-%> Bronze"></div>
+  </div>
+  <% end # teams %>
+</div> <!--/#team-rank-->
 
-  <li>
-    <%=image_tag "http://graph.facebook.com/thechuckross/picture", :alt=>"Chuck Ross"-%>
-    <div class="bar" style="background-color: #A00;">
-      <span class="name">Chuck Ross</span>
-      <span class="score" data-score="15">15</span>
-      <div class="medal-bar" data-total="3">
-        <div class="gold-bar" data-amt="3"></div>
-        <div class="silver-bar" data-amt="0"></div>
-        <div class="bronze-bar" data-amt="0"></div>
-      </div>
-    </div>
-  </li>
+<div id="athlete-rank" class="span8">
+  <% @registrations.each do |reg| -%>
+  <% if team = reg.team %>
+  <div class="progress" id="rank-athlete-<%=reg.id-%>" data-score="<%=reg.award_value_total-%>" data-count="<%=reg.award_total_count-%>" style="background:<%=team.color1_code-%>;">
+    <span class="name" style="color:<%=team.color2_code-%>;">
+      <%= reg.uniform_name %> (<%=reg.award_value_total-%> pts)
+    </span>
+    <div class="bar bar-gold" data-score="<%=reg.award_gold_score-%>" data-count="<%=reg.award_gold_count-%>" title="<%=reg.award_gold_count-%> Gold"></div>
+    <div class="bar bar-silver" data-score="<%=reg.award_silver_score-%>" data-count="<%=reg.award_silver_count-%>" title="<%=reg.award_silver_count-%> Silver"></div>
+    <div class="bar bar-bronze" data-score="<%=reg.award_bronze_score-%>" data-count="<%=reg.award_bronze_count-%>" title="<%=reg.award_bronze_count-%> Bronze"></div>
+  </div>
+  <% end # if team %>
+  <% end # registrations %>
+</div> <!--/#athlete-rank-->
 
-  <li>
-    <%=image_tag "http://graph.facebook.com/ruthann.deveney/picture", :alt=>"Chuck Ross"-%>
-    <div class="bar" style="background-color: #A00;">
-      <span class="name">RuthAnn Deveney</span>
-      <span class="score" data-score="13">13</span>
-      <div class="medal-bar" data-total="3">
-        <div class="gold-bar" data-amt="2"></div>
-        <div class="silver-bar" data-amt="1"></div>
-        <div class="bronze-bar" data-amt="0"></div>
-      </div>
-    </div>
-  </li>
-
-  <li>
-    <%=image_tag "http://graph.facebook.com/colinmccloskey/picture", :alt=>"Chuck Ross"-%>
-    <div class="bar" style="background-color: lightblue;">
-      <span class="name">Colin McCloskey</span>
-      <span class="score" data-score="9">9</span>
-      <div class="medal-bar" data-total="3">
-        <div class="gold-bar" data-amt="1"></div>
-        <div class="silver-bar" data-amt="1"></div>
-        <div class="bronze-bar" data-amt="1"></div>
-      </div>
-    </div>
-  </li>
-
-  <li>
-    <%=image_tag "http://graph.facebook.com/liz.mccloskey.902/picture", :alt=>"Chuck Ross"-%>
-    <div class="bar" style="background-color: purple;">
-      <span class="name">Liz McCloskey</span>
-      <span class="score" data-score="6">6</span>
-      <div class="medal-bar" data-total="2">
-        <div class="gold-bar" data-amt="1"></div>
-        <div class="silver-bar" data-amt="1"></div>
-        <div class="bronze-bar" data-amt="0"></div>
-      </div>
-    </div>
-  </li>
-
-</ol> <!--/#player-rank-->
 
 
 <% content_for :javascripts do %>
 <script type="text/javascript">
-  
-  function processLeaderboard() {
-    var $board = $("#player-rank");
 
-    // Find the score of the top ranked item:
-    var topScore = parseInt( $board.find("li .bar .score").first().attr("data-score") );
+  function updateLeaderBoard() {
+    var $board = $("#team-rank");
+
+    // Find the top score
+    var topScore = 0;
+    $board.find(".progress").each(function(idx, el){
+      var thisScore = parseInt( $(this).attr("data-score") );
+      if (thisScore > topScore) { topScore = thisScore; }
+    });
     console.log("Top score on the board: "+topScore);
 
-    $board.find("li").each(function(el, idx){
-      // Set display width of the points bar:
-      var thisScore = parseInt( $(this).find(".bar .score").first().attr("data-score") );
-      var barWidthPct = parseInt( (thisScore / topScore) * 100 ) - 15;  // -15% for img padding
-      $(this).find(".bar").css("width", barWidthPct+"%");
-
-      // Set display widths of medal bars:
-      $medals = $(this).find(".bar .medal-bar").first();
-      var numMedals = parseInt( $medals.attr("data-total") );
-      $medals.find("div").each(function(el, idx){
-        var medalCount = parseInt( $(this).attr("data-amt") );
-        var medalWidthPct = parseInt( (medalCount / numMedals) * 100 );
-        $(this).css("width", medalWidthPct+"%");
-      });
+    // Set the team total widths according to their point totals:
+    $board.find(".progress").each(function(idx, el){
+      var thisScore = parseInt( $(this).attr("data-score") );
+      $(this).css("width", parseInt(thisScore / topScore * 100)+"%" );
     });
+    console.log("Team total widths set.");
+
+    // Set the medal widths by score percentage:
+    $board.find(".progress .bar").each(function(idx, el){
+      var $medalBar = $(this);
+      var $totalBar = $medalBar.parent();
+      // var totalCount = parseInt( $totalBar.attr("data-count") );
+      // var thisCount = parseInt( $medalBar.attr("data-count") );
+      // $medalBar.css("width", parseInt(thisCount / totalCount * 100)+"%");
+      var totalScore = parseInt( $totalBar.attr("data-score") );
+      var thisScore = parseInt( $medalBar.attr("data-score") );
+      $medalBar.css("width", parseInt(thisScore / totalScore * 100)+"%");
+    });
+    console.log("Medal widths set");
   }
 
   $(function(){
-    processLeaderboard();
+    updateLeaderBoard();
   });
 
 </script>

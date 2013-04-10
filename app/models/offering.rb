@@ -6,6 +6,7 @@ class Offering < ActiveRecord::Base
   # Relationships:
   belongs_to :olympiad
   belongs_to :sport
+  has_many :results
 
   attr_accessible :olympiad_id, :sport_id, :details
 

@@ -7,6 +7,7 @@ class Registration < ActiveRecord::Base
   belongs_to :user
   belongs_to :olympiad
   belongs_to :team
+  has_many :results
 
   # Scopes:
   scope :on_team, lambda{|t| where(:team_id=>t.id) }
@@ -46,6 +47,15 @@ class Registration < ActiveRecord::Base
   def fee
     athlete? ? 30 : (uniform_shirt? ? 20 : 10)
   end
+
+  # The total number of medals/awards won (not to be confused with score):
+  def award_total_count
+    award_gold_count + award_silver_count + award_bronze_count
+  end
+
+  def award_gold_score; award_gold_count * 9; end
+  def award_silver_score; award_silver_count * 6; end
+  def award_bronze_score; award_bronze_count * 3; end
 
 
 end

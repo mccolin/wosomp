@@ -11,7 +11,10 @@
     <![endif]-->
 
     <!-- Live Stylesheet -->
-    <%= stylesheet_link_tag "live", :media => "all" %>
+    <%= stylesheet_link_tag "application", :media => "all" %>
+    <link href="/favicon.ico" rel="shortcut icon">
+
+    <%= render "layouts/analytics" %>
 
     <!-- Head content below this comment inserted with yield:head hook -->
     <%= yield :head %>
@@ -25,11 +28,6 @@
     <article id="content">
       <%= yield %>
     </article> <!--/#content-->
-    
-    <footer id="footer">
-      Footer text.
-    </footer>
-
 
     <!-- Major JavaScript Injection: -->
     <%= javascript_include_tag "application" %>

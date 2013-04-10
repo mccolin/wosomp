@@ -24,6 +24,7 @@ Wosomp::Application.routes.draw do
 
   # Live Event Display:
   get "/live" => "live#index",        :as=>"live"
+  get "/live/:id" => "live#index",    :as=>"live_specific"
 
   # Olympiads, Registration, etc.
   resources :olympiads, :only=>[:index, :show] do
@@ -32,6 +33,8 @@ Wosomp::Application.routes.draw do
         post :save_post         # Write on a Team Wall
         delete :delete_post     # Remove a Wall Post
       end
+    end
+    resources :sports, :only=>[:show] do
     end
     member do
       get :events               # Events Listing
