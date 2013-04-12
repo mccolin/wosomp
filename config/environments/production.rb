@@ -70,6 +70,8 @@ Wosomp::Application.configure do
     :authentication       => "plain",
     :enable_starttls_auto => true
   }
+  config.action_mailer.asset_host = "http://wosomp.com/"
+  config.action_mailer.default_url_options = { :host => "wosomp.com" }
 
   # Enable threaded mode
   # config.threadsafe!
