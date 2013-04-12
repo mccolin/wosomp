@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130409230943) do
+ActiveRecord::Schema.define(:version => 20130412215707) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.string   "resource_id",   :null => false
@@ -81,6 +81,7 @@ ActiveRecord::Schema.define(:version => 20130409230943) do
     t.integer  "award_silver_count",               :default => 0
     t.integer  "award_bronze_count",               :default => 0
     t.boolean  "paid",                             :default => false
+    t.boolean  "checked_in",                       :default => false
     t.boolean  "agree_pay",                        :default => false
     t.boolean  "agree_waiver",                     :default => false
     t.datetime "created_at",                                          :null => false

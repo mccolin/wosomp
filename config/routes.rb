@@ -23,8 +23,14 @@ Wosomp::Application.routes.draw do
   get "/terms" => "home#terms",       :as=>"terms"
 
   # Live Event Display:
-  get "/live" => "live#index",        :as=>"live"
-  get "/live/:id" => "live#index",    :as=>"live_specific"
+  resource :live, :controller=>"live", :only=>[:show] do
+    get "checkin" => "live#checkin", :as=>"checkin"
+    post "checkin" => "live#checkin_search", :as=>"checkin_search"
+    get ":olympiad_id" => "live#index", :as=>"olympiad"
+  end
+
+  # get "/live" => "live#index",        :as=>"live"
+  # get "/live/:id" => "live#index",    :as=>"live_specific"
 
   # Olympiads, Registration, etc.
   resources :olympiads, :only=>[:index, :show] do

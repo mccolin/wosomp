@@ -16,10 +16,11 @@ class Registration < ActiveRecord::Base
   scope :captains, where(:captain=>true)
   scope :athletes, where(:athlete=>true)
   scope :spectators, where(:athlete=>false)
+  scope :checked_in, where(:checked_in=>true)
 
   # Attributes:
   attr_accessible :user_id, :olympiad_id, :team_id, :captain, :uniform_name, :uniform_number, :uniform_size
-  attr_accessible :athlete, :paid, :agree_pay, :agree_waiver, :uniform_shirt
+  attr_accessible :athlete, :paid, :agree_pay, :agree_waiver, :uniform_shirt, :checked_in
 
   # Validations:
   with_options :if=>:uniform_shirt do |r|

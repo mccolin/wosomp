@@ -1,0 +1,23 @@
+<%
+  # WOSoMP
+  # Live / Checkin - Check a guest into the event
+-%>
+
+
+<%=form_tag checkin_search_live_path(), :html=>{:class=>"form-horizontal"} do |f| %>
+
+  <div class="control-group">
+    <%= label_tag(:q, "Search for Guest:") %>
+    <div class="controls">
+      <%= text_field_tag(:q, nil, :placeholder=>"First or Last Name") %>
+    </div>
+  </div>
+
+  <div class="control-group">
+    <div class="controls">
+      <%= submit_tag "Search for Registration", :class=>"btn btn-primary" %>
+      <%= button_tag "Clear Form", :type=>"reset", :class=>"btn" %>
+    </div>
+  </div>
+
+<% end # form %>
