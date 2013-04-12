@@ -13,7 +13,7 @@ Wosomp::Application.configure do
   config.consider_all_requests_local       = true
   config.action_controller.perform_caching = false
 
-    # In development, we use an AwexomeLabs test email:
+  # Use WOSoMP GMail credentials:
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = {
     :address              => "smtp.gmail.com",
