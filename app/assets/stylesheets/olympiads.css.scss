@@ -117,6 +117,13 @@ canvas.shirt-preview {
   height: 50px;
   vertical-align: middle;
 }
+.athlete-icon:hover {
+  -webkit-transform: scale(2.0);
+  -moz-transform: scale(2.0);
+  transform: scale(2.0);
+  box-shadow: 0 0 15px rgba(0,0,0,0.6);
+  z-index: 100;
+}
 .athlete-icon.double {
   width: 100px;
   height: 100px;
