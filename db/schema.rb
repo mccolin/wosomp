@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130412215707) do
+ActiveRecord::Schema.define(:version => 20130417055032) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.string   "resource_id",   :null => false
@@ -70,47 +70,49 @@ ActiveRecord::Schema.define(:version => 20130412215707) do
     t.integer  "user_id"
     t.integer  "olympiad_id"
     t.integer  "team_id"
-    t.boolean  "athlete",                          :default => true
+    t.boolean  "athlete",                      :default => true
     t.boolean  "captain"
-    t.boolean  "uniform_shirt",                    :default => true
-    t.string   "uniform_size",       :limit => 3
-    t.string   "uniform_number",     :limit => 4
-    t.string   "uniform_name",       :limit => 12
-    t.integer  "award_value_total",                :default => 0
-    t.integer  "award_gold_count",                 :default => 0
-    t.integer  "award_silver_count",               :default => 0
-    t.integer  "award_bronze_count",               :default => 0
-    t.boolean  "paid",                             :default => false
-    t.boolean  "checked_in",                       :default => false
-    t.boolean  "agree_pay",                        :default => false
-    t.boolean  "agree_waiver",                     :default => false
-    t.datetime "created_at",                                          :null => false
-    t.datetime "updated_at",                                          :null => false
+    t.boolean  "uniform_shirt",                :default => true
+    t.string   "uniform_size",   :limit => 3
+    t.string   "uniform_number", :limit => 4
+    t.string   "uniform_name",   :limit => 12
+    t.integer  "points_total",                 :default => 0
+    t.integer  "points_gold",                  :default => 0
+    t.integer  "points_silver",                :default => 0
+    t.integer  "points_bronze",                :default => 0
+    t.integer  "count_total",                  :default => 0
+    t.integer  "count_gold",                   :default => 0
+    t.integer  "count_silver",                 :default => 0
+    t.integer  "count_bronze",                 :default => 0
+    t.boolean  "paid",                         :default => false
+    t.boolean  "checked_in",                   :default => false
+    t.boolean  "agree_pay",                    :default => false
+    t.boolean  "agree_waiver",                 :default => false
+    t.datetime "created_at",                                      :null => false
+    t.datetime "updated_at",                                      :null => false
   end
 
-  add_index "registrations", ["award_value_total"], :name => "index_registrations_on_award_value_total"
+  add_index "registrations", ["count_total"], :name => "index_registrations_on_count_total"
   add_index "registrations", ["olympiad_id"], :name => "index_registrations_on_olympiad_id"
+  add_index "registrations", ["points_total"], :name => "index_registrations_on_points_total"
   add_index "registrations", ["team_id"], :name => "index_registrations_on_team_id"
   add_index "registrations", ["user_id", "olympiad_id"], :name => "index_registrations_on_user_id_and_olympiad_id"
 
   create_table "results", :force => true do |t|
-    t.integer  "offering_id",                                          :null => false
+    t.integer  "offering_id",                                       :null => false
     t.integer  "registration_id"
-    t.integer  "team_id",                                              :null => false
-    t.string   "group_name",         :limit => 12
-    t.integer  "match_round"
-    t.integer  "match_number"
-    t.integer  "match_score"
-    t.string   "award",              :limit => 12, :default => "none"
-    t.integer  "award_value_player",               :default => 0,      :null => false
-    t.integer  "award_value_team",                 :default => 0,      :null => false
-    t.datetime "created_at",                                           :null => false
-    t.datetime "updated_at",                                           :null => false
+    t.integer  "team_id",                                           :null => false
+    t.string   "award",           :limit => 12, :default => "none"
+    t.integer  "points_athlete",                :default => 0,      :null => false
+    t.integer  "points_team",                   :default => 0,      :null => false
+    t.string   "note"
+    t.datetime "created_at",                                        :null => false
+    t.datetime "updated_at",                                        :null => false
   end
 
-  add_index "results", ["offering_id", "match_round", "match_number"], :name => "index_results_on_offering_id_and_match_round_and_match_number"
-  add_index "results", ["registration_id", "award_value_player"], :name => "index_results_on_registration_id_and_award_value_player"
-  add_index "results", ["team_id", "award_value_team"], :name => "index_results_on_team_id_and_award_value_team"
+  add_index "results", ["offering_id"], :name => "index_results_on_offering_id"
+  add_index "results", ["registration_id", "points_athlete"], :name => "index_results_on_registration_id_and_points_athlete"
+  add_index "results", ["team_id", "points_team"], :name => "index_results_on_team_id_and_points_team"
 
   create_table "slugs", :force => true do |t|
     t.string   "scope"
@@ -153,23 +155,28 @@ ActiveRecord::Schema.define(:version => 20130412215707) do
 
   create_table "teams", :force => true do |t|
     t.integer  "olympiad_id"
-    t.string   "name",                              :null => false
+    t.string   "name",                         :null => false
     t.string   "shirt_color"
     t.string   "color1"
     t.string   "color2"
     t.string   "color1_code"
     t.string   "color2_code"
     t.text     "bio"
-    t.integer  "award_value_total",  :default => 0
-    t.integer  "award_gold_count",   :default => 0
-    t.integer  "award_silver_count", :default => 0
-    t.integer  "award_bronze_count", :default => 0
-    t.datetime "created_at",                        :null => false
-    t.datetime "updated_at",                        :null => false
+    t.integer  "points_total",  :default => 0
+    t.integer  "points_gold",   :default => 0
+    t.integer  "points_silver", :default => 0
+    t.integer  "points_bronze", :default => 0
+    t.integer  "count_total",   :default => 0
+    t.integer  "count_gold",    :default => 0
+    t.integer  "count_silver",  :default => 0
+    t.integer  "count_bronze",  :default => 0
+    t.datetime "created_at",                   :null => false
+    t.datetime "updated_at",                   :null => false
   end
 
-  add_index "teams", ["award_value_total"], :name => "index_teams_on_award_value_total"
+  add_index "teams", ["count_total"], :name => "index_teams_on_count_total"
   add_index "teams", ["olympiad_id"], :name => "index_teams_on_olympiad_id"
+  add_index "teams", ["points_total"], :name => "index_teams_on_points_total"
 
   create_table "users", :force => true do |t|
     t.string   "email",                               :default => "",    :null => false

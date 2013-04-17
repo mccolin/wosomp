@@ -9,6 +9,7 @@ ActiveAdmin.register Sport do
   scope :team_sports
   scope :individual_sports
   scope :bracket
+  scope :team_bracket
   scope :ranked
 
   # Index:
@@ -69,7 +70,7 @@ ActiveAdmin.register Sport do
       f.input :image, :hint=>"Filename of image under /images/sports"
       f.input :num_teams
       f.input :num_per_team
-      f.input :tournament_style, :as=>:select, :collection=>%w(bracket ranking)
+      f.input :tournament_style, :as=>:select, :collection=>%w(bracket ranking team)
       f.input :description, :input_html=>{:rows=>3}
       f.input :field, :input_html=>{:rows=>3}
       f.input :equipment, :input_html=>{:rows=>3}

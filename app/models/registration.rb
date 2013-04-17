@@ -19,8 +19,11 @@ class Registration < ActiveRecord::Base
   scope :checked_in, where(:checked_in=>true)
 
   # Attributes:
-  attr_accessible :user_id, :olympiad_id, :team_id, :captain, :uniform_name, :uniform_number, :uniform_size
-  attr_accessible :athlete, :paid, :agree_pay, :agree_waiver, :uniform_shirt, :checked_in
+  attr_accessible :user_id, :olympiad_id, :team_id, :captain, :uniform_name, :uniform_number, :uniform_size,
+    :athlete, :paid, :agree_pay, :agree_waiver, :uniform_shirt, :checked_in,
+    :points_total, :points_gold, :points_silver, :points_bronze, :count_total, :count_gold, :count_silver,
+    :count_bronze
+
 
   # Validations:
   with_options :if=>:uniform_shirt do |r|
@@ -54,9 +57,9 @@ class Registration < ActiveRecord::Base
     award_gold_count + award_silver_count + award_bronze_count
   end
 
-  def award_gold_score; award_gold_count * 9; end
-  def award_silver_score; award_silver_count * 6; end
-  def award_bronze_score; award_bronze_count * 3; end
+  def award_gold_score; award_gold_count * 15; end
+  def award_silver_score; award_silver_count * 10; end
+  def award_bronze_score; award_bronze_count * 5; end
 
 
 end

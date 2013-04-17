@@ -14,7 +14,9 @@ class Team < ActiveRecord::Base
   scope :for_olympiad, lambda{|o| where(:olympiad_id=>o.id) }
 
   # Attributes:
-  attr_accessible :olympiad_id, :name, :shirt_color, :color1, :color2, :color1_code, :color2_code, :bio
+  attr_accessible :olympiad_id, :name, :shirt_color, :color1, :color2, :color1_code, :color2_code, :bio,
+    :points_total, :points_gold, :points_silver, :points_bronze, :count_total, :count_gold, :count_silver,
+    :count_bronze
   attr_accessible :user_ids
 
   def self.shirt_colors

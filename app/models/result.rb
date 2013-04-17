@@ -13,36 +13,64 @@ class Result < ActiveRecord::Base
   scope :teams, where(:registration_id=>nil)
 
   # Attributes:
-  attr_accessible :award, :award_value_player, :award_value_team, :group_name, :match_number, :match_round, :match_score, :offering_id, :registration_id, :team_id, :type
+  attr_accessible :award, :points_athlete, :points_team, :note, :offering_id, :registration_id, :team_id
+
+  # What results are possible?
+  def self.result_types
+    %w(gold silver bronze participant none)
+  end
 
 
   # Is this result for an entire team?
-  def team?
+  def team_result?
     registration_id.nil?
   end
 
   # Is this result for a single player?
-  def player?
-    !team?
+  def athlete_result?
+    !team_result?
   end
 
-  # Return results for the same match amongst teammates
+  # Return a list of results earning the same result:
   def partner_results
-    r = Result.where(:offering_id=>offering_id, :match_round=>match_round, :match_number=>match_number)
-    r = r.where(:group_name=>group_name) if group_name                # Same group
-    r = r.where("registration_id != ?", registration_id) if player?   # Not same person
-    r = r.where(:team_id=>team_id) if team?                           # Same team (needed?)
-    return r
+    r = Result.where(:offering_id=>offering_id, :award=>award)
   end
 
-  # Return results for the same match amongst opponents
-  def opponent_results
-    r = Result.where(:offering_id=>offering_id, :match_round=>match_round, :match_number=>match_number)
-    r = r.where("group_name != ?", group_name) if group_name
-    r = r.where("registration_id != ?", registration_id) if player?
-    r = r.where("team_id != ?", team_id) if team?
-    return r
+
+
+
+  protected
+
+  def update_award_values
+    points_athlete = offering.sport.points_for_athlete(award)
+    points_team = offering.sport.points_for_team(award)
   end
+  before_save :update_award_values
+
+  def update_team_caches
+    puts "Updating team caches..."
+    if team?
+      # Update team.count_gold/silver/bronze (medal matching award)
+      # Update team.points_gold/silver/bronze (medal matching award)
+      # Update team.count_total
+      # Update team.points_total
+      #team.update_attributes()
+    end
+  end
+  after_save :update_team_caches
+
+  def update_registration_caches
+    puts "Updating registration caches..."
+    if registration?
+      # Update registration.count_gold/silver/bronze (medal matching award)
+      # Update registration.points_gold/silver/bronze (medal matching award)
+      # Update registration.count_total
+      # Update registration.points_total
+      #registration.update_attributes()
+    end
+  end
+  after_save :update_registration_caches
+
 
 
 end
