@@ -9,8 +9,8 @@ class LiveController < ApplicationController
 
   # Live Event Display:
   def show
-    @teams = @olympiad.teams.order("award_value_total DESC")
-    @registrations = @olympiad.registrations.includes(:user).order("award_value_total DESC")
+    @teams = @olympiad.teams.order("points_total DESC")
+    @registrations = @olympiad.registrations.includes(:user).order("points_total DESC")
   end
 
 

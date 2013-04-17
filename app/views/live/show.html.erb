@@ -6,13 +6,13 @@
 
 <div id="team-rank" class="span8">
   <% @teams.each do |team| -%>
-  <div class="progress" id="rank-team-<%=team.id-%>" data-score="<%=team.award_value_total-%>" data-count="<%=team.award_total_count-%>" style="background:<%=team.color1_code-%>;">
+  <div class="progress" id="rank-team-<%=team.id-%>" data-score="<%=team.points_total-%>" data-count="<%=team.count_total-%>" style="background:<%=team.color1_code-%>;">
     <span class="name" style="color:<%=team.color2_code-%>;">
-      <%= team.name %> (<%=team.award_value_total-%> pts)
+      <%= team.name %> (<%=team.points_total-%> pts)
     </span>
-    <div class="bar bar-gold" data-score="<%=team.award_gold_score-%>" data-count="<%=team.award_gold_count-%>" title="<%=team.award_gold_count-%> Gold"></div>
-    <div class="bar bar-silver" data-score="<%=team.award_silver_score-%>" data-count="<%=team.award_silver_count-%>" title="<%=team.award_silver_count-%> Silver"></div>
-    <div class="bar bar-bronze" data-score="<%=team.award_bronze_score-%>" data-count="<%=team.award_bronze_count-%>" title="<%=team.award_bronze_count-%> Bronze"></div>
+    <div class="bar bar-gold" data-score="<%=team.points_gold-%>" data-count="<%=team.count_gold-%>" title="<%=team.count_gold-%> Gold"></div>
+    <div class="bar bar-silver" data-score="<%=team.points_silver-%>" data-count="<%=team.count_silver-%>" title="<%=team.count_silver-%> Silver"></div>
+    <div class="bar bar-bronze" data-score="<%=team.points_bronze-%>" data-count="<%=team.count_bronze-%>" title="<%=team.count_bronze-%> Bronze"></div>
   </div>
   <% end # teams %>
 </div> <!--/#team-rank-->
@@ -20,13 +20,13 @@
 <div id="athlete-rank" class="span8">
   <% @registrations.each do |reg| -%>
   <% if team = reg.team %>
-  <div class="progress" id="rank-athlete-<%=reg.id-%>" data-score="<%=reg.award_value_total-%>" data-count="<%=reg.award_total_count-%>" style="background:<%=team.color1_code-%>;">
+  <div class="progress" id="rank-athlete-<%=reg.id-%>" data-score="<%=reg.points_total-%>" data-count="<%=reg.count_total-%>" style="background:<%=team.color1_code-%>;">
     <span class="name" style="color:<%=team.color2_code-%>;">
-      <%= reg.uniform_name %> (<%=reg.award_value_total-%> pts)
+      <%= reg.uniform_name %> (<%=reg.points_total-%> pts)
     </span>
-    <div class="bar bar-gold" data-score="<%=reg.award_gold_score-%>" data-count="<%=reg.award_gold_count-%>" title="<%=reg.award_gold_count-%> Gold"></div>
-    <div class="bar bar-silver" data-score="<%=reg.award_silver_score-%>" data-count="<%=reg.award_silver_count-%>" title="<%=reg.award_silver_count-%> Silver"></div>
-    <div class="bar bar-bronze" data-score="<%=reg.award_bronze_score-%>" data-count="<%=reg.award_bronze_count-%>" title="<%=reg.award_bronze_count-%> Bronze"></div>
+    <div class="bar bar-gold" data-score="<%=reg.points_gold-%>" data-count="<%=reg.count_gold-%>" title="<%=reg.count_gold-%> Gold"></div>
+    <div class="bar bar-silver" data-score="<%=reg.points_silver-%>" data-count="<%=reg.count_silver-%>" title="<%=reg.count_silver-%> Silver"></div>
+    <div class="bar bar-bronze" data-score="<%=reg.points_bronze-%>" data-count="<%=reg.count_bronze-%>" title="<%=reg.count_bronze-%> Bronze"></div>
   </div>
   <% end # if team %>
   <% end # registrations %>
