@@ -24,6 +24,17 @@
       played in a <%= sport.tournament_style.capitalize -%> Style tournament
     </p>
     <p><%= sport.description -%></p>
+
+    <dl>
+    <% %w(field equipment rules details).each do |field_name| %>
+      <% field_value = sport.send(field_name) %>
+      <% unless field_value.blank? %>
+        <dt><%= field_name.capitalize %></dt>
+        <dd><%= field_value %></dd>
+      <% end %>
+    <% end # each field %>
+    </dl>
+
     <p><em>More information, tournament plan, and rule details for <%=@olympiad.name-%> coming soon.</em></p>
   </div>
 </div>

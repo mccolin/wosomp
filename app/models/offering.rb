@@ -10,8 +10,4 @@ class Offering < ActiveRecord::Base
 
   attr_accessible :olympiad_id, :sport_id, :details
 
-  # does_keys :column=>:details
-  # has_key :location
-  # has_key :schedule
-
 end
