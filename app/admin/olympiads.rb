@@ -91,7 +91,7 @@ ActiveAdmin.register Olympiad do
 
     # Shirt Order:
     panel "Registrations / Shirt Order Details" do
-      table_for olympiad.registrations.where("athlete = ? OR uniform_shirt = ?", true, true).includes(:team, :user).order(:team_id, :uniform_name) do
+      table_for olympiad.registrations.where("athlete = ? OR uniform_shirt = ?", true, true).includes(:team, :user).order(:team_id, :uniform_size) do
         column "Registration" do |reg|
           link_to reg.name, [:admin, reg]
         end
