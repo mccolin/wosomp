@@ -86,6 +86,8 @@
       </table>
       <% end -%>
 
+
+      <% if @olympiad.is_registering? -%>
       <p>
         <%=link_to "Edit Your Registration", register_olympiad_path(@olympiad), :class=>"btn btn-primary" -%>
         <br/><small>
@@ -103,6 +105,14 @@
           out on something like WOSoMP!?
         </small>
       </p>
+
+      <% else %>
+      <p>
+        <strong style="color:#A00;">The Registration Period is Closed</strong>. In order to change or cancel your registration,
+        you will have to contact the organizers of <%=@olympiad.name-%> directly.
+      </p>
+
+      <% end # if is_registering? %>
 
       <p>&nbsp;</p>
 
