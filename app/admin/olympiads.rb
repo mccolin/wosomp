@@ -46,16 +46,16 @@ ActiveAdmin.register Olympiad do
     attributes_table do
       row :name
       row "Athlete Fee" do
-        "$#{olympiad.registration_fee}"
+        "$#{olympiad.registration_fee} (#{olympiad.registrations.where(:athlete=>true).count()} registered)"
       end
       row "Spectator Fee" do
-        "$#{olympiad.spectator_fee}"
+        "$#{olympiad.spectator_fee} (#{olympiad.registrations.where(:athlete=>false).count()} registered)"
       end
       row "Spectator Shirt Fee" do
-        "$#{olympiad.spectator_shirt_fee}"
+        "$#{olympiad.spectator_shirt_fee} (#{olympiad.registrations.where(:athlete=>false, :uniform_shirt=>true).count()} registered)"
       end
       row "Registered Budget" do
-        "<b style='color:#A00;'>$#{olympiad.registrations.sum(&:fee)}</b>".html_safe
+        "<b style='color:#A00;'>$#{olympiad.registrations.sum(&:fee)}</b> (#{olympiad.registrations.count()} total guests)".html_safe
       end
     end
     table_for olympiad.sports.order(:name) do
@@ -91,7 +91,7 @@ ActiveAdmin.register Olympiad do
 
     # Shirt Order:
     panel "Registrations / Shirt Order Details" do
-      table_for olympiad.registrations.includes(:team, :user).order(:team_id, :uniform_number) do
+      table_for olympiad.registrations.where("athlete = ? OR uniform_shirt = ?", true, true).includes(:team, :user).order(:team_id, :uniform_name) do
         column "Registration" do |reg|
           link_to reg.name, [:admin, reg]
         end
@@ -114,8 +114,26 @@ ActiveAdmin.register Olympiad do
         column "" do |reg|
           link_to "View", [:admin, reg]
         end
+      end # table
+
+      size_counts = olympiad.registrations.where("athlete = ? OR uniform_shirt = ?", true, true).group(:uniform_size).count()
+      total_count = olympiad.registrations.where("athlete = ? OR uniform_shirt = ?", true, true).count()
+      table do
+        tr do
+          th "Total"
+          %w(S M L XL YXL YL YM).each do |size|
+            th size
+          end
+        end
+        tr do
+          td total_count
+          %w(S M L XL YXL YL YM).each do |size|
+            td "#{size_counts[size] || 0}"
+          end
+        end
       end
-    end
+
+    end # panel
   end
 
 
