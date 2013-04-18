@@ -17,7 +17,12 @@ class Result < ActiveRecord::Base
 
   # What results are possible?
   def self.result_types
-    %w(gold silver bronze participant none)
+    Result.award_types + %w(participant none)
+  end
+
+  # What award types are possible?
+  def self.award_types
+    %w(gold silver bronze)
   end
 
 
@@ -41,33 +46,19 @@ class Result < ActiveRecord::Base
 
   protected
 
-  def update_award_values
-    points_athlete = offering.sport.points_for_athlete(award)
-    points_team = offering.sport.points_for_team(award)
+  def update_point_values
+    self.points_athlete = offering.sport.points_for_athlete(self.award)
+    self.points_team = offering.sport.points_for_team(self.award)
   end
-  before_save :update_award_values
+  before_save :update_point_values
 
   def update_team_caches
-    puts "Updating team caches..."
-    if team?
-      # Update team.count_gold/silver/bronze (medal matching award)
-      # Update team.points_gold/silver/bronze (medal matching award)
-      # Update team.count_total
-      # Update team.points_total
-      #team.update_attributes()
-    end
+    self.team.update_result_caches() if self.team
   end
   after_save :update_team_caches
 
   def update_registration_caches
-    puts "Updating registration caches..."
-    if registration?
-      # Update registration.count_gold/silver/bronze (medal matching award)
-      # Update registration.points_gold/silver/bronze (medal matching award)
-      # Update registration.count_total
-      # Update registration.points_total
-      #registration.update_attributes()
-    end
+    self.registration.update_result_caches() if self.registration
   end
   after_save :update_registration_caches
 

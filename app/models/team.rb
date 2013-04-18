@@ -46,4 +46,22 @@ class Team < ActiveRecord::Base
   end
 
 
+  # Update award point and count caches for this team:
+  def update_result_caches
+    award_counts = Result.where(:team_id=>id).group(:award).count()
+    self.count_gold = award_counts["gold"] || 0
+    self.count_silver = award_counts["silver"] || 0
+    self.count_bronze = award_counts["bronze"] || 0
+    self.count_total = self.count_gold + self.count_silver + self.count_bronze
+
+    award_points = Result.where(:team_id=>id).group(:award).sum(:points_team)
+    self.points_gold = award_points["gold"] || 0
+    self.points_silver = award_points["silver"] || 0
+    self.points_bronze = award_points["bronze"] || 0
+    self.points_total = self.points_gold + self.points_silver + self.points_bronze
+
+    save()
+  end
+
+
 end
