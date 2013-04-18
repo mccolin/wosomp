@@ -32,6 +32,11 @@ class Olympiad < ActiveRecord::Base
     registration_begins_at < DateTime.now && registration_ends_at > DateTime.now
   end
 
+  def is_late_registration?
+    return false if registration_begins_at.nil? || registration_ends_at.nil?
+    registration_ends_at < DateTime.now && begins_at > DateTime.now
+  end
+
   def is_planning?
     return false if planning_begins_at.nil? || planning_ends_at.nil?
     planning_begins_at < DateTime.now && planning_ends_at > DateTime.now

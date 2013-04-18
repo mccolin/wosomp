@@ -30,7 +30,7 @@
       <% field_value = sport.send(field_name) %>
       <% unless field_value.blank? %>
         <dt><%= field_name.capitalize %></dt>
-        <dd><%= field_value %></dd>
+        <dd><%= simple_format field_value %></dd>
       <% end %>
     <% end # each field %>
     </dl>
@@ -39,3 +39,8 @@
   </div>
 </div>
 <% end #sports %>
+
+<hr/>
+<div class="row" style="text-align:center;">
+  <%=render "home/major_enticement" %>
+</div>

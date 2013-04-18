@@ -36,26 +36,13 @@
     <h2>More About <%=@olympiad.location_name-%></h2>
     <p>
       <% unless @olympiad.location_info.blank? %>
-        <%=@olympiad.location_info-%>
+        <%=simple_format @olympiad.location_info-%>
       <% else %>
         <em>Details, recommendations, and news regarding this venue are coming soon.</em>
       <% end %>
     </p>
-  </div>
-  <div id="location-info" class="span4">
-    <h2>Details</h2>
-    <p class="address">
-      <%=@olympiad.location_address-%><br/>
-      <%=@olympiad.city_state_zip%><br/>
-      <%=link_to "Get Directions", "http://maps.google.com/maps?q=#{@olympiad.mappable_address}", :target=>"_blank"-%>
-    </p>
+    <hr/>
     <dl>
-      <dt>The Event:</dt>
-      <dd><%=@olympiad.begins_at.strftime("%B %-d, %Y")-%></dd>
-
-      <dt>Registration Begins:</dt>
-      <dd><%=@olympiad.registration_begins_at.strftime("%B %-d, %Y")-%></dd>
-
       <dt>Parking:</dt>
       <dd>Free Street Parking</dd>
 
@@ -74,7 +61,40 @@
       </dd>
     </dl>
   </div>
+  <div id="location-info" class="span4">
+    <h2>Details</h2>
+    <p class="address">
+      <%=@olympiad.location_address-%><br/>
+      <%=@olympiad.city_state_zip%><br/>
+      <%=link_to "Get Directions", "http://maps.google.com/maps?q=#{@olympiad.mappable_address}", :target=>"_blank"-%>
+    </p>
+    <dl>
+      <dt>The Event:</dt>
+      <dd>
+        <%=@olympiad.begins_at.strftime("%A, %B %-d, %Y")-%> <br/>
+        <%=@olympiad.begins_at.strftime("%I:%M%P")-%> to about <%=@olympiad.ends_at.strftime("%I:%M%P")-%>
+      </dd>
+
+      <dt>Pre-registration Period:</dt>
+      <dd>
+        Begins <%=@olympiad.registration_begins_at.strftime("%B %-d, %Y at %I:%M%P")-%><br/>
+        Ends <%=@olympiad.registration_ends_at.strftime("%B %-d, %Y at %I:%M%P")-%>
+      </dd>
+
+      <dt>Late Registration:</dt>
+      <dd>
+        <span style="color:#0A0;">Yes! You can sign up late!</span>
+        We will have additional spots available <%=link_to "on our competition teams", olympiad_teams_path(@olympiad) -%>
+        for walk-ups that arrive with registered participants. You will register on-site and, if supplies remain,
+        will also receive a sweet competitor's jersey!<br/><br/>
+        Athlete late registration is $<%=@olympiad.registration_fee-%> and spectators will be charged $<%=@olympiad.spectator_fee-%>.
+      </dd>
+    </dl>
+  </div>
 </div>
 
-
+<hr/>
+<div class="row" style="text-align:center;">
+  <%=render "home/major_enticement" %>
+</div>
 

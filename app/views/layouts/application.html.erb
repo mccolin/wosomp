@@ -30,12 +30,12 @@
           <%= top_nav_item("Events", events_olympiad_path(featured_olympiad)) -%>
           <%= top_nav_item("Teams", olympiad_teams_path(featured_olympiad)) -%>
 
-          <% if featured_olympiad.registration_begins_at <= DateTime.now %>
           <% if current_user && current_user.registered_for?(featured_olympiad) %>
             <%= top_nav_item("Your Registration", registration_olympiad_path(featured_olympiad), :class=>"feature pull-right") -%>
-          <% else %>
+          <% elsif featured_olympiad.is_registering? %>
             <%= top_nav_item("Register", register_olympiad_path(featured_olympiad), :class=>"feature pull-right") -%>
-          <% end %>
+          <% elsif featured_olympiad.is_late_registration? %>
+            <%= top_nav_item("Late Sign Up", location_olympiad_path(featured_olympiad), :class=>"feature pull-right") -%>
           <% end %>
         </ul><!--/.row-->
       </div><!--/.container-->
