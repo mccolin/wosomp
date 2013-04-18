@@ -32,7 +32,7 @@
     </ul>
     <div class="info">
       <div class="members">
-        <% team.registrations.each do |reg| %>
+        <% team.registrations.sort{|a,b| a.uniform_number.to_i <=> b.uniform_number.to_i}.each do |reg| %>
           <%= reg_icon(reg, "no-frills") -%>
         <% end # registrations %>
       </div>

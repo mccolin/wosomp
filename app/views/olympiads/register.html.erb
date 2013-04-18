@@ -147,7 +147,7 @@
       <% if team.registrations.blank? %>
         <em>Nobody yet. Be the first!</em>
       <% else %>
-        <% team.registrations.each do |reg| %>
+        <% team.registrations.sort{|a,b| a.uniform_number.to_i <=> b.uniform_number.to_i}.each do |reg| %>
           <%= reg_icon(reg) -%>
           <!-- <%= reg.user.name -%> - <%= reg.role.to_s.capitalize -%><br/> -->
         <% end # registrations %>
