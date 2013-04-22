@@ -20,19 +20,19 @@
   <tbody>
     <tr>
       <th style="border-color:#CCC;border-style: solid;border-width: 0 1px 1px 0;padding: 0.5em; background:#DDD;font-weight:bold;text-align:left;vertical-align:top;width:33%;">Your Name</th>
-      <td style="border-color:#CCC;border-style: solid;border-width: 0 0 1px 0;padding: 0.5em;"><%=@registration.user.name-%></td>
+      <td style="border-color:#CCC;border-style: solid;border-width: 0 0 1px 0;padding: 0.5em;text-align:left;"><%=@registration.user.name-%></td>
     </tr>
     <tr>
       <th style="border-color:#CCC;border-style: solid;border-width: 0 1px 1px 0;padding: 0.5em; background:#DDD;font-weight:bold;text-align:left;vertical-align:top;width:33%;">Your Email</th>
-      <td style="border-color:#CCC;border-style: solid;border-width: 0 0 1px 0;padding: 0.5em;"><%=link_to @registration.user.email, "mailto:#{@registration.user.email}"-%></td>
+      <td style="border-color:#CCC;border-style: solid;border-width: 0 0 1px 0;padding: 0.5em;text-align:left;"><%=link_to @registration.user.email, "mailto:#{@registration.user.email}"-%></td>
     </tr>
     <tr>
       <th style="border-color:#CCC;border-style: solid;border-width: 0 1px 1px 0;padding: 0.5em; background:#DDD;font-weight:bold;text-align:left;vertical-align:top;width:33%;">Your Birthday</th>
-      <td style="border-color:#CCC;border-style: solid;border-width: 0 0 1px 0;padding: 0.5em;"><%=@registration.user.birthday.try(:strftime, "%B %0d, %Y")-%></td>
+      <td style="border-color:#CCC;border-style: solid;border-width: 0 0 1px 0;padding: 0.5em;text-align:left;"><%=@registration.user.birthday.try(:strftime, "%B %0d, %Y")-%></td>
     </tr>
     <tr>
       <th style="border-color:#CCC;border-style: solid;border-width: 0 1px 1px 0;padding: 0.5em; background:#DDD;font-weight:bold;text-align:left;vertical-align:top;width:33%;">Your Gender</th>
-      <td style="border-color:#CCC;border-style: solid;border-width: 0 0 1px 0;padding: 0.5em;text-transform:capitalize;">
+      <td style="border-color:#CCC;border-style: solid;border-width: 0 0 1px 0;padding: 0.5em;text-align:left;text-transform:capitalize;">
         <%=@registration.user.gender-%>
       </td>
     </tr>
@@ -41,30 +41,30 @@
       <% if @registration.team %>
       <tr>
         <th style="border-color:#CCC;border-style: solid;border-width: 0 1px 1px 0;padding: 0.5em; background:#DDD;font-weight:bold;text-align:left;vertical-align:top;width:33%;">Your Team</th>
-        <td style="border-color:#CCC;border-style: solid;border-width: 0 0 1px 0;padding: 0.5em; font-weight:bold; background-color:<%=@registration.team.color1_code-%>; color:<%=@registration.team.color2_code-%>">
+        <td style="border-color:#CCC;border-style: solid;border-width: 0 0 1px 0;padding: 0.5em;text-align:left; font-weight:bold; background-color:<%=@registration.team.color1_code-%>; color:<%=@registration.team.color2_code-%>">
           <%=@registration.team.name-%>
         </td>
       </tr>
       <tr>
         <th style="border-color:#CCC;border-style: solid;border-width: 0 1px 1px 0;padding: 0.5em; background:#DDD;font-weight:bold;text-align:left;vertical-align:top;width:33%;">Team Role</th>
-        <td style="border-color:#CCC;border-style: solid;border-width: 0 0 1px 0;padding: 0.5em;"><%=@registration.role.capitalize-%></td>
+        <td style="border-color:#CCC;border-style: solid;border-width: 0 0 1px 0;padding: 0.5em;text-align:left;"><%=@registration.role.capitalize-%></td>
       </tr>
       <% end # if %>
 
       <% if @registration.athlete? -%>
       <tr>
         <th style="border-color:#CCC;border-style: solid;border-width: 0 1px 1px 0;padding: 0.5em; background:#DDD;font-weight:bold;text-align:left;vertical-align:top;width:33%;">Uniform Name</th>
-        <td style="border-color:#CCC;border-style: solid;border-width: 0 0 1px 0;padding: 0.5em;"><%=@registration.uniform_name-%></td>
+        <td style="border-color:#CCC;border-style: solid;border-width: 0 0 1px 0;padding: 0.5em;text-align:left;"><%=@registration.uniform_name-%></td>
       </tr>
       <tr>
         <th style="border-color:#CCC;border-style: solid;border-width: 0 1px 1px 0;padding: 0.5em; background:#DDD;font-weight:bold;text-align:left;vertical-align:top;width:33%;">Uniform Number</th>
-        <td style="border-color:#CCC;border-style: solid;border-width: 0 0 1px 0;padding: 0.5em;"><%=@registration.uniform_number-%></td>
+        <td style="border-color:#CCC;border-style: solid;border-width: 0 0 1px 0;padding: 0.5em;text-align:left;"><%=@registration.uniform_number-%></td>
       </tr>
       <% end # athlete? -%>
 
       <tr>
         <th style="border-color:#CCC;border-style: solid;border-width: 0 1px 1px 0;padding: 0.5em; background:#DDD;font-weight:bold;text-align:left;vertical-align:top;width:33%;">Shirt Size</th>
-        <td style="border-color:#CCC;border-style: solid;border-width: 0 0 1px 0;padding: 0.5em;"><%=@registration.uniform_size-%></td>
+        <td style="border-color:#CCC;border-style: solid;border-width: 0 0 1px 0;padding: 0.5em;text-align:left;"><%=@registration.uniform_size-%></td>
       </tr>
     <% end # if %>
 
@@ -103,8 +103,12 @@
     know who we are in person, so you can reach out to us over email and phone if that floats your
     boat.
   </p>
+  <p>&nbsp;</p>
+  <h1 style="color:#303030;font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;font-size:20px;font-weight:normal;text-align:center;">
+    Do you know any Johnny-come-latelies?
+  </h1>
   <p style="font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;color:#666;line-height:1.4;">
-    And if you have any friends who are less cool and punctual than you, it might be worthwhile to
+    If you have any friends who are less cool and punctual than you, it might be worthwhile to
     <a href="http://wosomp.com/olympiads/kennett-2013/location?utm_source=emailConfirm&utm_medium=email&utm_campaign=Kennett2013&utm_content=LINK_LATE_REG">
       let them know day-of walk-on registration is possible
     </a>.

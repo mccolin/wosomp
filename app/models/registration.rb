@@ -54,7 +54,11 @@ class Registration < ActiveRecord::Base
   end
 
   def shirt_asset_path
-    file_basename = "#{team.shirt_color}_#{uniform_number}_#{uniform_name.downcase().gsub(/[^0-9a-z]/, "")}"
+    file_basename = if athlete?
+      "#{team.shirt_color}_#{uniform_number}_#{uniform_name.downcase().gsub(/[^0-9a-z]/, "")}"
+    else
+      "#{team.shirt_color}_fan"
+    end
     if Rails.application.assets.find_asset("reg/#{file_basename}.png").nil?
       "reg/wosomp.png"
     else
