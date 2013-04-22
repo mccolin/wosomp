@@ -53,6 +53,15 @@ class Registration < ActiveRecord::Base
     athlete? ? 30 : (uniform_shirt? ? 20 : 10)
   end
 
+  def shirt_asset_path
+    file_basename = "#{team.shirt_color}_#{uniform_number}_#{uniform_name.downcase().gsub(/[^0-9a-z]/, "")}"
+    if Rails.application.assets.find_asset("reg/#{file_basename}.png").nil?
+      "reg/wosomp.png"
+    else
+      "reg/#{file_basename}.png"
+    end
+  end
+
 
   # Update award point and count caches for this registration/athlete:
   def update_result_caches

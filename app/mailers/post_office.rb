@@ -9,6 +9,9 @@ class PostOffice < ActionMailer::Base
   # Send our emails in the mailer layout:
   layout "post_office"
 
+  # Provide access to our registration icon helpers and such:
+  helper :application
+
   # Registration Successful:
   def registered_email(registration)
     @registration ||= registration
@@ -16,9 +19,9 @@ class PostOffice < ActionMailer::Base
     @olympiad = @registration.olympiad
 
     o_name = @olympiad.name
-    o_date = @olympiad.begins_at.strftime("%B %0d")
+    o_date = @olympiad.begins_at.strftime("%B %-d")
 
-    mail(:to => @user.email, :subject => "You Registered for WOSoMP #{o_name} on #{o_date}")
+    mail(:to => @user.email, :subject => "You Are Registered for WOSoMP #{o_name} on #{o_date}")
   end
 
 end

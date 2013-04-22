@@ -36,7 +36,8 @@ end
 
 group :development do
   gem "mysql2"
-  gem "quiet_assets"
+  gem "quiet_assets"                  # Prevent asset lines from displaying in log
+  gem "letter_opener"                 # Open emails in browser during local dev
 end
 
 group :production, :staging do

@@ -97,6 +97,12 @@ module ApplicationHelper
     end
   end
 
+  # Display a pre-saved image (if it exists) for a registration shirt:
+  def reg_shirt_image(reg, opts={})
+    src = reg.shirt_asset_path()
+    image_tag src, opts
+  end
+
 
   # Return the next/upcoming Olympiad:
   def featured_olympiad
