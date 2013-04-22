@@ -20,7 +20,7 @@ class Team < ActiveRecord::Base
   attr_accessible :user_ids
 
   def self.shirt_colors
-    %w(black blue brown green gold gray kiwi heather maroon purple orange red royal sand teal)
+    %w(antique-green antique-red antique-sapphire black blue brown green gold gray kiwi heather maroon purple orange red royal sand teal)
   end
 
 
