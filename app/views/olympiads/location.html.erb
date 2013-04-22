@@ -44,12 +44,12 @@
     <hr/>
     <dl>
       <dt>Parking:</dt>
-      <dd>Free Street Parking</dd>
-
-      <dt>Need to Know:</dt>
       <dd>
-        Wayne Ave is in a quiet neighborhood and, while our venue provides ample parking opportunities,
-        you may have to park up the street a bit from the venue address.
+        Free Street Parking</br>
+        <em>Note:</em> Cars parked against traffic will be ticketed. Please take care to
+        not block any driveways or mailboxes and, if possible, <em>do not</em> park in front
+        of 714 Wayne Ave as a consideration to our neighbors. Once the street immediately
+        in front of 716 fills up, parking up the street on Mill Road is plentiful.
       </dd>
 
       <dt>Distances:</dt>
@@ -79,8 +79,12 @@
       <dd>
         Begins <%=@olympiad.registration_begins_at.strftime("%B %-d, %Y at %I:%M%P")-%><br/>
         Ends <%=@olympiad.registration_ends_at.strftime("%B %-d, %Y at %I:%M%P")-%>
+        <% if !@olympiad.is_registering? -%>
+          <br/><span style="color:#A00;">Closed! Pre-registration has passed.</span>
+        <% end -%>
       </dd>
 
+      <% if @olympiad.is_late_registration? %>
       <dt>Late Registration:</dt>
       <dd>
         <span style="color:#0A0;">Yes! You can sign up late!</span>
@@ -89,6 +93,7 @@
         will also receive a sweet competitor's jersey!<br/><br/>
         Athlete late registration is $<%=@olympiad.registration_fee-%> and spectators will be charged $<%=@olympiad.spectator_fee-%>.
       </dd>
+      <% end %>
     </dl>
   </div>
 </div>
