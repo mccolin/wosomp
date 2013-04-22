@@ -116,19 +116,33 @@ ActiveAdmin.register Olympiad do
         end
       end # table
 
-      size_counts = olympiad.registrations.where("athlete = ? OR uniform_shirt = ?", true, true).group(:uniform_size).count()
-      total_count = olympiad.registrations.where("athlete = ? OR uniform_shirt = ?", true, true).count()
+      size_counts = olympiad.registrations.with_uniform().group(:uniform_size).count()
+      total_count = olympiad.registrations.with_uniform().count()
       table do
         tr do
           th "Total"
-          %w(S M L XL YXL YL YM).each do |size|
+          %w(YM YL YXL S M L XL).each do |size|
             th size
           end
         end
         tr do
           td total_count
-          %w(S M L XL YXL YL YM).each do |size|
+          %w(YM YL YXL S M L XL).each do |size|
             td "#{size_counts[size] || 0}"
+          end
+        end
+      end
+
+      color_counts = olympiad.registrations.with_uniform().group(:team_id).count()
+      table do
+        tr do
+          olympiad.teams.order(:id).each do |team|
+            th team.shirt_color
+          end
+        end
+        tr do
+          olympiad.teams.order(:id).each do |team|
+            td "#{color_counts[team.id] || 0}"
           end
         end
       end

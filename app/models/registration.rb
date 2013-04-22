@@ -16,6 +16,7 @@ class Registration < ActiveRecord::Base
   scope :captains, where(:captain=>true)
   scope :athletes, where(:athlete=>true)
   scope :spectators, where(:athlete=>false)
+  scope :with_uniform, where("athlete = ? OR uniform_shirt = ?", true, true)
   scope :checked_in, where(:checked_in=>true)
 
   # Attributes:
