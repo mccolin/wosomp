@@ -15,6 +15,14 @@
   dd {
     padding-bottom: 0.5em !important;
   }
+  div.left {
+    float: left;
+    width: 48%;
+  }
+  div.right {
+    float: right;
+    width: 48%;
+  }
 </style>
 
 <% if @registration %>
@@ -76,18 +84,41 @@
 <% else # if registration %>
 
 
+<div class="left">
   <h2>Select Guest to Check-In</h2>
 
   <%= semantic_form_for :checkin, :url=>admin_check_in_save_path() do |f| %>
-    <%= f.inputs do %>
-      <%= f.input :user, :label => "Guest Name", :as => :select, :collection => @olympiad.registrations.includes(:user).not_checked_in().order("users.first_name, users.last_name").map(&:user) %>
+    <%= f.inputs "Guest Info" do %>
+      <%= f.input :user, :label => "Guest Name", :as => :select, :collection => @olympiad.registrations.includes(:user).not_checked_in().order("users.first_name, users.last_name").map(&:user), :hint=>"#{@olympiad.registrations.not_checked_in.count} guests left to check in"%>
       <%= f.input :olympiad, :as => :select, :collection => Olympiad.all, :selected => @olympiad.id %>
     <% end # f.inputs %>
     <%= f.actions do %>
       <%= f.action :submit, :label=>"Check-In Guest" %>
-      <%= f.action :cancel, :as=>:link, :label=>"Reset Form" %>
     <% end # f.actions %>
   <% end %>
+</div>
+
+<div class="right">
+  <h2>Enter a Walk-Up Registration</h2>
+
+  <%= semantic_form_for :registration, :url=>admin_check_in_register_path() do |f| %>
+    <%= f.inputs "Guest Info" do %>
+      <%= f.input "user[first_name]", :label=>"First Name" %>
+      <%= f.input "user[last_name]", :label=>"Last Name" %>
+      <%= f.input "user[gender]", :label=>"Gender", :as=>:radio, :collection=>%w(male female) %>
+      <%= f.input "user[email]", :label=>"Email" %>
+      <%= f.input "user[password]", :as=>:hidden, :value=>%w(wosompulous sportyfine radical awesomepants).sample %>
+
+      <%= f.input :athlete, :as => :boolean, :input_html=>{:checked=>true} %>
+      <%= f.input :uniform_shirt, :as => :boolean, :input_html=>{:checked=>true}, :hint=>"Uncheck this if a fan wishes not to receive a shirt" %>
+      <%= f.input :team_id, :as => :select, :collection => @olympiad.teams, :hint=>"Always select team for Athletes; Select team for non-athletes only if receiving shirt" %>
+      <%= f.input :olympiad_id, :as=>:hidden, :value=>@olympiad.id %>
+    <% end # f.inputs %>
+    <%= f.actions do %>
+      <%= f.action :submit, :label=>"Register New Guest" %>
+    <% end # f.actions %>
+  <% end %>
+</div>
 
 
 <% end # if registration %>
