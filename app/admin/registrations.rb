@@ -134,6 +134,7 @@ ActiveAdmin.register Registration do
       f.input :agree_pay, :as=>:radio
       f.input :agree_waiver, :as=>:radio
       f.input :paid, :as=>:radio
+      f.input :checked_in, :as=>:radio
     end
     f.buttons
   end
