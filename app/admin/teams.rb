@@ -62,9 +62,26 @@ ActiveAdmin.register Team do
         end
       end
 
+      # Detailed Results:
+      table_for team.results.includes(:offering,:registration).order("results.offering_id, results.points_team DESC, results.award") do
+        #column :offering
+        column "Sport Results" do |result|
+          link_to(result.offering.sport.name, [:admin, result.offering])
+        end
+        #column :registration
+        column "Athlete" do |result|
+          result.registration ? link_to(result.registration.user.name, [:admin, result.registration]) : "N/A"
+        end
+        column :award
+        column :points_athlete
+        column :points_team
+        column :note
+      end # table
+
+      # Detailed Results:
       table_for team.registrations.athletes().includes(:user).order("registrations.points_total DESC, registrations.count_total DESC, users.last_name, users.first_name") do
-        column "Athletes" do |reg|
-          link_to(reg.user.name, [:admin, reg.user]) + " (#{reg.uniform_name} ##{reg.uniform_number}) #{reg.role.to_s.capitalize}"
+        column "Athlete Results" do |reg|
+          link_to(reg.user.name, [:admin, reg])
         end
         column "Rank Pts" do |reg|
           reg.points_total
@@ -81,7 +98,7 @@ ActiveAdmin.register Team do
         column "Bronze" do |reg|
           reg.count_bronze
         end
-      end
+      end # table
     end
 
   end

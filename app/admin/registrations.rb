@@ -84,6 +84,15 @@ ActiveAdmin.register Registration do
             "Gold: #{reg.count_gold}, Silver: #{reg.count_silver}, Bronze: #{reg.count_bronze}"
           end
         end
+
+        # Detailed Results:
+        table_for registration.results.includes(:offering,:team).order("results.points_athlete DESC, results.award") do
+          column :offering
+          column :award
+          column :points_athlete
+          column :points_team
+          column :note
+        end # table
       end
     end
     panel "Agreements, Timing" do

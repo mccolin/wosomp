@@ -27,7 +27,9 @@ class Result < ActiveRecord::Base
 
 
   def name
-    [offering.name, team.name, registration.user.name].join("-").gsub(/\s+/, "")
+    name_parts = [offering.name, team.name]
+    name_parts << registration.user.name if registration
+    name_parts.join("-").gsub(/\s+/, "")
   end
 
   # Is this result for an entire team?
