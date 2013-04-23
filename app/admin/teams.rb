@@ -3,6 +3,8 @@
 
 ActiveAdmin.register Team do
 
+  menu :priority => 4, :label => "Teams", :parent=>"Olympiads"
+
   # Scopes:
   scope :all, :default=>true
 

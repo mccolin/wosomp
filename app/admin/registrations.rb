@@ -3,6 +3,8 @@
 
 ActiveAdmin.register Registration do
 
+  menu :priority => 6, :label => "Registrations", :parent=>"Olympiads"
+
   # Scopes:
   scope :all, :default=>true
   scope :captains
