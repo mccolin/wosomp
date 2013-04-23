@@ -26,6 +26,10 @@ class Result < ActiveRecord::Base
   end
 
 
+  def name
+    [offering.name, team.name, registration.user.name].join("-").gsub(/\s+/, "")
+  end
+
   # Is this result for an entire team?
   def team_result?
     registration_id.nil?

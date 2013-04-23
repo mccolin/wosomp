@@ -71,6 +71,21 @@ ActiveAdmin.register Registration do
         end
       end
     end
+    if registration.athlete?
+      panel "Athletic Results" do
+        attributes_table_for registration do
+          row "Ranking Points" do |reg|
+            "#{reg.points_total} points from #{reg.count_total} medals"
+          end
+          row "Medal Points" do |reg|
+            "Gold: #{reg.points_gold}pts, Silver: #{reg.points_silver}pts, Bronze: #{reg.points_bronze}pts"
+          end
+          row "Medal Counts" do |reg|
+            "Gold: #{reg.count_gold}, Silver: #{reg.count_silver}, Bronze: #{reg.count_bronze}"
+          end
+        end
+      end
+    end
     panel "Agreements, Timing" do
       attributes_table_for registration do
         row "Agrees to Pay?" do |reg|

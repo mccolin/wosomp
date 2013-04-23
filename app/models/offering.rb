@@ -10,4 +10,9 @@ class Offering < ActiveRecord::Base
 
   attr_accessible :olympiad_id, :sport_id, :details
 
+
+  def name
+    [sport.name, olympiad.name].join("-").gsub(/\s+/, "")
+  end
+
 end

@@ -49,11 +49,41 @@ ActiveAdmin.register Team do
       row :created_at
       row :updated_at
     end
-    table_for team.registrations.includes(:user).order("users.last_name, users.first_name") do
-      column "Athletes and Supporters" do |reg|
-        link_to(reg.user.name, [:admin, reg.user]) + " - #{reg.role.to_s.capitalize}"
+    panel "Athletic Results" do
+      attributes_table_for team do
+        row "Ranking Points" do |t|
+          "#{t.points_total} points from #{t.count_total} medals"
+        end
+        row "Medal Points" do |t|
+          "Gold: #{t.points_gold}pts, Silver: #{t.points_silver}pts, Bronze: #{t.points_bronze}pts"
+        end
+        row "Medal Counts" do |t|
+          "Gold: #{t.count_gold}, Silver: #{t.count_silver}, Bronze: #{t.count_bronze}"
+        end
+      end
+
+      table_for team.registrations.athletes().includes(:user).order("registrations.points_total DESC, registrations.count_total DESC, users.last_name, users.first_name") do
+        column "Athletes" do |reg|
+          link_to(reg.user.name, [:admin, reg.user]) + " (#{reg.uniform_name} ##{reg.uniform_number}) #{reg.role.to_s.capitalize}"
+        end
+        column "Rank Pts" do |reg|
+          reg.points_total
+        end
+        column "Medal Count" do |reg|
+          reg.count_total
+        end
+        column "Gold" do |reg|
+          reg.count_gold
+        end
+        column "Silver" do |reg|
+          reg.count_silver
+        end
+        column "Bronze" do |reg|
+          reg.count_bronze
+        end
       end
     end
+
   end
 
 
