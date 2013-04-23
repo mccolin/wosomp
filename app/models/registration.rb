@@ -18,6 +18,7 @@ class Registration < ActiveRecord::Base
   scope :spectators, where(:athlete=>false)
   scope :with_uniform, where("athlete = ? OR uniform_shirt = ?", true, true)
   scope :checked_in, where(:checked_in=>true)
+  scope :not_checked_in, where(:checked_in=>false)
 
   # Attributes:
   attr_accessible :user_id, :olympiad_id, :team_id, :captain, :uniform_name, :uniform_number, :uniform_size,
@@ -52,6 +53,15 @@ class Registration < ActiveRecord::Base
   def fee
     athlete? ? 30 : (uniform_shirt? ? 20 : 10)
   end
+
+  def check_in!
+    update_attributes(checked_in: true)
+  end
+
+  def paid!
+    update_attributes(paid: true)
+  end
+
 
   def shirt_asset_path
     file_basename = if athlete?

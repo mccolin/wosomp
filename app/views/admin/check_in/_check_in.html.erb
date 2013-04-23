@@ -1,0 +1,93 @@
+<%
+  # WOSOMP
+  # Admin / Check-In Form -- Guest checking into a Wosomp Olympiad
+
+  @olympiad = Olympiad.featured_olympiad()
+
+  @registration = params[:r] ? Registration.find(params[:r]) : nil
+-%>
+
+<style>
+  dl {
+    font-size: 16px !important;
+    line-height: 1.5;
+  }
+  dd {
+    padding-bottom: 0.5em !important;
+  }
+</style>
+
+<% if @registration %>
+<h2>Guest Details</h2>
+
+  <p>
+    <%= @registration.user.name %> has been checked into <%= @registration.olympiad.name %>
+  </p>
+
+  <div style="float:left; width:350px;">
+    <% if @registration.uniform_shirt? %>
+      <%= reg_shirt(@registration) %>
+    <% end %>
+  </div>
+
+  <div style="float:left;">
+    <dl>
+      <dt>Registration Fee:</dt>
+      <dd>
+        <span style="color:#A00;font-weight:bold;">$<%= @registration.fee %></span>
+        (<%= @registration.role.capitalize %>)
+      </dd>
+
+      <% if @registration.team %>
+        <dt>Team:</dt>
+        <dd>
+          <span style="color:<%=@registration.team.color1_code-%>; font-weight:bold;%>"><%=@registration.team.name-%></span>
+        </dd>
+
+        <% if @registration.uniform_shirt? %>
+          <dt>Shirt Color:</dt>
+          <dd><%= @registration.team.shirt_color %></dd>
+
+          <dt>Shirt Name:</dt>
+          <dd><%= @registration.uniform_name %></dd>
+
+          <dt>Shirt Number:</dt>
+          <dd><%= @registration.uniform_number %></dd>
+
+          <dt>Shirt Size:</dt>
+          <dd><%= @registration.uniform_size %></dd>
+        <% else %>
+          <dt>Shirt:</dt>
+          <dd>No Shirt</dd>
+        <% end # if shirt %>
+      <% end # if team %>
+    </dl>
+
+    <%= semantic_form_for :checkin, :url=>admin_check_in_path(), :method=>:get do |f| %>
+      <%= f.actions do %>
+        <%= f.action :submit, :label=>"Check-In Another Guest" %>
+      <% end # f.actions %>
+    <% end %>
+
+  </div>
+
+
+
+<% else # if registration %>
+
+
+  <h2>Select Guest to Check-In</h2>
+
+  <%= semantic_form_for :checkin, :url=>admin_check_in_save_path() do |f| %>
+    <%= f.inputs do %>
+      <%= f.input :user, :label => "Guest Name", :as => :select, :collection => @olympiad.registrations.includes(:user).not_checked_in().order("users.first_name, users.last_name").map(&:user) %>
+      <%= f.input :olympiad, :as => :select, :collection => Olympiad.all, :selected => @olympiad.id %>
+    <% end # f.inputs %>
+    <%= f.actions do %>
+      <%= f.action :submit, :label=>"Check-In Guest" %>
+      <%= f.action :cancel, :as=>:link, :label=>"Reset Form" %>
+    <% end # f.actions %>
+  <% end %>
+
+
+<% end # if registration %>

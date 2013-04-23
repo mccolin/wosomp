@@ -10,6 +10,8 @@ ActiveAdmin.register Registration do
   scope :captains
   scope :athletes
   scope :spectators
+  scope :checked_in
+  scope :not_checked_in
 
   # Index:
   index do
