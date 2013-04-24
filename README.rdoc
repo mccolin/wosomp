@@ -1,9 +1,12 @@
 = WOSoMP
 
-The Weekend Olympic Showdown of Massive Proportions, first conceived and
-hosted in September of 2007, is reforming for future events.
+Software powering the registration, live results, and administrative site
+of The Weekend Olympic Showdown of Massive Proportions (WOSoMP).
 
-http://wosomp.com/
+All record-keeping, ranking, and results calculations used for performance
+rankings and awards are included within this project.
+
+More about WOSoMP at http://wosomp.com/
 
 
 
