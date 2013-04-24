@@ -11,7 +11,7 @@
   <h2>Enter Multiple Results</h2>
 
   <%= semantic_form_for :results, :url=>admin_enter_result_multi_save_path() do |f| %>
-    <%= f.input :offering_id, :label => "Sport", :as => :select, :collection => @olympiad.offerings().includes(:sport).collect{|o| [o.sport.name, o.id] } %>
+    <p><%= f.input :offering_id, :label => "Sport", :as => :select, :collection => @olympiad.offerings().includes(:sport).collect{|o| [o.sport.name, o.id] } %></p>
 
   <div id="participant-select">
     <p>
@@ -19,14 +19,16 @@
       <%= result_icon(team) %>
     <% end # teams.each %>
     </p>
-    <p>
+
     <% @teams.each do |team| %>
+    <p>
       <% team_registrations = team.registrations().athletes().sort{|r1,r2| r1.uniform_number.to_i <=> r2.uniform_number.to_i } %>
       <% team_registrations.each do |registration| %>
         <%= result_icon(registration) %>
       <% end # registrations.each %>
-    <% end # teams.each %>
     </p>
+    <% end # teams.each %>
+
   </div>
 
   <div id="award-zones">
@@ -36,10 +38,11 @@
         <%=link_to "Assign", "#", :class=>"btn-assign", "data-award"=>award %>
       </div>
     <% end # award types %>
-  </div>
 
     <%= f.actions do %>
-      <%= f.action :submit, :label=>"Save Results" %>
+      <%= f.action :submit, :label=>"Save these Results" %>
     <% end # f.actions %>
+  </div>
+
   <% end %>
 

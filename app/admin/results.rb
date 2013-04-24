@@ -6,6 +6,11 @@ ActiveAdmin.register Result do
   scope :players
   scope :teams
 
+  # Action Item buttons:
+  action_item do
+    link_to "Reset Result Caches", cache_reset_admin_results_path, :method=>:post
+  end
+
   # Index:
   index do
     selectable_column
@@ -64,6 +69,14 @@ ActiveAdmin.register Result do
       f.input :note, :input_html=>{:rows=>3}, :hint=>"Special notes, indications, or anecdotes for the result"
     end
     f.buttons
+  end
+
+
+  # Triggers a counter-cache reset for all team and player rankings
+  collection_action :cache_reset, :method => :post do
+    Team.all.each {|t| t.update_result_caches }
+    Registration.all.each {|r| r.update_result_caches }
+    redirect_to admin_results_path(), :notice => "Result point and count caches for all teams and registrations reset"
   end
 
 
