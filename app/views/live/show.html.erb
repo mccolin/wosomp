@@ -4,7 +4,7 @@
 -%>
 
 
-<div id="team-rank" class="span8">
+<div id="team-rank" class="span6">
   <% @teams.each do |team| -%>
   <div class="progress" id="rank-team-<%=team.id-%>" data-score="<%=team.points_total-%>" data-count="<%=team.count_total-%>" style="background:<%=team.color1_code-%>;">
     <span class="name" style="color:<%=team.color2_code-%>;">
@@ -17,7 +17,7 @@
   <% end # teams %>
 </div> <!--/#team-rank-->
 
-<div id="athlete-rank" class="span8">
+<div id="athlete-rank" class="span6">
   <% @registrations.each do |reg| -%>
   <% if team = reg.team %>
   <div class="progress" id="rank-athlete-<%=reg.id-%>" data-score="<%=reg.points_total-%>" data-count="<%=reg.count_total-%>" style="background:<%=team.color1_code-%>;">
@@ -37,8 +37,8 @@
 <% content_for :javascripts do %>
 <script type="text/javascript">
 
-  function updateLeaderBoard() {
-    var $board = $("#team-rank");
+  function updateLeaderBoard(boardId) {
+    var $board = $("#"+boardId);
 
     // Find the top score
     var topScore = 0;
@@ -70,7 +70,8 @@
   }
 
   $(function(){
-    updateLeaderBoard();
+    updateLeaderBoard("team-rank");
+    updateLeaderBoard("athlete-rank");
   });
 
 </script>
