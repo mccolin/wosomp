@@ -5,6 +5,7 @@
 
 
 <div id="team-rank" class="span6">
+  <h2>Teams Rank</h2>
   <% @teams.each do |team| -%>
   <div class="progress" id="rank-team-<%=team.id-%>" data-score="<%=team.points_total-%>" data-count="<%=team.count_total-%>" style="background:<%=team.color1_code-%>;">
     <span class="name" style="color:<%=team.color2_code-%>;">
@@ -21,6 +22,7 @@
 </div> <!--/#team-rank-->
 
 <div id="athlete-rank" class="span6">
+  <h2>Athletes Rank</h2>
   <% @registrations.athletes().each do |reg| -%>
   <% if team = reg.team %>
   <div class="progress" id="rank-athlete-<%=reg.id-%>" data-score="<%=reg.points_total-%>" data-count="<%=reg.count_total-%>" style="background:<%=team.color1_code-%>;">
