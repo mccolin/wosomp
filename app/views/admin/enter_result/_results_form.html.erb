@@ -1,0 +1,45 @@
+<%
+  # WOSOMP
+  # Admin / Result Form -- The large, graphic, interative result entry form
+
+  @olympiad = Olympiad.featured_olympiad(:offerings,:registrations,:teams)
+  @sports = @olympiad.sports()
+  @teams = @olympiad.teams().order(:name)
+  @registrations = @olympiad.registrations().athletes().order(:team_id).sort{|r1,r2| r1.uniform_number.to_i <=> r2.uniform_number.to_i }
+-%>
+
+  <h2>Enter Multiple Results</h2>
+
+  <%= semantic_form_for :results, :url=>admin_enter_result_multi_save_path() do |f| %>
+    <%= f.input :offering_id, :label => "Sport", :as => :select, :collection => @olympiad.offerings().includes(:sport).collect{|o| [o.sport.name, o.id] } %>
+
+  <div id="participant-select">
+    <p>
+    <% @teams.each do |team| %>
+      <%= result_icon(team) %>
+    <% end # teams.each %>
+    </p>
+    <p>
+    <% @teams.each do |team| %>
+      <% team_registrations = team.registrations().athletes().sort{|r1,r2| r1.uniform_number.to_i <=> r2.uniform_number.to_i } %>
+      <% team_registrations.each do |registration| %>
+        <%= result_icon(registration) %>
+      <% end # registrations.each %>
+    <% end # teams.each %>
+    </p>
+  </div>
+
+  <div id="award-zones">
+    <% Result.award_types().each do |award| %>
+      <div class="zone" id="award-<%=award-%>" data-award="<%=award-%>">
+        <%= award.capitalize %>
+        <%=link_to "Assign", "#", :class=>"btn-assign", "data-award"=>award %>
+      </div>
+    <% end # award types %>
+  </div>
+
+    <%= f.actions do %>
+      <%= f.action :submit, :label=>"Save Results" %>
+    <% end # f.actions %>
+  <% end %>
+

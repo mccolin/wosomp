@@ -72,6 +72,30 @@ module ApplicationHelper
     content_tag :div, inner_html.html_safe, "data-toggle"=>"tooltip", "data-placement"=>"bottom", :title=>tooltip_text, :class=>html_classes.join(" "), :style=>""
   end
 
+  # Render a result-setting icon for a registration or team (obj)
+  def result_icon(obj, opts={})
+    inner_html = ""
+
+    display_name = obj.is_a?(Team) ? obj.name : obj.uniform_name
+    display_number = obj.is_a?(Team) ? obj.abbrev : obj.uniform_number
+    shirt_color = obj.is_a?(Team) ? obj.shirt_color : obj.team.shirt_color
+
+    inner_html += content_tag(:span, display_name, :class=>"name") + content_tag(:span, display_number, :class=>"number")
+    html_classes = ["athlete-icon", "result-icon", html_classes]
+    html_classes << "shirt-#{shirt_color}"
+
+    html_attribs = {:class=>html_classes.join(" "), "data-name"=>display_name, "data-number"=>display_number}
+    if obj.is_a?(Team)
+      html_attribs["data-team"] = obj.id
+    elsif obj.is_a?(Registration)
+      html_attribs["data-team"] = obj.team_id
+      html_attribs["data-registration"] = obj.id
+    end
+
+    content_tag :div, inner_html.html_safe, html_attribs
+  end
+
+
   # Render a registration's shirt for display on confirmation:
   def reg_shirt(reg, opts={})
     c_width = opts[:width] || 300

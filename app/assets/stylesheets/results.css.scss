@@ -1,0 +1,36 @@
+//
+// WOSoMP
+// Results Stylesheet -- Styling for the Result-assignment UI
+//
+// You can use Sass (SCSS) here: http://sass-lang.com/
+//
+
+#participant-select {
+  float: left;
+  width: 58%;
+}
+
+#award-zones {
+  float: right;
+  width: 38%;
+}
+#award-zones .zone {
+  border: 2px solid #AAA;
+  border-radius: 5px;
+  margin: 1em 0;
+  padding: 0.5em;
+}
+
+
+.result-icon {
+  border: 2px solid #AAA !important;
+}
+.result-icon:hover {
+  -webkit-transform: scale(1.0);
+  -moz-transform: scale(1.0);
+  transform: scale(1.0);
+}
+.result-icon.selected {
+  border: 2px solid #00A !important;
+}
+

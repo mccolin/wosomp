@@ -138,6 +138,7 @@ ActiveAdmin.setup do |config|
   # To load a stylesheet:
   #   config.register_stylesheet 'my_stylesheet.css'
   config.register_stylesheet "olympiads"
+  config.register_stylesheet "results"
 
   # You can provide an options hash for more control, which is passed along to stylesheet_link_tag():
   #   config.register_stylesheet 'my_print_stylesheet.css', :media => :print
@@ -145,6 +146,7 @@ ActiveAdmin.setup do |config|
   # To load a javascript file:
   #   config.register_javascript 'my_javascript.js'
   config.register_javascript "olympiads"
+  config.register_javascript "results"
 
 
   # == CSV options

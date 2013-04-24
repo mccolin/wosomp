@@ -45,6 +45,11 @@ class Team < ActiveRecord::Base
     users.include?(user)
   end
 
+  def abbrev
+    a = name.gsub(/[^[:upper:]]+/, "")
+    a.empty? ? name[0..2].upcase : a
+  end
+
 
   # Update award point and count caches for this team:
   def update_result_caches

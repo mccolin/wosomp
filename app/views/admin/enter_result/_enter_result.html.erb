@@ -1,0 +1,25 @@
+<%
+  # WOSOMP
+  # Admin / Result Form -- Enter an athletic result
+
+  @olympiad = Olympiad.featured_olympiad()
+  #@result = params[:r] ? Result.find(params[:r]) : nil
+-%>
+
+  <h2>Enter Single Result</h2>
+
+  <%= semantic_form_for :result, :url=>admin_enter_result_save_path() do |f| %>
+    <%= f.inputs "Connections" do %>
+      <%= f.input :offering_id, :label => "Sport", :as => :select, :collection => @olympiad.offerings().includes(:sport).collect{|o| [o.sport.name, o.id] } %>
+      <%= f.input :registration_id, :label => "Athlete", :as => :select, :collection => @olympiad.registrations().athletes().includes(:user, :team).order("registrations.team_id, registrations.uniform_name").collect{|r| ["#{r.team.name} - #{r.uniform_number} #{r.uniform_name}", r.id] } %>
+      <%= f.input :team_id, :label => "Team", :hint=>"Proper team must be selected", :as=>:select, :collection => @olympiad.teams() %>
+
+      <%= f.input :award, :as=>:select, :collection=>Result.result_types() %>
+      <%= f.input :note %>
+
+    <% end # f.inputs %>
+    <%= f.actions do %>
+      <%= f.action :submit, :label=>"Save Result" %>
+    <% end # f.actions %>
+  <% end %>
+

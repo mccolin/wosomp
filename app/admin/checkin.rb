@@ -1,7 +1,7 @@
 ActiveAdmin.register_page "Check-In" do
 
   # Position Check-In page within the Dashboard Menu:
-  menu :priority => 1, :label => "CHECK-IN", :parent=>"Olympiads"
+  menu :priority => 1, :label => "CHECK-IN", :parent=>"LIVE EVENT"
 
   # Action Item buttons for reviewing lists:
   action_item { link_to "All Registrations", [:admin, :registrations] }
