@@ -14,16 +14,6 @@ class LiveController < ApplicationController
   end
 
 
-  # Athlete/Fan Event Check-in
-  def checkin
-  end
-
-  # Search for an Athlete
-  def checkin_search
-    query = params[:q].downcase
-    @users = User.where("LOWER(first_name) LIKE '#{query}%' OR LOWER(last_name) LIKE '#{query}%'").includes(:registrations)
-  end
-
 
   protected
 
