@@ -24,6 +24,7 @@ function loadPage(href, callbackFn) {
 
 /** Trigger a load for the next page in the navigation: **/
 var NEXT_TAB_INDEX = 0;
+var TIME_PER_PAGE = 8500;
 function loadNextPage(callbackFn) {
   var $navMenu = $("#top-nav");
   var $navItems = $navMenu.find("li");
@@ -37,7 +38,7 @@ function loadNextPage(callbackFn) {
       $nextNav.addClass("active").siblings("li").removeClass("active");
       if (nextCallbackFn)
         nextCallbackFn();
-      setTimeout('loadNextPage()', 5000);
+      setTimeout('loadNextPage()', TIME_PER_PAGE);
     }
   );
 
