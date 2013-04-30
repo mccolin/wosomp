@@ -3,10 +3,35 @@
   # Initial Live Loader
 -%>
 
-<h1>live#show</h1>
+
+<p class="lead" style="position:relative; top:300px; text-align:center;">Loading WOSoMP Live...</p>
 
 <% content_for :javascripts do %>
 <script type="text/javascript">
+
+  /** Run a loading spinner while we wait for the content to load: **/
+  var opts = {
+    lines: 8, // The number of lines to draw
+    length: 30, // The length of each line
+    width: 17, // The line thickness
+    radius: 6, // The radius of the inner circle
+    corners: 0.5, // Corner roundness (0..1)
+    rotate: 62, // The rotation offset
+    direction: 1, // 1: clockwise, -1: counterclockwise
+    color: '#f30', // #rgb or #rrggbb
+    speed: 1.5, // Rounds per second
+    trail: 57, // Afterglow percentage
+    shadow: false, // Whether to render a shadow
+    hwaccel: false, // Whether to use hardware acceleration
+    className: 'spinner', // The CSS class to assign to the spinner
+    zIndex: 2e9, // The z-index (defaults to 2000000000)
+    top: '175', // Top position relative to parent in px
+    left: 'auto' // Left position relative to parent in px
+  };
+  var target = document.getElementById("content");
+  var spinner = new Spinner(opts).spin(target);
+
+
   TAB_LOAD_CALLBACKS = [
     // Teams:
     function() {
@@ -27,12 +52,53 @@
     // Media:
     function() {
       console.log("Media page displayed");
+
+      var $content = $("#content");
+      var $photoContainer = $content.find("#photos").css("position","relative");
+      var $tweetContainer = $content.find("#tweets");
+      var hashtag = "wosomp";
+
+      /** Load Tweets: **/
+      $.getJSON("http://search.twitter.com/search.json?rpp=100&callback=?&q="+hashtag, function(data){
+        for (var i=0; i < data.results.length; i++) {
+          tweet = data.results[i];
+          //console.log( tweet );
+          var $tweetDiv = $(" \
+            <div class='tweet media-object'> \
+              <img class='pic' src='"+tweet.profile_image_url+"' width='50' height='60'/> \
+              <span class='body'>"+tweet.text+"</span> \
+              <div style='clear:both;'></div> \
+            </div>");
+          $tweetContainer.append( $tweetDiv );
+        }
+        spinner.stop();
+        $("p.lead").hide();
+      });
+
+      /** Load Instagram Photos: **/
+      var clientId = "<%=Rails.env.production? ? "233f8afd234b403d9217db7aef273e95" : "233f8afd234b403d9217db7aef273e95" -%>";
+      $.getJSON("https://api.instagram.com/v1/tags/"+hashtag+"/media/recent?client_id="+clientId+"&callback=?", function(data){
+        for (var i=0; i < data.data.length; i++) {
+          var photo = data.data[i];
+          //console.log(photo);
+          var image = new Image();
+          image.src = photo.images.low_resolution.url;
+          var $photoDiv = $(" \
+            <div class='photo media-object'> \
+              <img src='"+photo.images.low_resolution.url+"'/> <br/>\
+              <span class='name'>@"+photo.user.username+"</span> \
+              <span class='caption'>"+(photo.caption ? photo.caption.text : "")+"</span> \
+            </div>");
+          $photoContainer.append( $photoDiv );
+        }
+        spinner.stop();
+        $("p.lead").hide();
+      });
+
     }
   ];
 
-  $(function(){
-    loadNextPage();
-  });
+  setTimeout("loadNextPage()", 2500);
 </script>
 <% end %>
 

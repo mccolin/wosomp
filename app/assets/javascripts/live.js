@@ -24,7 +24,7 @@ function loadPage(href, callbackFn) {
 
 /** Trigger a load for the next page in the navigation: **/
 var NEXT_TAB_INDEX = 0;
-var TIME_PER_PAGE = 8500;
+var TIME_PER_PAGE = 12000;
 function loadNextPage(callbackFn) {
   var $navMenu = $("#top-nav");
   var $navItems = $navMenu.find("li");

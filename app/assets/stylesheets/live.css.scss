@@ -126,3 +126,39 @@ table.schedule tr.present.non-sport {
   background: rgba(69,255,0,0.4) !important;
 }
 table.schedule tr.future {}
+
+
+
+.tweet, .photo {
+  background: #FFF;
+  overflow: hidden;
+}
+
+.tweet {
+  border-bottom: 1px solid #CCC;
+  margin: 0.5em auto;
+  padding-bottom: 0.5em;
+  font-size: 20px;
+}
+.tweet .pic {
+  border-radius: 5px;
+  float: left;
+  margin: 0 .5em .5em 0;
+}
+.tweet .body {
+  line-height: 1.5;
+}
+
+.photo {
+  float: right;
+  margin: 1% 0 1% 1%;
+  width: 31%;
+}
+.photo .name {
+  display: none;
+  font-weight: bold;
+}
+.photo .caption {
+  display: none;
+}
+
