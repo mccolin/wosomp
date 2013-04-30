@@ -34,6 +34,8 @@ class User < ActiveRecord::Base
     addr = [address_street, address_city, address_state].compact.join(", ")+(address_zip ? address_zip : "")
     addr.blank? ? "Not Provided" : addr
   end
+  def male?; gender.try(:downcase) == "male"; end
+  def female?; gender.try(:downcase) == "female"; end
 
 
   def registered_for?(olympiad)

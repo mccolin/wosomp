@@ -21,9 +21,18 @@
   </head>
   <body class="live">
 
-    <header id="header">
-      <h1>WOSoMP Live</h1>
-    </header>
+
+    <div id="nav-wrapper" class="inside">
+      <div class="container">
+        <a href="<%=live_path()-%>"><h1 id="logo" class="inside"><span>WOSoMP 2013</span></h1></a>
+        <ul id="top-nav" class="row">
+          <%= top_nav_item("Teams", teams_live_path()) -%>
+          <%= top_nav_item("Athletes", athletes_live_path()) -%>
+          <%= top_nav_item("Schedule", schedule_live_path()) -%>
+          <%= top_nav_item("#wosomp", media_live_path()) -%>
+        </ul><!--/.row-->
+      </div><!--/.container-->
+    </div>
 
     <article id="content">
       <%= yield %>

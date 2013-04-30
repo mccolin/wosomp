@@ -7,10 +7,30 @@ class LiveController < ApplicationController
   before_filter :load_olympiad
 
 
-  # Live Event Display:
+  # Live Event: Initial Load:
   def show
+  end
+
+  # Live Event: Team Rankings:
+  def teams
     @teams = @olympiad.teams.order("points_total DESC")
-    @registrations = @olympiad.registrations.includes(:user).order("points_total DESC")
+  end
+
+  # Live Event: Athlete Rankings:
+  def athletes
+    @registrations = @olympiad.registrations.athletes().includes(:user, :team).order("points_total DESC")
+    @men = @registrations.select{|r| r.user.male? }
+    @women = @registrations.select{|r| r.user.female? }
+  end
+
+  # Live Event: Schedule:
+  def schedule
+    @offerings = @olympiad.offerings.includes(:sport).order(:begins_at)
+  end
+
+  # Live Event: Media:
+  def media
+    @hashtag = "wosomp"
   end
 
 
