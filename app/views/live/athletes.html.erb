@@ -9,7 +9,7 @@
   <% if team = reg.team %>
   <div class="progress" id="rank-athlete-<%=reg.id-%>" data-score="<%=reg.points_total-%>" data-count="<%=reg.count_total-%>" style="background:<%=team.color1_code-%>;">
     <span class="name" style="color:<%=team.color2_code-%>;">
-      <%= reg.uniform_number -%> - <%= reg.uniform_name %>
+      <%= reg.uniform_number -%> <%= reg.uniform_name %>
     </span>
     <span class="points" style="color:<%=team.color2_code-%>;">
       <%=reg.points_total-%><span class="units">pts</span>

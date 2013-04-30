@@ -4,23 +4,32 @@
 -%>
 
 
-<div id="team-rank" class="span10 offset1">
-  <h2>Teams Rank</h2>
-  <% @teams.each do |team| -%>
-  <div class="progress" id="rank-team-<%=team.id-%>" data-score="<%=team.points_total-%>" data-count="<%=team.count_total-%>" style="background:<%=team.color1_code-%>;">
-    <span class="name" style="color:<%=team.color2_code-%>;">
-      <%= team.name %>
-    </span>
-    <span class="points" style="color:<%=team.color2_code-%>;">
-      <%= team.points_total-%><span class="units">pts</span>
-    </span>
-    <div class="bar bar-gold" data-score="<%=team.points_gold-%>" data-count="<%=team.count_gold-%>" title="<%=team.count_gold-%> Gold"></div>
-    <div class="bar bar-silver" data-score="<%=team.points_silver-%>" data-count="<%=team.count_silver-%>" title="<%=team.count_silver-%> Silver"></div>
-    <div class="bar bar-bronze" data-score="<%=team.points_bronze-%>" data-count="<%=team.count_bronze-%>" title="<%=team.count_bronze-%> Bronze"></div>
-  </div>
-  <% end # teams %>
-</div> <!--/#team-rank-->
+<div class="row">
+  <div id="team-rank" class="span10 offset1">
+    <h2>Teams Rank</h2>
+    <% @teams.each do |team| -%>
+    <div class="progress" id="rank-team-<%=team.id-%>" data-score="<%=team.points_total-%>" data-count="<%=team.count_total-%>" style="background:<%=team.color1_code-%>;">
+      <span class="name" style="color:<%=team.color2_code-%>;">
+        <%= team.name %>
+      </span>
+      <span class="points" style="color:<%=team.color2_code-%>;">
+        <%= team.points_total-%><span class="units">pts</span>
+      </span>
+      <div class="bar bar-gold" data-score="<%=team.points_gold-%>" data-count="<%=team.count_gold-%>" title="<%=team.count_gold-%> Gold"></div>
+      <div class="bar bar-silver" data-score="<%=team.points_silver-%>" data-count="<%=team.count_silver-%>" title="<%=team.count_silver-%> Silver"></div>
+      <div class="bar bar-bronze" data-score="<%=team.points_bronze-%>" data-count="<%=team.count_bronze-%>" title="<%=team.count_bronze-%> Bronze"></div>
+    </div>
+    <% end # teams %>
+  </div> <!--/#team-rank-->
+</div> <!--/.row-->
 
+<div class="row">
+  <div id="team-icons" class="span12" style="text-align:center;">
+    <% @teams.each do |team| %>
+      <%= result_icon(team, :class=>"double") %>
+    <% end # teams.each %>
+  </div>
+</div> <!--/.row-->
 
 <% content_for :javascripts do %>
 <script type="text/javascript">

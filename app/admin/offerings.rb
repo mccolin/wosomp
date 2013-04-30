@@ -49,8 +49,8 @@ ActiveAdmin.register Offering do
     end
     f.inputs "Schedule the Event" do
       f.input :location, :hint=>"Where within the venue will this sport be held?"
-      f.input :begins_at, :as=>:select, :collection=>Offering.time_slots, :hint=>"What is the scheduled start time for this event?"
-      f.input :ends_at, :as=>:select, :collection=>Offering.time_slots, :hint=>"What is the scheduled end time for this event?"
+      f.input :begins_at, :as=>:select, :collection=>Offering.time_slots, :selected=>offering.display_begins_at, :hint=>"What is the scheduled start time for this event?"
+      f.input :ends_at, :as=>:select, :collection=>Offering.time_slots, :selected=>offering.display_ends_at, :hint=>"What is the scheduled end time for this event?"
     end
     f.buttons
   end

@@ -81,6 +81,7 @@ module ApplicationHelper
     shirt_color = obj.is_a?(Team) ? obj.shirt_color : obj.team.shirt_color
 
     inner_html += content_tag(:span, display_name, :class=>"name") + content_tag(:span, display_number, :class=>"number")
+    html_classes = opts[:class]
     html_classes = ["athlete-icon", "result-icon", html_classes]
     html_classes << "shirt-#{shirt_color}"
 
