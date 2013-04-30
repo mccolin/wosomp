@@ -1,0 +1,27 @@
+<%
+  # WOSoMP LIVE
+  # Live / Day-Of Schedule
+-%>
+
+<div id="schedule" class="span10 offset1">
+  <h2>Events Schedule</h2>
+
+  <table class="schedule">
+    <thead>
+    </thead>
+    <tbody>
+      <% @offerings.each do |offering| %>
+      <tr class="<%= offering.past? ? 'past' : offering.present? ? 'present' : ''-%>">
+        <th><%= offering.begins_at.try(:strftime, "%-I:%M") %></th>
+        <td>
+          <%= offering.sport.name %>
+          <small><%= offering.location %></small>
+        </td>
+      </tr>
+      <% end # offerings %>
+    </tbody>
+  </table>
+
+</div>
+
+

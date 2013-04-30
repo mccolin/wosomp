@@ -66,3 +66,48 @@ body {
   background-repeat: repeat-x;
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffcc6633', endColorstr='#ff993300', GradientType=0);
 }
+
+
+/** Schedule Display: **/
+table.schedule {
+  border-top: 1px solid #CCC;
+  width: 100%;
+}
+table.schedule tr {
+  line-height: 3em;
+}
+table.schedule th {
+  background: #DDD;
+  border-bottom: 1px solid #EEE;
+  color: #000;
+  font-size: 300%;
+  font-weight: bold;
+  padding: 0.25em;
+  text-align: right;
+}
+table.schedule td {
+  border-bottom: 1px solid #CCC;
+  font-size: 250%;
+  font-weight: bold;
+  padding: 0.25em;
+}
+table.schedule th:first-child {
+  border-top: 1px solid #EEE;
+}
+table.schedule td:first-child {
+  border-top: 1px solid #CCC;
+}
+
+table.schedule td small {
+  font-size: 50%;
+  font-weight: normal;
+  font-style: italic;
+}
+
+
+table.schedule tr.past { opacity: 0.3; }
+table.schedule tr.present {
+  //background: rgba(0,0,255,0.1);
+  background: rgba(255,69,0,0.4);
+}
+table.schedule tr.future {}

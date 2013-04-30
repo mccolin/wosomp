@@ -20,4 +20,23 @@ class Offering < ActiveRecord::Base
     [sport.name, olympiad.name].join("-").gsub(/\s+/, "")
   end
 
+  def past?
+    return false unless begins_at && ends_at
+    end_time = ends_at.hour.to_f + ends_at.min / 60.0
+    now_time = Time.now.hour.to_f + Time.now.min / 60.0
+    end_time < now_time
+  end
+
+  def present?
+    return false unless begins_at && ends_at
+    beg_time = begins_at.hour.to_f + begins_at.min / 60.0
+    end_time = ends_at.hour.to_f + ends_at.min / 60.0
+    now_time = Time.now.hour.to_f + Time.now.min / 60.0
+    beg_time < now_time && end_time > now_time
+  end
+
+  def future?
+    !past? && !present?
+  end
+
 end

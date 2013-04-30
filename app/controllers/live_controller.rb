@@ -25,7 +25,7 @@ class LiveController < ApplicationController
 
   # Live Event: Schedule:
   def schedule
-    @offerings = @olympiad.offerings.includes(:sport).order(:begins_at)
+    @offerings = @olympiad.offerings.includes(:sport).order(:begins_at, "sports.name")
   end
 
   # Live Event: Media:
