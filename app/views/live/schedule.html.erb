@@ -3,25 +3,45 @@
   # Live / Day-Of Schedule
 -%>
 
-<div id="schedule" class="span10 offset1">
-  <h2>Events Schedule</h2>
+<div class="row-fluid">
 
-  <table class="schedule">
-    <thead>
-    </thead>
-    <tbody>
-      <% @offerings.each do |offering| %>
-      <tr class="<%= offering.past? ? 'past' : offering.present? ? 'present' : ''-%>">
-        <th><%= offering.begins_at.try(:strftime, "%-I:%M") %></th>
-        <td>
-          <%= offering.sport.name %>
-          <small><%= offering.location %></small>
-        </td>
-      </tr>
-      <% end # offerings %>
-    </tbody>
-  </table>
+  <div id="schedule" class="span10 offset1">
+    <h2>Events Schedule</h2>
 
-</div>
+    <table class="schedule" style="display:none;">
+      <thead>
+      </thead>
+      <tbody>
+        <% @offerings.each do |offering| %>
+        <tr class="<%= offering.past? ? 'past' : offering.present? ? 'present' : ''-%>">
+          <th><%= offering.begins_at.try(:strftime, "%-I:%M") %></th>
+          <td>
+            <%= offering.sport.name %>
+            <small><%= offering.location %></small>
+          </td>
+        </tr>
+        <% end # offerings %>
+        <tr>
+          <td colspan="2">
+            <p class="lead" style="font-style:italic; text-align:center;">
+              <br/>
+              * Schedule subject to change due to unanticipated awesomeness
+            </p>
+          </td>
+        </tr>
+      </tbody>
+    </table>
 
 
+  </div>
+
+</div> <!--/.row-->
+
+
+<% content_for :javascripts do %>
+<script type="text/javascript">
+  $(function(){
+    $("table.schedule").fadeIn(500);
+  });
+</script>
+<% end %>

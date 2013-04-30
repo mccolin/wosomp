@@ -4,7 +4,7 @@
 -%>
 
 
-<div class="row">
+<div class="row-fluid">
   <div id="team-rank" class="span10 offset1">
     <h2>Teams Rank</h2>
     <% @teams.each do |team| -%>
@@ -23,7 +23,7 @@
   </div> <!--/#team-rank-->
 </div> <!--/.row-->
 
-<div class="row">
+<div class="row-fluid">
   <div id="team-icons" class="span12" style="text-align:center;">
     <% @teams.each do |team| %>
       <%= result_icon(team, :class=>"double") %>

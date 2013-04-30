@@ -23,31 +23,27 @@ function loadPage(href, callbackFn) {
 }
 
 /** Trigger a load for the next page in the navigation: **/
-CURRENT_LIVE_TAB = -1;
+var NEXT_TAB_INDEX = 0;
 function loadNextPage(callbackFn) {
   var $navMenu = $("#top-nav");
-  var numTabs = $navMenu.find("li").length;
-  var nextTabIdx = CURRENT_LIVE_TAB + 1;
-  if (nextTabIdx >= numTabs)
-    nextTabIdx = 0;
-  var nextCallbackFn = TAB_LOAD_CALLBACKS[nextTabIdx];
-
-  var $nextNav = $( $navMenu.find("li")[nextTabIdx] );
-  var $navLink = $nextNav.find("a").first();
-
+  var $navItems = $navMenu.find("li");
+  var $nextNav = $( $navItems[NEXT_TAB_INDEX] );
+  var $nextLink = $nextNav.find("a").first();
+  var nextCallbackFn = TAB_LOAD_CALLBACKS[NEXT_TAB_INDEX];
 
   loadPage(
-    $navLink.prop("href"),
+    $nextLink.prop("href"),
     function(){
-      $nextNav.addClass("active").siblings().removeClass("active");
+      $nextNav.addClass("active").siblings("li").removeClass("active");
       if (nextCallbackFn)
         nextCallbackFn();
-      setTimeout('loadNextPage()', 8000);
+      setTimeout('loadNextPage()', 5000);
     }
   );
 
-  CURRENT_LIVE_TAB = nextTabIdx;
-
+  NEXT_TAB_INDEX += 1;
+  if (NEXT_TAB_INDEX >= $navItems.length)
+    NEXT_TAB_INDEX = 0;
 }
 
 

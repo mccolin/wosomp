@@ -3,44 +3,46 @@
   # Athletes Ranking
 -%>
 
-<div id="men-rank" class="span6">
-  <h2>Overall Men's Rank</h2>
-  <% @men.each do |reg| -%>
-  <% if team = reg.team %>
-  <div class="progress" id="rank-athlete-<%=reg.id-%>" data-score="<%=reg.points_total-%>" data-count="<%=reg.count_total-%>" style="background:<%=team.color1_code-%>;">
-    <span class="name" style="color:<%=team.color2_code-%>;">
-      <%= reg.uniform_number -%> <%= reg.uniform_name %>
-    </span>
-    <span class="points" style="color:<%=team.color2_code-%>;">
-      <%=reg.points_total-%><span class="units">pts</span>
-    </span>
-    <div class="bar bar-gold" data-score="<%=reg.points_gold-%>" data-count="<%=reg.count_gold-%>" title="<%=reg.count_gold-%> Gold"></div>
-    <div class="bar bar-silver" data-score="<%=reg.points_silver-%>" data-count="<%=reg.count_silver-%>" title="<%=reg.count_silver-%> Silver"></div>
-    <div class="bar bar-bronze" data-score="<%=reg.points_bronze-%>" data-count="<%=reg.count_bronze-%>" title="<%=reg.count_bronze-%> Bronze"></div>
-  </div>
-  <% end # if team %>
-  <% end # registrations %>
-</div> <!--/#athlete-rank-->
+<div class="row-fluid">
+  <div id="men-rank" class="span5 offset1">
+    <h2>Overall Men's Rank</h2>
+    <% @men.each do |reg| -%>
+    <% if team = reg.team %>
+    <div class="progress" id="rank-athlete-<%=reg.id-%>" data-score="<%=reg.points_total-%>" data-count="<%=reg.count_total-%>" style="background:<%=team.color1_code-%>;">
+      <span class="name" style="color:<%=team.color2_code-%>;">
+        <%= reg.uniform_number -%> <%= reg.uniform_name %>
+      </span>
+      <span class="points" style="color:<%=team.color2_code-%>;">
+        <%=reg.points_total-%><span class="units">pts</span>
+      </span>
+      <div class="bar bar-gold" data-score="<%=reg.points_gold-%>" data-count="<%=reg.count_gold-%>" title="<%=reg.count_gold-%> Gold"></div>
+      <div class="bar bar-silver" data-score="<%=reg.points_silver-%>" data-count="<%=reg.count_silver-%>" title="<%=reg.count_silver-%> Silver"></div>
+      <div class="bar bar-bronze" data-score="<%=reg.points_bronze-%>" data-count="<%=reg.count_bronze-%>" title="<%=reg.count_bronze-%> Bronze"></div>
+    </div>
+    <% end # if team %>
+    <% end # registrations %>
+  </div> <!--/#athlete-rank-->
 
-<div id="women-rank" class="span6">
-  <h2>Overall Women's Rank</h2>
-  <% @women.each do |reg| -%>
-  <% if team = reg.team %>
-  <div class="progress" id="rank-athlete-<%=reg.id-%>" data-score="<%=reg.points_total-%>" data-count="<%=reg.count_total-%>" style="background:<%=team.color1_code-%>;">
-    <span class="name" style="color:<%=team.color2_code-%>;">
-      <%= reg.uniform_number -%> - <%= reg.uniform_name %>
-    </span>
-    <span class="points" style="color:<%=team.color2_code-%>;">
-      <%=reg.points_total-%><span class="units">pts</span>
-    </span>
-    <div class="bar bar-gold" data-score="<%=reg.points_gold-%>" data-count="<%=reg.count_gold-%>" title="<%=reg.count_gold-%> Gold"></div>
-    <div class="bar bar-silver" data-score="<%=reg.points_silver-%>" data-count="<%=reg.count_silver-%>" title="<%=reg.count_silver-%> Silver"></div>
-    <div class="bar bar-bronze" data-score="<%=reg.points_bronze-%>" data-count="<%=reg.count_bronze-%>" title="<%=reg.count_bronze-%> Bronze"></div>
-  </div>
-  <% end # if team %>
-  <% end # registrations %>
-</div> <!--/#athlete-rank-->
+  <div id="women-rank" class="span5">
+    <h2>Overall Women's Rank</h2>
+    <% @women.each do |reg| -%>
+    <% if team = reg.team %>
+    <div class="progress" id="rank-athlete-<%=reg.id-%>" data-score="<%=reg.points_total-%>" data-count="<%=reg.count_total-%>" style="background:<%=team.color1_code-%>;">
+      <span class="name" style="color:<%=team.color2_code-%>;">
+        <%= reg.uniform_number -%> - <%= reg.uniform_name %>
+      </span>
+      <span class="points" style="color:<%=team.color2_code-%>;">
+        <%=reg.points_total-%><span class="units">pts</span>
+      </span>
+      <div class="bar bar-gold" data-score="<%=reg.points_gold-%>" data-count="<%=reg.count_gold-%>" title="<%=reg.count_gold-%> Gold"></div>
+      <div class="bar bar-silver" data-score="<%=reg.points_silver-%>" data-count="<%=reg.count_silver-%>" title="<%=reg.count_silver-%> Silver"></div>
+      <div class="bar bar-bronze" data-score="<%=reg.points_bronze-%>" data-count="<%=reg.count_bronze-%>" title="<%=reg.count_bronze-%> Bronze"></div>
+    </div>
+    <% end # if team %>
+    <% end # registrations %>
+  </div> <!--/#athlete-rank-->
 
+</div> <!--/.row-->
 
 
 <% content_for :javascripts do %>
