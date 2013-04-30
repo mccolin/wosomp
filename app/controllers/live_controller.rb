@@ -14,6 +14,7 @@ class LiveController < ApplicationController
   # Live Event: Team Rankings:
   def teams
     @teams = @olympiad.teams.order("points_total DESC")
+    render :layout=>nil && return if request.xhr?
   end
 
   # Live Event: Athlete Rankings:
@@ -21,16 +22,19 @@ class LiveController < ApplicationController
     @registrations = @olympiad.registrations.athletes().includes(:user, :team).order("points_total DESC")
     @men = @registrations.select{|r| r.user.male? }
     @women = @registrations.select{|r| r.user.female? }
+    render :layout=>nil && return if request.xhr?
   end
 
   # Live Event: Schedule:
   def schedule
     @offerings = @olympiad.offerings.includes(:sport).order(:begins_at, "sports.name")
+    render :layout=>nil && return if request.xhr?
   end
 
   # Live Event: Media:
   def media
     @hashtag = "wosomp"
+    render :layout=>nil && return if request.xhr?
   end
 
 

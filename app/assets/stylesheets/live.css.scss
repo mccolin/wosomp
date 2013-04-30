@@ -9,6 +9,12 @@ body {
   padding-top: 80px;
 }
 
+#top-nav.live {
+  -webkit-transition: background-image 1s, background 1s, background-color 1s;
+  transition: background-image 1s, background 1s, background-color 1s;
+}
+
+
 .progress {
   height: 25px;
   min-height: 25px;

@@ -15,7 +15,9 @@ function loadPage(href, callbackFn) {
         callbackFn();
     },
     error: function(xhr, status, msg){
-      alert("AJAX load error");
+      console.log("Live page load error: ");
+      console.log(status);
+      console.log(msg);
     }
   });
 }
@@ -26,34 +28,25 @@ function loadNextPage(callbackFn) {
   var $navMenu = $("#top-nav");
   var numTabs = $navMenu.find("li").length;
   var nextTabIdx = CURRENT_LIVE_TAB + 1;
-
-  console.log("Within loadNextPage:");
-  console.log("numTabs: "+numTabs);
-  console.log("CURRENT_LIVE_TAB: "+CURRENT_LIVE_TAB);
-  console.log("nextTabIdx: "+nextTabIdx);
+  if (nextTabIdx >= numTabs)
+    nextTabIdx = 0;
+  var nextCallbackFn = TAB_LOAD_CALLBACKS[nextTabIdx];
 
   var $nextNav = $( $navMenu.find("li")[nextTabIdx] );
-
-  console.log("nextNav:");
-  console.log($nextNav);
-
   var $navLink = $nextNav.find("a").first();
 
-  console.log("navLink:");
-  console.log($navLink);
-
-  CURRENT_LIVE_TAB = nextTabIdx;
-  console.log("CURRENT_LIVE_TAB increased to "+CURRENT_LIVE_TAB);
 
   loadPage(
     $navLink.prop("href"),
     function(){
-      setTimeout('loadNextPage()', 4000);
+      $nextNav.addClass("active").siblings().removeClass("active");
+      if (nextCallbackFn)
+        nextCallbackFn();
+      setTimeout('loadNextPage()', 8000);
     }
   );
 
-
-
+  CURRENT_LIVE_TAB = nextTabIdx;
 
 }
 

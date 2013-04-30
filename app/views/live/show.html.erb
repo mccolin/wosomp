@@ -7,6 +7,28 @@
 
 <% content_for :javascripts do %>
 <script type="text/javascript">
+  TAB_LOAD_CALLBACKS = [
+    // Teams:
+    function() {
+      console.log("Team page displayed");
+      updateLeaderBoard("team-rank");
+    },
+    // Athletes:
+    function() {
+      console.log("Athlete page displayed");
+      updateLeaderBoard("men-rank");
+      updateLeaderBoard("women-rank");
+    },
+    // Schedule:
+    function() {
+      console.log("Schedule page displayed");
+    },
+    // Media:
+    function() {
+      console.log("Media page displayed");
+    }
+  ];
+
   $(function(){
     loadNextPage();
   });
