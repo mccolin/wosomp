@@ -79,8 +79,10 @@ function updateLeaderBoard(boardId) {
     // $medalBar.css("width", parseInt(thisCount / totalCount * 100)+"%");
     var totalScore = parseInt( $totalBar.attr("data-score") );
     var thisScore = parseInt( $medalBar.attr("data-score") );
-    $medalBar.css("width", parseInt(thisScore / totalScore * 100)+"%");
+    var thisPct = parseInt(thisScore / totalScore * 100);
+    $medalBar.css("width", thisPct+"%");
   });
+  $board.find(".progress .bar:last-child").css({"width":"100%", "float":"none"});
   //console.log("Medal widths set");
 }
 
