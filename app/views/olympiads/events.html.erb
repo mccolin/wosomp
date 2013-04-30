@@ -14,7 +14,8 @@
 
 </div>
 
-<% @olympiad.sports.each do |sport| %>
+<% @olympiad.offerings.includes(:sport).each do |offering| %>
+<% sport = offering.sport %>
 <div class="row" style="margin: 1em 0 2em;">
   <%=sport_image sport, :class=>"span3"-%>
   <div class="span7">
@@ -26,6 +27,10 @@
     <p><%= sport.description -%></p>
 
     <dl>
+      <dt style="color:#0A0;">Where and When?</dt>
+      <dd>
+        <%= offering.try(:location) || "TBD" %> at <%= offering.begins_at.try(:strftime, "%-I:%M %p") || "TBD" %>
+      </dd>
     <% %w(field equipment rules details).each do |field_name| %>
       <% field_value = sport.send(field_name) %>
       <% unless field_value.blank? %>
