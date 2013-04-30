@@ -13,10 +13,10 @@
       </thead>
       <tbody>
         <% @offerings.each do |offering| %>
-        <tr class="<%= offering.past? ? 'past' : offering.present? ? 'present' : ''-%>">
+        <tr class="<%=offering.sport? ? 'sport' : 'non-sport'-%> <%= offering.past? ? 'past' : offering.present? ? 'present' : ''-%>">
           <th><%= offering.begins_at.try(:strftime, "%-I:%M") %></th>
           <td>
-            <%= offering.sport.name %>
+            <%= offering.sport? ? offering.sport.name : offering.name %>
             <small><%= offering.location %></small>
           </td>
         </tr>

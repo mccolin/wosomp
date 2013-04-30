@@ -8,7 +8,12 @@ class Offering < ActiveRecord::Base
   belongs_to :sport
   has_many :results
 
-  attr_accessible :olympiad_id, :sport_id, :details, :location, :begins_at, :ends_at
+  # Scopes:
+  scope :sports, where("sport_id IS NOT NULL")
+  scope :non_sports, where(:sport_id=>nil)
+
+  # Attributes:
+  attr_accessible :olympiad_id, :sport_id, :name, :details, :location, :begins_at, :ends_at
 
 
   def self.time_slots
@@ -17,7 +22,11 @@ class Offering < ActiveRecord::Base
 
 
   def name
-    [sport.name, olympiad.name].join("-").gsub(/\s+/, "")
+    sport? ? [sport.name, olympiad.name].join("-").gsub(/\s+/, "") : read_attribute(:name)
+  end
+
+  def sport?
+    !sport_id.nil?
   end
 
   def display_begins_at

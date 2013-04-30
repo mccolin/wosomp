@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130430042049) do
+ActiveRecord::Schema.define(:version => 20130430203354) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.string   "resource_id",   :null => false
@@ -31,6 +31,7 @@ ActiveRecord::Schema.define(:version => 20130430042049) do
   create_table "offerings", :force => true do |t|
     t.integer  "olympiad_id"
     t.integer  "sport_id"
+    t.string   "name"
     t.string   "location"
     t.time     "begins_at"
     t.time     "ends_at"

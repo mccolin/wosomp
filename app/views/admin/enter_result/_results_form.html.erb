@@ -11,7 +11,7 @@
   <h2>Enter Multiple Results</h2>
 
   <%= semantic_form_for :results, :url=>admin_enter_result_multi_save_path() do |f| %>
-    <p><%= f.input :offering_id, :label => "Sport", :as => :select, :collection => @olympiad.offerings().includes(:sport).collect{|o| [o.sport.name, o.id] } %></p>
+    <p><%= f.input :offering_id, :label => "Sport", :as => :select, :collection => @olympiad.offerings().sports().includes(:sport).collect{|o| [o.sport.name, o.id] } %></p>
 
   <div id="participant-select">
     <p>

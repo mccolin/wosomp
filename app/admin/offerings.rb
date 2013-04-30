@@ -7,6 +7,7 @@ ActiveAdmin.register Offering do
     selectable_column
     column :olympiad
     column :sport
+    column :name
     column :location
     column "Begins" do |o|
       o.begins_at.try(:strftime, "%-I:%M %p")
@@ -29,6 +30,7 @@ ActiveAdmin.register Offering do
       row :id
       row :olympiad
       row :sport
+      row :name
       #row :details
       row :location
       row "Begins" do |o|
@@ -44,7 +46,8 @@ ActiveAdmin.register Offering do
   form do |f|
     f.inputs "Describe the Event" do
       f.input :olympiad, :as => :select
-      f.input :sport, :as => :select
+      f.input :sport, :as => :select, :hint => "If this is a sport offering, select the Sport"
+      f.input :name, :hint => "Specify a name for non-sport events"
       #f.input :details, :input_html=>{:rows=>3}
     end
     f.inputs "Schedule the Event" do

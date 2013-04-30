@@ -14,7 +14,7 @@
 
 </div>
 
-<% @olympiad.offerings.includes(:sport).each do |offering| %>
+<% @olympiad.offerings.sports().includes(:sport).each do |offering| %>
 <% sport = offering.sport %>
 <div class="row" style="margin: 1em 0 2em;">
   <%=sport_image sport, :class=>"span3"-%>
