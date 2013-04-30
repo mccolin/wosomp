@@ -24,7 +24,8 @@ class Olympiad < ActiveRecord::Base
 
   def is_live?
     return false if begins_at.nil? || ends_at.nil?
-    begins_at < DateTime.now && ends_at > DateTime.now
+    #begins_at < DateTime.now && ends_at > DateTime.now
+    begins_at.at_midnight < DateTime.now && (ends_at + 6.hours) > DateTime.now
   end
 
   def is_registering?
