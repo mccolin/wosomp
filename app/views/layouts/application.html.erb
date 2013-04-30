@@ -26,7 +26,8 @@
         <ul id="top-nav" class="row">
           <%# top_nav_item("Home", home_path) -%>
           <%= top_nav_item("About", about_path) -%>
-          <%= top_nav_item("Location", location_olympiad_path(featured_olympiad)) -%>
+          <%# top_nav_item("Location", location_olympiad_path(featured_olympiad)) -%>
+          <%= top_nav_item("Details", details_olympiad_path(featured_olympiad)) -%>
           <%= top_nav_item("Events", events_olympiad_path(featured_olympiad)) -%>
           <%= top_nav_item("Teams", olympiad_teams_path(featured_olympiad)) -%>
 

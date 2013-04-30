@@ -21,7 +21,9 @@ class OlympiadsController < ApplicationController
 
   # Location: Display information about the location of an Olympiad:
   def location
+    render :action=>"location"
   end
+  alias_method :details, :location
 
   # Events: List the sports/events held in an Olympiad:
   def events

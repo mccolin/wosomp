@@ -45,6 +45,7 @@ Wosomp::Application.routes.draw do
     member do
       get :events               # Events Listing
       get :location             # Location details, directions
+      get :details              # ^ Alias of location
       get :register             # Register for event
       get :registration         # View/Edit registration
       post :save_registration   # Save/Update registration
