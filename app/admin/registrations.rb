@@ -131,10 +131,10 @@ ActiveAdmin.register Registration do
       f.input :uniform_number, :input_html=>{:maxlength=>2}
     end
     f.inputs "Agreements" do
-      f.input :agree_pay, :as=>:radio
-      f.input :agree_waiver, :as=>:radio
-      f.input :paid, :as=>:radio
-      f.input :checked_in, :as=>:radio
+      f.input :agree_pay
+      f.input :agree_waiver
+      f.input :paid
+      f.input :checked_in
     end
     f.buttons
   end
