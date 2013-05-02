@@ -11,9 +11,10 @@ class Result < ActiveRecord::Base
   # Scopes:
   scope :players, where("registration_id IS NOT NULL")
   scope :teams, where(:registration_id=>nil)
+  scope :overridden, where(:point_override=>true)
 
   # Attributes:
-  attr_accessible :award, :points_athlete, :points_team, :note, :offering_id, :registration_id, :team_id
+  attr_accessible :award, :points_athlete, :points_team, :points_override, :note, :offering_id, :registration_id, :team_id
 
   # What results are possible?
   def self.result_types
@@ -53,8 +54,11 @@ class Result < ActiveRecord::Base
   protected
 
   def update_point_values
-    self.points_athlete = offering.sport.points_for_athlete(self.award)
-    self.points_team = offering.sport.points_for_team(self.award)
+    unless self.points_override?
+      # If the points are not overridden, here, update scores to defaults:
+      self.points_athlete = offering.sport.points_for_athlete(self.award)
+      self.points_team = offering.sport.points_for_team(self.award)
+    end
   end
   before_save :update_point_values
 

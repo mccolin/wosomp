@@ -5,6 +5,7 @@ ActiveAdmin.register Result do
   # Scopes:
   scope :players
   scope :teams
+  scope :overridden
 
   # Action Item buttons:
   action_item do
@@ -20,6 +21,9 @@ ActiveAdmin.register Result do
     column :award
     column :points_athlete
     column :points_team
+    column "Override" do |r|
+      r.points_override? ? status_tag("Override",:error) : status_tag("Default",:ok)
+    end
     column :note
     default_actions
   end
@@ -31,6 +35,7 @@ ActiveAdmin.register Result do
   filter :award, :as => :select, :collection=>Result.result_types
   filter :points_athlete
   filter :points_team
+  filter :points_override
 
   # Show:
   show do
@@ -46,7 +51,10 @@ ActiveAdmin.register Result do
       attributes_table_for result do
         row :award
         row "Type" do |r|
-          r.team_result? ? status_tag("Team",:warn) : status_tag("Athlete",:error)
+          r.team_result? ? status_tag("Team",:warn) : status_tag("Athlete",:warn)
+        end
+        row "Overridden" do |r|
+          r.points_override? ? status_tag("Overridden",:error) : status_tag("Default",:ok)
         end
         row :points_athlete
         row :points_team
@@ -66,6 +74,20 @@ ActiveAdmin.register Result do
       f.input :award, :as => :select, :collection=>Result.result_types, :hint=>"Select the resulting award (gold, silver, bronze, etc.)"
       f.input :points_athlete, :input_html=>{:disabled=>true}, :hint=>"(auto-set) Points that will be awarded to the Athlete for ranking purposes"
       f.input :points_team, :input_html=>{:disabled=>true}, :hint=>"(auto-set) Points that will be awarded to the Team for ranking purposes"
+      f.input :points_override,
+        :hint=>"Check this to allow specifying specific athlete or team points values for this result",
+        :input_html=>{
+          :onchange=>"""
+            if ($(this).is(':checked')) {
+              $('#result_points_athlete').removeAttr('disabled');
+              $('#result_points_team').removeAttr('disabled');
+            } else {
+              $('#result_points_athlete').attr('disabled', true);
+              $('#result_points_team').attr('disabled', true);
+            }"""
+        }
+    end
+    f.inputs "Additional Notes" do
       f.input :note, :input_html=>{:rows=>3}, :hint=>"Special notes, indications, or anecdotes for the result"
     end
     f.buttons

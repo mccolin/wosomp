@@ -60,7 +60,7 @@ function updateLeaderBoard(boardId) {
   });
   //console.log("Top score on the board: "+topScore);
 
-  // Set the team total widths according to their point totals:
+  // Set the team/athlete total widths according to their point totals:
   $board.find(".progress").each(function(idx, el){
     var thisScore = parseInt( $(this).attr("data-score") );
     $(this).css("width", parseInt(thisScore / topScore * 100)+"%" );
@@ -78,9 +78,12 @@ function updateLeaderBoard(boardId) {
     var thisScore = parseInt( $medalBar.attr("data-score") );
     var thisPct = parseInt(thisScore / totalScore * 100);
     $medalBar.css("width", thisPct+"%");
+
+    var $lastNonZeroBar = $totalBar.find(".bar[data-score!=0]").last();
+    if (thisScore > 0 && $medalBar.is($lastNonZeroBar))
+      $medalBar.css({"width":"100%", "float":"none"});
   });
-  $board.find(".progress .bar:last-child").css({"width":"100%", "float":"none"});
-  //console.log("Medal widths set");
+
 }
 
 

@@ -81,6 +81,10 @@ body {
   background-repeat: repeat-x;
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffcc6633', endColorstr='#ff993300', GradientType=0);
 }
+.progress .bar[data-score="0"] {
+  background: rgba(0, 0, 0, 0.4);
+}
+
 
 
 /** Schedule Display: **/

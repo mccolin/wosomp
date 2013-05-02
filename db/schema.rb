@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130430203354) do
+ActiveRecord::Schema.define(:version => 20130502224521) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.string   "resource_id",   :null => false
@@ -109,6 +109,7 @@ ActiveRecord::Schema.define(:version => 20130430203354) do
     t.string   "award",           :limit => 12, :default => "none"
     t.integer  "points_athlete",                :default => 0,      :null => false
     t.integer  "points_team",                   :default => 0,      :null => false
+    t.boolean  "points_override",               :default => false
     t.string   "note"
     t.datetime "created_at",                                        :null => false
     t.datetime "updated_at",                                        :null => false
