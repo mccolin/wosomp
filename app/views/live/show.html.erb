@@ -35,66 +35,24 @@
   TAB_LOAD_CALLBACKS = [
     // Teams:
     function() {
-      console.log("Team page displayed");
+      // console.log("Team page displayed");
       updateLeaderBoard("team-rank");
     },
     // Athletes:
     function() {
-      console.log("Athlete page displayed");
+      // console.log("Athlete page displayed");
       updateLeaderBoard("men-rank");
       updateLeaderBoard("women-rank");
     },
     // Schedule:
     function() {
-      console.log("Schedule page displayed");
+      // console.log("Schedule page displayed");
       $("table.schedule").fadeIn(500);
     },
     // Media:
     function() {
-      console.log("Media page displayed");
-
-      var $content = $("#content");
-      var $photoContainer = $content.find("#photos").css("position","relative");
-      var $tweetContainer = $content.find("#tweets");
-      var hashtag = "wosomp";
-
-      /** Load Tweets: **/
-      $.getJSON("http://search.twitter.com/search.json?rpp=100&callback=?&q="+hashtag, function(data){
-        for (var i=0; i < data.results.length; i++) {
-          tweet = data.results[i];
-          //console.log( tweet );
-          var $tweetDiv = $(" \
-            <div class='tweet media-object'> \
-              <img class='pic' src='"+tweet.profile_image_url+"' width='50' height='60'/> \
-              <span class='body'>"+tweet.text+"</span> \
-              <div style='clear:both;'></div> \
-            </div>");
-          $tweetContainer.append( $tweetDiv );
-        }
-        spinner.stop();
-        $("p.lead").hide();
-      });
-
-      /** Load Instagram Photos: **/
-      var clientId = "<%=Rails.env.production? ? "233f8afd234b403d9217db7aef273e95" : "233f8afd234b403d9217db7aef273e95" -%>";
-      $.getJSON("https://api.instagram.com/v1/tags/"+hashtag+"/media/recent?client_id="+clientId+"&callback=?", function(data){
-        for (var i=0; i < data.data.length; i++) {
-          var photo = data.data[i];
-          //console.log(photo);
-          var image = new Image();
-          image.src = photo.images.low_resolution.url;
-          var $photoDiv = $(" \
-            <div class='photo media-object'> \
-              <img src='"+photo.images.low_resolution.url+"'/> <br/>\
-              <span class='name'>@"+photo.user.username+"</span> \
-              <span class='caption'>"+(photo.caption ? photo.caption.text : "")+"</span> \
-            </div>");
-          $photoContainer.append( $photoDiv );
-        }
-        spinner.stop();
-        $("p.lead").hide();
-      });
-
+      // console.log("Media page displayed");
+      loadTweetsAndPhotos();
     }
   ];
 

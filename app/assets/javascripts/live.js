@@ -15,9 +15,9 @@ function loadPage(href, callbackFn) {
         callbackFn();
     },
     error: function(xhr, status, msg){
-      console.log("Live page load error: ");
-      console.log(status);
-      console.log(msg);
+      // console.log("Live page load error: ");
+      // console.log(status);
+      // console.log(msg);
     }
   });
 }
@@ -84,6 +84,50 @@ function updateLeaderBoard(boardId) {
       $medalBar.css({"width":"100%", "float":"none"});
   });
 
+}
+
+
+function loadTweetsAndPhotos(instagramClientId) {
+  var $content = $("#content");
+  var $photoContainer = $content.find("#photos").css("position","relative");
+  var $tweetContainer = $content.find("#tweets");
+  var hashtag = "wosomp";
+
+  /** Load Tweets: **/
+  $.getJSON("http://search.twitter.com/search.json?rpp=100&callback=?&q="+hashtag, function(data){
+    for (var i=0; i < data.results.length; i++) {
+      tweet = data.results[i];
+      //console.log( tweet );
+      var $tweetDiv = $(" \
+        <div class='tweet media-object'> \
+          <img class='pic' src='"+tweet.profile_image_url+"' width='50' height='60'/> \
+          <span class='body'>"+tweet.text+"</span> \
+          <div style='clear:both;'></div> \
+        </div>");
+      $tweetContainer.append( $tweetDiv );
+    }
+    spinner.stop();
+    $("p.lead").hide();
+  });
+
+  /** Load Instagram Photos: **/
+  $.getJSON("https://api.instagram.com/v1/tags/"+hashtag+"/media/recent?client_id="+instagramClientId+"&callback=?", function(data){
+    for (var i=0; i < data.data.length; i++) {
+      var photo = data.data[i];
+      //console.log(photo);
+      var image = new Image();
+      image.src = photo.images.low_resolution.url;
+      var $photoDiv = $(" \
+        <div class='photo media-object'> \
+          <img src='"+photo.images.low_resolution.url+"'/> <br/>\
+          <span class='name'>@"+photo.user.username+"</span> \
+          <span class='caption'>"+(photo.caption ? photo.caption.text : "")+"</span> \
+        </div>");
+      $photoContainer.append( $photoDiv );
+    }
+    spinner.stop();
+    $("p.lead").hide();
+  });
 }
 
 

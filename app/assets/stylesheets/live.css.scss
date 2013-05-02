@@ -23,6 +23,8 @@ body {
   min-height: 25px;
   padding-top: 50px;
   position: relative;
+  -webkit-transition: width 0.8s ease;
+  transition: width 0.8s ease;
 }
 .progress .name {
   position: absolute;

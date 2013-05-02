@@ -14,8 +14,8 @@ $(function(){
   $("#participant-select").on("click", ".result-icon:not(.selected)", function(e){
     var $icon = $(this);
     $icon.addClass("selected").attr("data-selected", true);
-    console.log("Selected result icon:");
-    console.log($icon);
+    // console.log("Selected result icon:");
+    // console.log($icon);
   });
 
   /** When an icon is de-selected, denote is as such: */
@@ -23,8 +23,8 @@ $(function(){
   $("#participant-select").on("click", ".result-icon.selected", function(e){
     var $icon = $(this);
     $icon.removeClass("selected").removeAttr("data-selected");
-    console.log("Unselected result icon:");
-    console.log($icon);
+    // console.log("Unselected result icon:");
+    // console.log($icon);
   });
 
   /** When an award-assign button is clicked, assign all selected
