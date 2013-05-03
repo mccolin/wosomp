@@ -15,16 +15,22 @@ ActiveAdmin.register Result do
   # Index:
   index do
     selectable_column
-    column :offering
-    column :registration
-    column :team
+    column "Offering", :sortable=>:offering_id do |r|
+      link_to r.offering.sport.name, [:admin, r.offering]
+    end
+    column "Athlete", :sortable=>:registration_id do |r|
+      r.registration ? link_to(r.registration.uniform_name, [:admin, r.registration]) : nil
+    end
+    column :team, :sortable=>:team_id
     column :award
     column :points_athlete
     column :points_team
-    column "Override" do |r|
+    column "Override", :sortable=>:points_override do |r|
       r.points_override? ? status_tag("Override",:error) : status_tag("Default",:ok)
     end
-    column :note
+    column "Note?", :sortable=>:note do |r|
+      r.note.nil? ? status_tag("No",:ok) : status_tag("Yes",:warn)
+    end
     default_actions
   end
 
@@ -72,8 +78,13 @@ ActiveAdmin.register Result do
     end
     f.inputs "Award/Result Details" do
       f.input :award, :as => :select, :collection=>Result.result_types, :hint=>"Select the resulting award (gold, silver, bronze, etc.)"
-      f.input :points_athlete, :input_html=>{:disabled=>true}, :hint=>"(auto-set) Points that will be awarded to the Athlete for ranking purposes"
-      f.input :points_team, :input_html=>{:disabled=>true}, :hint=>"(auto-set) Points that will be awarded to the Team for ranking purposes"
+      if result.points_override?
+        f.input :points_athlete, :hint=>"(auto-set) Points that will be awarded to the Athlete for ranking purposes"
+        f.input :points_team, :hint=>"(auto-set) Points that will be awarded to the Team for ranking purposes"
+      else
+        f.input :points_athlete, :input_html=>{:disabled=>true}, :hint=>"(auto-set) Points that will be awarded to the Athlete for ranking purposes"
+        f.input :points_team, :input_html=>{:disabled=>true}, :hint=>"(auto-set) Points that will be awarded to the Team for ranking purposes"
+      end
       f.input :points_override,
         :hint=>"Check this to allow specifying specific athlete or team points values for this result",
         :input_html=>{

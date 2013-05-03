@@ -27,6 +27,12 @@ ActiveAdmin.register Team do
     column "Members" do |t|
       t.users.count
     end
+    column "Points", :sortable=>:points_total do |t|
+      "<strong>#{t.points_total}</strong> (#{t.points_gold}G / #{t.points_silver}S / #{t.points_bronze}B)".html_safe
+    end
+    column "Counts", :sortable=>:count_total do |t|
+      "<strong>#{t.count_total}</strong> (#{t.count_gold}G / #{t.count_silver}S / #{t.count_bronze}B)".html_safe
+    end
     default_actions
   end
 
