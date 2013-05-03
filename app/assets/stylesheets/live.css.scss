@@ -9,13 +9,26 @@ body {
   padding-top: 80px;
 }
 
-#top-nav.live {
-  -webkit-transition: background-image 1s, background 1s, background-color 1s;
-  transition: background-image 1s, background 1s, background-color 1s;
-}
 #top-nav.live li {
   position: relative;
   top: -15px;
+}
+
+#page-timer {
+  background-color: #F30;
+  background: rgba(255, 51, 0, 0.6);
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 0;
+  height: 5px;
+  z-index: 100;
+  // -webkit-transition: width 12500ms linear;
+  // transition: width 12500ms linear;
+}
+#page-timer.no-transition {
+  -webkit-transition: none !important;
+  transition: none !important;
 }
 
 .progress {
@@ -146,6 +159,10 @@ table.schedule tr.future {}
   padding-bottom: 0.5em;
   font-size: 20px;
 }
+.tweet .author {
+  color: #00A;
+  font-weight: bold;
+}
 .tweet .pic {
   border-radius: 5px;
   float: left;
@@ -154,11 +171,18 @@ table.schedule tr.future {}
 .tweet .body {
   line-height: 1.5;
 }
+.tweet .time {
+  font-size: 75%;
+  color: #999;
+}
 
+#photos {
+  padding-top: 10px;
+}
 .photo {
   float: right;
-  margin: 1% 0 1% 1%;
-  width: 31%;
+  margin: 1px;
+  width: 32%;
 }
 .photo .name {
   display: none;

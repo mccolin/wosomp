@@ -35,28 +35,25 @@
   TAB_LOAD_CALLBACKS = [
     // Teams:
     function() {
-      // console.log("Team page displayed");
       updateLeaderBoard("team-rank");
     },
     // Athletes:
     function() {
-      // console.log("Athlete page displayed");
       updateLeaderBoard("men-rank");
       updateLeaderBoard("women-rank");
     },
     // Schedule:
     function() {
-      // console.log("Schedule page displayed");
       $("table.schedule").fadeIn(500);
     },
     // Media:
     function() {
-      // console.log("Media page displayed");
-      loadTweetsAndPhotos();
+      var instagramClientId = "<%=Rails.env.production? ? "233f8afd234b403d9217db7aef273e95" : "233f8afd234b403d9217db7aef273e95" -%>";
+      loadTweetsAndPhotos(instagramClientId);
     }
   ];
 
-  setTimeout("loadNextPage()", 2500);
+  setTimeout("loadNextPage()", 2000);
 </script>
 <% end %>
 

@@ -13,6 +13,8 @@ function loadPage(href, callbackFn) {
       $("#content").html(html);
       if (callbackFn)
         callbackFn();
+
+      $("#page-timer").removeClass("no-transition").css("width","100%");
     },
     error: function(xhr, status, msg){
       // console.log("Live page load error: ");
@@ -20,11 +22,16 @@ function loadPage(href, callbackFn) {
       // console.log(msg);
     }
   });
+  $("#page-timer").addClass("no-transition").css("width","0%");
 }
 
 /** Trigger a load for the next page in the navigation: **/
 var NEXT_TAB_INDEX = 0;
-var TIME_PER_PAGE = 12000;
+var TIME_PER_PAGE = qsValue("t")[0] || 12500;
+$("#page-timer").css({
+  "-webkit-transition": "width "+TIME_PER_PAGE+"ms linear",
+  "transition": "width "+TIME_PER_PAGE+"ms linear"
+});
 function loadNextPage(callbackFn) {
   var $navMenu = $("#top-nav");
   var $navItems = $navMenu.find("li");
@@ -86,10 +93,10 @@ function updateLeaderBoard(boardId) {
 
 }
 
-
+/** Make API requests and load tweets and Instagram photos into UI: **/
 function loadTweetsAndPhotos(instagramClientId) {
   var $content = $("#content");
-  var $photoContainer = $content.find("#photos").css("position","relative");
+  var $photoContainer = $content.find("#photos");
   var $tweetContainer = $content.find("#tweets");
   var hashtag = "wosomp";
 
@@ -100,8 +107,10 @@ function loadTweetsAndPhotos(instagramClientId) {
       //console.log( tweet );
       var $tweetDiv = $(" \
         <div class='tweet media-object'> \
-          <img class='pic' src='"+tweet.profile_image_url+"' width='50' height='60'/> \
-          <span class='body'>"+tweet.text+"</span> \
+          <a href='http://twitter.com/"+tweet.from_user+"'><img class='pic' border='0' src='"+tweet.profile_image_url+"' width='50' height='60'/></a> \
+          <a class='author' href='http://twitter.com/"+tweet.from_user+"'>"+tweet.from_user+"</a> \
+          <span class='body'>"+formatTweet(tweet.text)+"</span> \
+          <span class='time'>"+formatTwitterTime(tweet.created_at)+"</span> \
           <div style='clear:both;'></div> \
         </div>");
       $tweetContainer.append( $tweetDiv );
@@ -131,5 +140,37 @@ function loadTweetsAndPhotos(instagramClientId) {
 }
 
 
+/** Format tweet body with proper links: **/
+function formatTweet(src) {
+  var formatted = src.replace(/@(\w+)/g, function(str, uname){ return "<a href=\"https://twitter.com/"+uname+"\" target=\"_blank\">@"+uname+"</a>"});
+  formatted = formatted.replace(/#(\w+)/g, function(str, hashtag){ return "<a href=\"https://twitter.com/search?q=%23"+hashtag+"&src=hash\" target=\"_blank\">#"+hashtag+"</a>"});
+  return formatted;
+}
 
-$(function(){});
+/** Format the time of a tweet: **/
+function formatTwitterTime(stamp) {
+  var tweetTime = new Date(stamp);
+  var nowTime = new Date();
+  var diff = Math.floor((nowTime - tweetTime) / 1000);
+  if (diff <= 60) return "just now";
+  // if (diff < 20) return diff + " seconds ago";
+  // if (diff < 40) return "half a minute ago";
+  // if (diff < 60) return "less than a minute ago";
+  if (diff <= 90) return "one minute ago";
+  if (diff <= 3540) return Math.round(diff / 60) + " minutes ago";
+  if (diff <= 5400) return "1 hour ago";
+  if (diff <= 86400) return Math.round(diff / 3600) + " hours ago";
+  if (diff <= 129600) return "1 day ago";
+  if (diff < 604800) return Math.round(diff / 86400) + " days ago";
+  if (diff <= 777600) return "1 week ago";
+  return "on " + time;
+}
+
+
+/** Pull a value from the location querystring: **/
+function qsValue(key) {
+  var re=new RegExp('(?:\\?|&)'+key+'=(.*?)(?=&|$)','gi');
+  var r=[], m;
+  while ((m=re.exec(document.location.search)) != null) r.push(m[1]);
+  return r;
+}
