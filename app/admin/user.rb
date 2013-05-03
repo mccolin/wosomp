@@ -69,7 +69,7 @@ ActiveAdmin.register User do
       f.input :first_name
       f.input :last_name
       f.input :email
-      f.input :gender, :as => :check_boxes, :collection=>%w(male female)
+      f.input :gender, :as => :select, :collection=>%w(male female)
       f.input :birthday
       f.input :bio, :input_html=>{:rows=>3}
     end
