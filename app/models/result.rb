@@ -11,7 +11,7 @@ class Result < ActiveRecord::Base
   # Scopes:
   scope :players, where("registration_id IS NOT NULL")
   scope :teams, where(:registration_id=>nil)
-  scope :overridden, where(:point_override=>true)
+  scope :overridden, where(:points_override=>true)
 
   # Attributes:
   attr_accessible :award, :points_athlete, :points_team, :points_override, :note, :offering_id, :registration_id, :team_id
