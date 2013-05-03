@@ -20,6 +20,7 @@ class LiveController < ApplicationController
   # Live Event: Athlete Rankings:
   def athletes
     @registrations = @olympiad.registrations.athletes().includes(:user, :team).order("points_total DESC")
+    @registrations.sort! {|r1,r2| pts = r2.points_total <=> r1.points_total; unis = r1.uniform_number.to_i <=> r2.uniform_number.to_i; pts == 0 ? unis : pts }
     @men = @registrations.select{|r| r.user.male? }
     @women = @registrations.select{|r| r.user.female? }
     render :layout=>nil && return if request.xhr?
