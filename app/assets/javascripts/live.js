@@ -98,10 +98,39 @@ function loadTweetsAndPhotos(instagramClientId) {
   var $content = $("#content");
   var $photoContainer = $content.find("#photos");
   var $tweetContainer = $content.find("#tweets");
-  var hashtag = "wosomp";
 
-  /** Load Tweets: **/
-  $.getJSON("http://search.twitter.com/search.json?rpp=100&callback=?&q="+hashtag, function(data){
+  // Load preference for photos and tweets:
+  var tweetsEnabled = qsValue("notweets")[0] ? false : true;
+  var photosEnabled = qsValue("nophotos")[0] ? false : true;
+
+  // Load tweets (unless not desired)
+  if (tweetsEnabled) {
+    loadTweets( $content.find("#tweets") );
+  }
+
+  // Load Instagram photos (unless not desired):
+  if (photosEnabled) {
+    loadPhotos( $content.find("#photos"), instagramClientId );
+  }
+
+  // Full Tweet Display:
+  if (tweetsEnabled && !photosEnabled) {
+    $photoContainer.removeClass("span7").hide();
+    $tweetContainer.removeClass("span5").addClass("span11").addClass("offset1");
+  }
+
+  // Full Photo Display:
+  if (photosEnabled && !tweetsEnabled) {
+    $tweetContainer.removeClass("span5").hide();
+    $photoContainer.removeClass("span7").addClass("span12");
+  }
+
+}
+
+/** Load tweets into the given container: **/
+function loadTweets($container) {
+  var hashtag = "wosomp";
+  $.getJSON("http://search.twitter.com/search.json?q="+hashtag+"&rpp=25&callback=?", function(data){
     for (var i=0; i < data.results.length; i++) {
       tweet = data.results[i];
       //console.log( tweet );
@@ -113,13 +142,16 @@ function loadTweetsAndPhotos(instagramClientId) {
           <span class='time'>"+formatTwitterTime(tweet.created_at)+"</span> \
           <div style='clear:both;'></div> \
         </div>");
-      $tweetContainer.append( $tweetDiv );
+      $container.append( $tweetDiv );
     }
     spinner.stop();
     $("p.lead").hide();
   });
+}
 
-  /** Load Instagram Photos: **/
+/** Load photos into the given container: **/
+function loadPhotos($container, instagramClientId) {
+  var hashtag = "wosomp";
   $.getJSON("https://api.instagram.com/v1/tags/"+hashtag+"/media/recent?client_id="+instagramClientId+"&callback=?", function(data){
     for (var i=0; i < data.data.length; i++) {
       var photo = data.data[i];
@@ -132,7 +164,7 @@ function loadTweetsAndPhotos(instagramClientId) {
           <span class='name'>@"+photo.user.username+"</span> \
           <span class='caption'>"+(photo.caption ? photo.caption.text : "")+"</span> \
         </div>");
-      $photoContainer.append( $photoDiv );
+      $container.append( $photoDiv );
     }
     spinner.stop();
     $("p.lead").hide();

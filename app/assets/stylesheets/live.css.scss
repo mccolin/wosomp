@@ -178,11 +178,14 @@ table.schedule tr.future {}
 
 #photos {
   padding-top: 10px;
+  text-align: center;
 }
 .photo {
-  float: right;
+  display: inline-block;
+  //float: right;
   margin: 1px;
-  width: 32%;
+  //width: 32%;
+  max-width: 33%;
 }
 .photo .name {
   display: none;
